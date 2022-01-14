@@ -56,7 +56,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        return view('authors.show',['author'=>$author]);
     }
 
     /**
@@ -67,7 +67,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        return view('authors.edit');
+        return view('authors.edit',['author' => $author]);
     }
 
     /**
@@ -77,9 +77,15 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(Request $request, Author $author)
     {
-        //
+        $author->name = $request->author_name;
+        $author->surename = $request->author_surename;
+        $author->description = $request->author_description;
+        $author->phone = $request->author_phone;
+        $author->save();
+     
+        return redirect()->route('author.index');
     }
 
     /**
@@ -90,6 +96,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return redirect()->route('author.index');
     }
 }
