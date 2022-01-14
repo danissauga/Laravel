@@ -43,6 +43,8 @@ class AuthorController extends Controller
        $author->description = $request->author_description;
        $author->phone = $request->author_phone;
        $author->save();
+    //    echo '<pre>';
+    //    print_r($author);
        return redirect()->route('author.index');
     }
 
