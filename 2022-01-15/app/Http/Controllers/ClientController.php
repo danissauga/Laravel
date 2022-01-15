@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -34,7 +35,7 @@ class ClientController extends Controller
      * @param  \App\Http\Requests\StoreClientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -68,7 +69,7 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(Request $request, Client $client)
     {
         //
     }

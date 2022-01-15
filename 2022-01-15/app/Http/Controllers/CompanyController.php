@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -34,7 +35,7 @@ class CompanyController extends Controller
      * @param  \App\Http\Requests\StoreCompanyRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -68,7 +69,7 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(Request $request, Company $company)
     {
         //
     }
