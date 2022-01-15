@@ -20,11 +20,22 @@
 
 <input class="form-control" name="client_username" type="text" placeholder="User name" value="{{$client->username}}">
 
-<!-- <select id="client_company_id" class="form-control" name="client_company_id" size="1">
-    <option value="1" selected="selected">Select company</option>
-</select>
+<div class="form-group pt-2 pb-2">
+    <label for="client_company_id">Select Company:</label>
+        <select name="client_company_id" class="form-control form-select" style="width:250px">
+            <option value="">--- Select company ---</option>
+            @for ($i = 1; $i <= 250; $i++)
+                @if ($i == $client->company_id)
+                <option selected value="{{ $i }}">{{ $i }}</option>
+                    @else
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endelse
+                @endif
+            @endfor
+        </select>
+</div>
 
-<input class="form-control" name="client_image_url" type="file" placeholder="Image"> -->
+<!--<input class="form-control" name="client_image_url" type="file" placeholder="Image"> -->
 
 @csrf
 <input class="btn btn-primary" type="submit" value="Add">

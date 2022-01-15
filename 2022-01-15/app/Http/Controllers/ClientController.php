@@ -43,7 +43,7 @@ class ClientController extends Controller
             $client->name = $request->client_name;
             $client->surename = $request->client_surename;
             $client->username = $request->client_username;
-            $client->company_id = 1;
+            $client->company_id = $request->client_company_id;
             $client->image_url = "#";
                        
             $client->save();
@@ -87,7 +87,7 @@ class ClientController extends Controller
         $client->surename = $request->client_surename;
         $client->username = $request->client_username;
         $client->company_id = $request->client_company_id;
-        $client->image_url = $request->client_image_url;
+        $client->image_url = "#";
                    
         $client->save();
         //echo '<pre>';

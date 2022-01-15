@@ -12,13 +12,23 @@
 <div class="container">
     <h1>Add Client form</h1>
 
-<form class="form-control mh-2" action="{{  route('client.store') }}" method="POST">
+<form class="form-control" action="{{  route('client.store') }}" method="POST">
+    <div class="form-group pt-2 pb-2">
+        <input class="form-control pt-2" name="client_name" type="text" placeholder="Client name">
+    </div>
+<input class="form-control pt-2" name="client_surename" type="text" placeholder="Client surename">
 
-<input class="form-control" name="client_name" type="text" placeholder="Client name">
+<input class="form-control pt-2" name="client_username" type="text" placeholder="User name">
 
-<input class="form-control" name="client_surename" type="text" placeholder="Client surename">
-
-<input class="form-control" name="client_username" type="text" placeholder="User name">
+<div class="form-group pt-2 pb-2">
+    <label for="client_company_id">Select Company:</label>
+        <select name="client_company_id" class="form-control form-select" style="width:250px">
+            <option value="">--- Select company ---</option>
+            @for ($i = 1; $i <= 250; $i++)
+            <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+</div>
 
 <!-- <select id="client_company_id" class="form-control" name="client_company_id" size="1">
     <option value="1" selected="selected">Select company</option>
