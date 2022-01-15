@@ -20,11 +20,11 @@
 
 <input class="form-control" name="client_username" type="text" placeholder="User name">
 
-<select id="client_company_id" class="form-control" name="client_company_id" size="1">
+<!-- <select id="client_company_id" class="form-control" name="client_company_id" size="1">
     <option value="1" selected="selected">Select company</option>
 </select>
 
-<input class="form-control" name="client_image_url" type="file" placeholder="Image">
+<input class="form-control" name="client_image_url" type="file" placeholder="Image"> -->
 
 @csrf
 <input class="btn btn-primary" type="submit" value="Add">
