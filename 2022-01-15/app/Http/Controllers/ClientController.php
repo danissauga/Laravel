@@ -16,10 +16,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        {
             $clients = Client::all();
             return view('clients.index',['clients' => $clients]); // clients/index.blade.php
-        }
     }
 
     /**
@@ -45,8 +43,8 @@ class ClientController extends Controller
             $client->name = $request->client_name;
             $client->surename = $request->client_surename;
             $client->username = $request->client_username;
-            $client->company_id = $request->client_company_id;
-            $client->image_url = $request->client_image_url;
+            $client->company_id = 1;
+            $client->image_url = "#";
                        
             $client->save();
             //echo '<pre>';

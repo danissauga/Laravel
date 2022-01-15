@@ -16,7 +16,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        {
+            $companys = Company::all();
+            return view('companys.index',['companys' => $companys]); // clients/index.blade.php
+        }
     }
 
     /**
@@ -37,7 +40,13 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $company = new Company;
+        $company->name = $request->company_name;
+        $company->type = $request->company_type;
+        $company->description = $request->company_description;
+        
+        $company->save();
+        return redirect()->route('company.index');
     }
 
     /**
@@ -48,7 +57,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('companys.show',['company'=>$company]);
     }
 
     /**
@@ -59,7 +68,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('companys.edit',['company'=>$company]);
     }
 
     /**
@@ -71,7 +80,13 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $company->name = $request->company_name;
+        $company->type = $request->company_type;
+        $company->description = $request->company_description;
+        
+        $company->save();
+       
+        return redirect()->route('company.index');
     }
 
     /**
@@ -82,6 +97,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect()->route('company.index');
     }
 }

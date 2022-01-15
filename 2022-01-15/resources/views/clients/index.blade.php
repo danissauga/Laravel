@@ -12,6 +12,8 @@
 <div class="container">
     <h1>Clients list</h1>
         <a class="btn btn-primary" href="{{route('client.create') }}">Add client</a>
+        <a class="btn btn-secondary" href="{{route('company.create') }}">Add company</a>
+        <a class="btn btn-secondary" href="{{route('company.index') }}">Copanys list</a>
  @if (count($clients)== 0)
 
  <p>Data list is empty</p>
