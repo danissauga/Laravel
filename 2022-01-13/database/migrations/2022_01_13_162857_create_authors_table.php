@@ -17,7 +17,7 @@ class CreateAuthorsTable extends Migration
             $table->id();
             $table->string('name'); //stulpelis name
             $table->string('surename');
-            $table->string('description');
+            $table->string('username');
             $table->string('phone');
             $table->timestamps();
         });
