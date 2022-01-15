@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
-use \Illuminate\Http\Request; //pridedame kaip klaida 403 
+use \Illuminate\Http\Request; //pridedame kaip klaida 403
 
 class AuthorController extends Controller
 {

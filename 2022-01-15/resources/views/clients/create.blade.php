@@ -12,7 +12,7 @@
 <div class="container">
     <h1>Add Client form</h1>
 
-<form class="form-control mh-2" action="{{ {{route('client.store') }}" method="POST">
+<form class="form-control mh-2" action="{{  route('client.store') }}" method="POST">
 
 <input class="form-control" name="client_name" type="text" placeholder="Client name">
 
@@ -20,14 +20,15 @@
 
 <input class="form-control" name="client_username" type="text" placeholder="User name">
 
-<select id="client_company" class="form-control" disabled name="client_company" size="1">
-    <option value="null" selected="selected">Select company</option>
+<select id="client_company_id" class="form-control" name="client_company_id" size="1">
+    <option value="1" selected="selected">Select company</option>
 </select>
 
+<input class="form-control" name="client_image_url" type="file" placeholder="Image">
 
 @csrf
 <input class="btn btn-primary" type="submit" value="Add">
-<a class="btn btn-secondary" href="{{{{route('client.index') }}">Back to list</a>
+<a class="btn btn-secondary" href="{{ route('client.index') }}">Back to list</a>
 
 </form>
 

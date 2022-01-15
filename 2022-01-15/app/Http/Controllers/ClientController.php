@@ -29,7 +29,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');  
     }
 
     /**
@@ -40,7 +40,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            
+            $client = new Client;
+            $client->name = $request->client_name;
+            $client->surename = $request->client_surename;
+            $client->username = $request->client_username;
+            $client->company_id = $request->client_company_id;
+            $client->image_url = $request->client_image_url;
+                       
+            $client->save();
+            //echo '<pre>';
+            //print_r($request->client_username);
+            return redirect()->route('client.index');
     }
 
     /**
@@ -51,7 +62,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return view('clients.show',['client'=>$client]);
     }
 
     /**
@@ -62,7 +73,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit',['client' => $client]);  
     }
 
     /**
@@ -74,7 +85,16 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $client->name = $request->client_name;
+        $client->surename = $request->client_surename;
+        $client->username = $request->client_username;
+        $client->company_id = $request->client_company_id;
+        $client->image_url = $request->client_image_url;
+                   
+        $client->save();
+        //echo '<pre>';
+        //print_r($request->client_username);
+        return redirect()->route('client.index');
     }
 
     /**
@@ -85,6 +105,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('client.index');
     }
 }

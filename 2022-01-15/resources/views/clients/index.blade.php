@@ -28,17 +28,17 @@
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($clients as $author)
+            @foreach ($clients as $client)
                 <tr>
                     <td>{{ $client->id }}</td>
                     <td>{{ $client->name }}</td>
                     <td>{{ $client->surename }}</td>
-                    <td>{{ $client->userneme }}</td>
+                    <td>{{ $client->username }}</td>
                     <td>{{ $client->company_id }}</td>
                     <td>{{ $client->image_url }}</td>
-                    <td><a class="btn btn-primary" href="{{route('client.show', [$author])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('client.edit', [$author])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('client.destroy', [$author])}}">
+                    <td><a class="btn btn-primary" href="{{route('client.show', [$client])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('client.edit', [$client])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('client.destroy', [$client])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
