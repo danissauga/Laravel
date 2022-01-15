@@ -15,9 +15,15 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); 
+            $table->string('surename');
+            $table->string('description');
+            $table->bigInteger('company_id');
+            $table->string('image_url');
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
