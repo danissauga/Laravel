@@ -13,8 +13,12 @@ class ClientFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+            return [
+                'name' => $this->faker->FirstName(),
+                'surename' => $this->faker->lastName(),
+                'username' => $this->faker->unique()->userName(),
+                'company_id' => $this->faker->numberBetween(1,100), 
+                'image_url' => $this->faker->imageUrl()
+            ];
     }
 }
