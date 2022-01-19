@@ -68,7 +68,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return view('clients.show',['client'=>$client]);
+        $company_data = json_decode(Company::where('id', $client->id)->get(),true);
+        return view('clients.show',['client'=>$client, 'company_data' => $company_data]);       
     }
 
     /**

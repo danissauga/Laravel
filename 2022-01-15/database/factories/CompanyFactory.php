@@ -12,9 +12,12 @@ class CompanyFactory extends Factory
      * @return array
      */
     public function definition()
-    {
+    {   
+        $company_types = array('AB','UAB','JSC','UADBB','TŪB');
         return [
-            //
+            'name' => $this->faker->lastName(),
+            'type' => $company_types[rand(0,4)],
+            'description' => $this->faker->realText($maxNbChars = 50, $indexSize = 2)
         ];
     }
 }

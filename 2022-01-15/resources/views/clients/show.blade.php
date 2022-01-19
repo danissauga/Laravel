@@ -17,16 +17,16 @@
         <p>Name: {{$client->name}}</p>
         <p>Sure name: {{$client->surename}}</p>
         <p>User name: {{$client->username}}</p>
-        <p>Comapny: {{$client->company_id}}</p>
+        <p>Company: {{ $company_data[0]['name'].' '.$company_data[0]['type'] }}</p>
+       
 
         <form method="post" action="{{route('client.destroy', [$client])}}">
                     <button class="btn btn-danger" type="submit">Delete</button>
                     <a class="btn btn-secondary" href="{{route('client.index') }}">Back to list</a>
                 @csrf
         </form>
-        
-        </div>
     </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

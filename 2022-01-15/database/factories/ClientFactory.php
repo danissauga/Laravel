@@ -17,7 +17,7 @@ class ClientFactory extends Factory
                 'name' => $this->faker->FirstName(),
                 'surename' => $this->faker->lastName(),
                 'username' => $this->faker->unique()->userName(),
-                'company_id' => $this->faker->numberBetween(1,100), 
+                'company_id' => $this->faker->numberBetween(1,30), 
                 'image_url' => $this->faker->imageUrl()
             ];
     }
