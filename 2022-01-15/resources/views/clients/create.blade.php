@@ -16,17 +16,19 @@
     <div class="form-group pt-2 pb-2">
         <input class="form-control pt-2" name="client_name" type="text" placeholder="Client name">
     </div>
-<input class="form-control pt-2" name="client_surename" type="text" placeholder="Client surename">
-
-<input class="form-control pt-2" name="client_username" type="text" placeholder="User name">
-
+    <div class="form-group pt-2 pb-2">
+        <input class="form-control pt-2" name="client_surename" type="text" placeholder="Client surename">
+    </div>
+    <div class="form-group pt-2 pb-2">
+        <input class="form-control pt-2" name="client_username" type="text" placeholder="User name">
+    </div>
 <div class="form-group pt-2 pb-2">
-    <label for="client_company_id">Select Company:</label>
+    <label class="pb-2" for="client_company_id">Select Company:</label>
         <select name="client_company_id" class="form-control form-select" style="width:250px">
             <option value="">--- Select company ---</option>
-            @for ($i = 1; $i <= 250; $i++)
-            <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
+            @foreach ($select_values as $company)
+            <option value="{{ $company->id }}">{{ $company->name }}</option>
+            @endforeach
         </select>
 </div>
 

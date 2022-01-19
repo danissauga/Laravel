@@ -29,7 +29,7 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
         return view('companys.create');   
     }
 

@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/clients', function () {
-    return view('welcome');
-});
-
-
 Route::prefix('clients')->group(function() {
    
     Route::get('', 'App\Http\Controllers\ClientController@index')->name('client.index');
@@ -40,4 +35,8 @@ Route::prefix('companys')->group(function() {
     Route::post('update/{company}', 'App\Http\Controllers\CompanyController@update')->name('company.update');
     Route::post('destroy/{company}', 'App\Http\Controllers\CompanyController@destroy')->name('company.destroy');
 
+});
+
+Route::get('/', function () {
+    return redirect()->route('client.index');
 });
