@@ -11,14 +11,29 @@
 
 <div class="container">
     <h1>Companys list</h1>
+    <div class="form-group pt-2 pb-2">
         <a class="btn btn-primary" href="{{route('company.create') }}">Add company</a>
         <a class="btn btn-secondary" href="{{route('client.create') }}">Add client</a>
         <a class="btn btn-secondary" href="{{route('client.index') }}">Client list</a>
- @if (count($companys)== 0)
-
- <p>Data list is empty</p>
-
+</div>
+ 
+        @if (session()->has('error_message'))
+        <div class="alert alert-danger">
+            {{session()->get('error_message')}}
+        </div>
         @endif
+
+        @if (session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{session()->get('success_message')}}
+                    success_message
+                </div>
+        @endif
+
+        @if (count($companys) == 0)
+            <p>There is no company</p>
+        @endif
+ 
         <table class="table table-striped">
             <tr>
                 <th>ID</th>

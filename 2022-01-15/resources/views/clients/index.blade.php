@@ -38,7 +38,8 @@
                     <td>{{ $client->name }}</td>
                     <td>{{ $client->surename }}</td>
                     <td>{{ $client->username }}</td>
-                    <td>{{ $client->company_id }}</td>
+                    <!-- <td>{{ $client->company_id }}</td> -->
+                    <td>{{ $client->clientCompany->name.' '.$client->clientCompany->type }}</td>
                     <td>{{ $client->image_url }}</td>
                     <td><a class="btn btn-primary" href="{{route('client.show', [$client])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('client.edit', [$client])}}">Edit</a></td>

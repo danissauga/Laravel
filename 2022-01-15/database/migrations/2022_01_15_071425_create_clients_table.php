@@ -19,7 +19,11 @@ class CreateClientsTable extends Migration
             $table->string('surename');
             $table->string('username');
          //   $table->bigInteger('company_id'); // leidzia ir neigiamas reiksmes -5,-6 ir t.t.
+            
             $table->unsignedBigInteger('company_id'); //neleidzia neigiamu reiksmiu -5,-6 ir t.t.
+            // $table->foreign('company_id')->references('id')->on('companies');
+               $table->foreign('company_id')->references('id')->on('companies'); 
+            
             $table->string('image_url', 300); //300 - simboliu kiekis.
             $table->timestamps();
         });
