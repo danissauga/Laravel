@@ -9,43 +9,37 @@
 </head>
 <body>
 <div class="container">
-    <h1>Company details</h1>
+    <h1>Type details</h1>
     
-    <p>ID: {{$company->id}}</p>
-    <p>Company name: {{$company->name}}</p>
-    <p>Company type: {{$company->companyType->name}}</p>
-    <p>Company description: {{$company->description}}</p>
+    <p>ID: {{$type->id}}</p>
+    <p>Type name: {{$type->name}}</p>
+    <p>Type shortname: {{$type->short_name}}</p>
+    <p>Type description: {{$type->description}}</p>
 
   <!--   $comapny->companyClients; -->
 
-  @if(count($company->companyClients) == 0)
-            <p>There is no clients </p>
+  @if(count($type->typeCompanies) == 0)
+            <p>There is no companies </p>
         @else
 
             <table class="table table-striped">
                 <tr>
-                    <th>Name</th>
-                    <th>Surename</th>
-                    <th>Image</th>
+                    <th>Id</th>
+                    <th>name</th>
+                    <th>description</th>
                     <th>Actions</th>
                     
                 </tr>
-                    @foreach ($company->companyClients as $client)
+                    @foreach ($type->typeCompanies as $company)
                 <tr>
-                    <td>{{$client->name}}</td>
-                    <td>{{$client->surename}}</td>
-                    <td><img src='{{$client->image_url}}' alt='{{$client->image_url}}' class="img-thumbnail" width="100" /></td>
-                    <td>
-                    <form method="post" action='{{route('client.destroy', [$client])}}'>
-                            @csrf
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
-                    </td>
+                    <td>{{$company->id}}</td>
+                    <td>{{$company->name}}</td>
+                    <td>{{$company->descrioption}}</td>
                 </tr> 
                     @endforeach
             </table>
         @endif
-    <form method="post" action="{{route('company.destroy', [$company])}}">
+    <form method="post" action="{{route('type.destroy', [$type])}}">
                 <button class="btn btn-danger" type="submit">Delete</button>
             @csrf
     </form>

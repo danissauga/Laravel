@@ -11,4 +11,7 @@ class Company extends Model
     public function companyClients() {
         return $this->hasMany(Client::class, 'company_id','id');
     }
+    public function companyType() {
+        return $this->belongsTo(Type::class, 'type_id','id');
+    }
 }

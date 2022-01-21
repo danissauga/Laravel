@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>companys list</title>
+    <title>Types list</title>
 </head>
 <body>
 
 <div class="container">
-    <h1>Companys list</h1>
+    <h1>Types list</h1>
     <div class="form-group pt-2 pb-2">
+        <a class="btn btn-primary" href="{{route('type.create') }}">Add type</a>
         <a class="btn btn-primary" href="{{route('company.create') }}">Add company</a>
         <a class="btn btn-secondary" href="{{route('client.create') }}">Add client</a>
         <a class="btn btn-secondary" href="{{route('client.index') }}">Client list</a>
@@ -30,8 +31,8 @@
                 </div>
         @endif
 
-        @if (count($companys) == 0)
-            <p>There is no company</p>
+        @if (count($types) == 0)
+            <p>There is no types...</p>
         @endif
  
         <table class="table table-striped">
@@ -40,20 +41,20 @@
                 <th>Name</th>
                 <th>Company type</th>
                 <th>Descriotion</th>
-                <th>Clients count</th>
+                <th>Total comapnys</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($companys as $company)
+            @foreach ($types as $type)
                 <tr>
-                    <td>{{ $company->id }}</td>
-                    <td>{{ $company->name }}</td>
-                    <td>{{ $company->companyType->name}}</td>
-                    <td>{!! $company->description !!}</td>
-                    <td>{{ count($company->companyClients) }}</td>
-                    <td><a class="btn btn-primary" href="{{route('company.show', [$company])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('company.edit', [$company])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('company.destroy', [$company])}}">
+                    <td>{{ $type->id }}</td>
+                    <td>{{ $type->name }}</td>
+                    <td>{{ $type->short_name }}</td>
+                    <td>{{ $type->description }}</td>
+                    <td>{{ count($type->typeCompanies) }}</td>
+                    <td><a class="btn btn-primary" href="{{route('type.show', [$type])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('type.edit', [$type])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('type.destroy', [$type])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
