@@ -41,6 +41,7 @@ class SchoolController extends Controller
     public function store(Request $request)
     {
         $school = new School();
+
             $school->name = $request->school_name;
             $school->description = $request->school_description;
             $school->place = $request->school_place;
@@ -58,7 +59,7 @@ class SchoolController extends Controller
      */
     public function show(School $school)
     {
-        //
+        return view('schools.show',['school'=>$school]); 
     }
 
     /**
@@ -69,7 +70,7 @@ class SchoolController extends Controller
      */
     public function edit(School $school)
     {
-        //
+        return view('schools.edit',['school'=>$school]);  
     }
 
     /**
