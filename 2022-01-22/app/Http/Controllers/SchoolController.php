@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use App\Models\AttendanceGroup;
 use App\Http\Requests\StoreSchoolRequest;
 use App\Http\Requests\UpdateSchoolRequest;
+use Illuminate\Http\Request; 
 
 class SchoolController extends Controller
 {
@@ -15,7 +17,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        //
+        $schools = School::all();
+        return view('schools.index',['schools' => $schools]);
     }
 
     /**
@@ -25,7 +28,8 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        //
+       // $select_values = Company::all();
+        return view('schools.create');
     }
 
     /**
@@ -34,9 +38,16 @@ class SchoolController extends Controller
      * @param  \App\Http\Requests\StoreSchoolRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSchoolRequest $request)
+    public function store(Request $request)
     {
-        //
+        $school = new School();
+            $school->name = $request->school_name;
+            $school->description = $request->school_description;
+            $school->place = $request->school_place;
+            $school->phone = $request->school_phone;
+
+            $school->save();
+            return redirect()->route('school.index');
     }
 
     /**
@@ -68,7 +79,7 @@ class SchoolController extends Controller
      * @param  \App\Models\School  $school
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSchoolRequest $request, School $school)
+    public function update(Request $request, School $school)
     {
         //
     }
@@ -81,6 +92,14 @@ class SchoolController extends Controller
      */
     public function destroy(School $school)
     {
-        //
+        $attendancegroup = $school->schoolAttendanceGroup;
+
+        if (count($attendancegroup) != 0) {
+            return redirect()->route('school.index')->with('error_message','Delete is not possible because school has students');
+        }
+
+        $school->delete();
+            return redirect()->route('school.index')->with('success_message','Record removed success!');
+   
     }
 }
