@@ -9,42 +9,30 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     
-    <title>Add company data</title>
+    <title>Edit school data</title>
 </head>
 <body>
 
 <div class="container">
-    <h1>Add Company form</h1>
+    <h1>Edit School form</h1>
 
-<form class="form-control" action="{{ route('company.update',['company'=>$company]) }}" method="POST">
+<form class="form-control" action="{{ route('school.update',['school'=>$school]) }}" method="POST">
 
-<input class="form-control" name="company_name" type="text" placeholder="Company name" value="{{ $company->name }}">
+<input class="form-control" name="school_name" type="text" placeholder="school name" value="{{ $school->name }}">
 
-<select class="form-select" name="company_type">
-    @foreach ($types as $type)
-        @if ($type->id == $company->type_id)
-        <option selected value="{{ $type->id }}">{{ $type->short_name }}, {{$type->name }}</option> 
-        @else
-        <option value="{{ $type->id }}">{{ $type->short_name }}, {{$type->name }}</option> 
-        @endif
-    @endforeach
-</select>
+<input class="form-control" name="school_place" type="text" placeholder="School place" value="{{ $school->place }}">
+<input class="form-control" name="school_phone" type="number" placeholder="School phone" value="{{ $school->phone }}">
 
-<textarea id="summernote" class="form-control" name="company_description">
-{{ $company->description }}
+<textarea id="summernote" class="form-control" name="school_description" placeholder="School descrition">
+{{ $school->descrition }}
 </textarea>
 
-
 @csrf
+
 <input class="btn btn-primary" type="submit" value="Update">
-<a class="btn btn-secondary" href="{{ route('company.index') }}">Back to list</a>
-
+<a class="btn btn-secondary" href="{{ route('school.index') }}">Back to list</a>
 </form>
-
 </div>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() 
