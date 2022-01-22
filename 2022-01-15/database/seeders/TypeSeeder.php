@@ -20,13 +20,13 @@ class TypeSeeder extends Seeder
             'description' => 'Ribotos atsakomybės' 
         ]);
         DB::table('types')->insert([
-            'name' => 'UAB',
-            'short_name' => 'Uždara akcinė bendrija',
+            'name' => 'Uždara akcinė bendrija',
+            'short_name' => 'UAB',
             'description' => 'Ribotos atsakomybės' 
         ]);
         DB::table('types')->insert([
-            'name' => 'IĮ',
-            'short_name' => 'Indviduali įmonė',
+            'name' => 'Indviduali įmonė',
+            'short_name' => 'IĮ',
             'description' => 'Neribota atsakomybė' 
         ]);
         DB::table('types')->insert([

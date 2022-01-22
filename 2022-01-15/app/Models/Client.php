@@ -11,4 +11,7 @@ class Client extends Model
     public function clientCompany() {
         return $this->belongsTo(Company::class, 'company_id','id');
     }
+    // public function clientCompanyType() {
+    //     return $this->belongsTo(Type::class, 'type_id','id');
+    // }
 }

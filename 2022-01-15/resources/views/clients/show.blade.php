@@ -17,7 +17,7 @@
         <p>Name: {{$client->name}}</p>
         <p>Sure name: {{$client->surename}}</p>
         <p>User name: {{$client->username}}</p>
-        <p>Company: {{ $company_data[0]['name'].' '.$company_data[0]['type'] }}</p>
+        <p>Company: {{ $client->companyType->short_name }}</p>
        
 
         <form method="post" action="{{route('client.destroy', [$client])}}">

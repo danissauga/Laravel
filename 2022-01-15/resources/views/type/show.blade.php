@@ -26,15 +26,13 @@
                 <tr>
                     <th>Id</th>
                     <th>name</th>
-                    <th>description</th>
-                    <th>Actions</th>
-                    
+                    <th>description</th> 
                 </tr>
                     @foreach ($type->typeCompanies as $company)
                 <tr>
                     <td>{{$company->id}}</td>
                     <td>{{$company->name}}</td>
-                    <td>{{$company->descrioption}}</td>
+                    <td>{!! $company->description !!}</td>
                 </tr> 
                     @endforeach
             </table>
@@ -43,7 +41,7 @@
                 <button class="btn btn-danger" type="submit">Delete</button>
             @csrf
     </form>
-    <a class="btn btn-secondary" href="{{route('company.index') }}">Back to list</a>
+    <a class="btn btn-secondary" href="{{route('type.index') }}">Back to list</a>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

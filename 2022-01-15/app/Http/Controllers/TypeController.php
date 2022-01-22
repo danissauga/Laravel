@@ -28,7 +28,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('types.create');  
+        return view('type.create');  
     }
 
     /**
@@ -40,9 +40,9 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $type = new Type;
-        $$type->name = $request->type_name;
-        $$type->short_name = $request->type_shortname;
-        $$type->description = $request->type_description;
+        $type->name = $request->type_name;
+        $type->short_name = $request->type_shortname;
+        $type->description = $request->type_description;
         
         $type->save();
         return redirect()->route('type.index');
@@ -56,7 +56,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        return view('types.show',['type'=>$type]);
+        return view('type.show',['type'=>$type]);
     }
 
     /**
@@ -67,7 +67,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('types.show',['type'=>$type]);
+        return view('type.edit',['type'=>$type]);
     }
 
     /**
@@ -79,9 +79,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        $$type->name = $request->type_name;
-        $$type->short_name = $request->type_shortname;
-        $$type->description = $request->type_description;
+        $type->name = $request->type_name;
+        $type->short_name = $request->type_shortname;
+        $type->description = $request->type_description;
         
         $type->save();
         return redirect()->route('type.index');

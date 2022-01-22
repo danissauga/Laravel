@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\Type;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Http\Request;
@@ -68,8 +69,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        $company_data = json_decode(Company::where('id', $client->id)->get(),true);
-        return view('clients.show',['client'=>$client, 'company_data' => $company_data]);       
+        
+        return view('clients.show',['client'=>$client]);       
     }
 
     /**
