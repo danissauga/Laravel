@@ -15,7 +15,7 @@ class StudentFactory extends Factory
     {
         return [
             'name' => $this->faker->FirstName(),
-            'surename' => $this->faker->lastName(),
+            'surename' => $this->faker->unique()->lastName(),
             'group_id' => $this->faker->numberBetween(1,10),
             'image_url' => $this->faker->imageUrl()
         ];

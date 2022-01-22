@@ -15,7 +15,7 @@ class AttendanceGroupFactory extends Factory
     {   
         $difficulty_levels=array('Easy level', 'Middle level', 'High level');
         return [
-            'name' => $this->faker->catchPhrase(),
+            'name' => $this->faker->unique()->catchPhrase(),
             'description' => $this->faker->realText($maxNbChars = 100, $indexSize = 2),
             'difficulty' => $difficulty_levels[rand(0,2)],
             'school_id' => rand(1,10)

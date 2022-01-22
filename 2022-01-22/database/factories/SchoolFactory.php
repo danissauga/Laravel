@@ -14,7 +14,7 @@ class SchoolFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->unique()->name(),
             'description' => $this->faker->realText($maxNbChars = 100, $indexSize = 2),
             'place' => $this->faker->address(),
             'phone' => $this->faker->e164PhoneNumber()
