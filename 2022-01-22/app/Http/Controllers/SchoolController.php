@@ -82,7 +82,13 @@ class SchoolController extends Controller
      */
     public function update(Request $request, School $school)
     {
-        //
+        $school->name = $request->school_name;
+        $school->description = $request->school_description;
+        $school->place = $request->school_place;
+        $school->phone = $request->school_phone;
+
+        $school->save();
+        return redirect()->route('school.index');
     }
 
     /**

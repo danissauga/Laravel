@@ -24,7 +24,7 @@
 <input class="form-control" name="school_phone" type="number" placeholder="School phone" value="{{ $school->phone }}">
 
 <textarea id="summernote" class="form-control" name="school_description" placeholder="School descrition">
-{{ $school->descrition }}
+{{ $school->description }}
 </textarea>
 
 @csrf
