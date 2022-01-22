@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\AttendanceGroup;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\Request; 
 
 class StudentController extends Controller
 {
@@ -26,7 +28,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $attendancegroups = AttendanceGroup::all();     
+        return view('students.create', ['attendancegroups' => $attendancegroups]);
     }
 
     /**
@@ -35,9 +38,19 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $student = new Student();
+            $student->name = $request->student_name;
+            $student->surename = $request->student_surename;
+            $student->group_id = $request->student_group;
+            if ($request->student_image) {$student->image_url = $request->student_image; } 
+                else { $student->image_url = '#';  }
+
+            $student->save();
+            //echo '<pre>';
+            //print_r($request->client_username);
+            return redirect()->route('student.index');
     }
 
     /**
@@ -48,7 +61,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('students.show',['student'=>$student]);   
     }
 
     /**
@@ -59,7 +72,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $attendancegroups = AttendanceGroup::all();     
+        return view('students.edit', ['student' => $student, 'attendancegroups' => $attendancegroups]); 
     }
 
     /**
@@ -69,9 +83,15 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(Request $request, Student $student)
     {
-        //
+            $student->name = $request->student_name;
+            $student->surename = $request->student_surename;
+            $student->group_id = $request->student_group;
+            if ($request->student_image) {$student->image_url = $request->student_image; } 
+                else { $student->image_url = '#';  }
+            $student->save();
+            return redirect()->route('student.index');
     }
 
     /**
@@ -82,6 +102,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->route('student.index');
     }
 }
