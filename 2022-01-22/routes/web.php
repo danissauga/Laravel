@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('studets')->group(function() {
+Route::prefix('students')->group(function() {
 
     Route::get('', 'App\Http\Controllers\StudentController@index')->name('student.index');
     Route::get('create', 'App\Http\Controllers\StudentController@create')->name('student.create');

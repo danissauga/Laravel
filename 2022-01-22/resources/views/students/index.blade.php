@@ -30,29 +30,30 @@
                 </div>
         @endif
 
-        @if (count($companys) == 0)
-            <p>There is no company</p>
+        @if (count($students) == 0)
+            <p>There is no students</p>
         @endif
  
         <table class="table table-striped">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Descriotion</th>
-                <th>Difficulty</th>
+                <th>Surename</th>
+                <th>Group</th>
+                <th>Photo</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($companys as $company)
+            @foreach ($students as $student)
                 <tr>
-                    <td>{{ $company->id }}</td>
-                    <td>{{ $company->name }}</td>
-                    <td>{{ $company->companyType->name}}</td>
-                    <td>{!! $company->description !!}</td>
-                    <td>{{ count($company->companyClients) }}</td>
-                    <td><a class="btn btn-primary" href="{{route('company.show', [$company])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('company.edit', [$company])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('company.destroy', [$company])}}">
+                    <td>{{ $student->id }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->surename }}</td>
+                    <td>{{ $student->studentGroup->name }}</td>
+                    <td>{{ $student->image_url }}</td>
+                    <td><a class="btn btn-primary" href="{{route('student.show', [$student])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('student.edit', [$student])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('student.destroy', [$student])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
