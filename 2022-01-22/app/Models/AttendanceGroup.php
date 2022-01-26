@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceGroup extends Model
 {
     use HasFactory;
-    public function schoolsList() {
-        return $this->hasMany(Schools::class, 'school_id','id');
+    public function schoolName() {
+        return $this->belongsTo(School::class, 'school_id','id');
     }
     public function difficultiesList() {
         return $this->belongsTo(Difficulty::class, 'difficulty_id','id');
     }
+    public function studentsList() {
+        return $this->hasMany(Student::class, 'group_id','id');
+    }
+
 }

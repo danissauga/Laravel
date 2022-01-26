@@ -40,6 +40,7 @@
                 <th>Difficulty</th>
                 <th>Descriotion</th>
                 <th>School name</th>
+                <th>Students count</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
@@ -49,7 +50,8 @@
                     <td>{{ $group->name }}</td>
                     <td>{{ $group->difficultiesList->name }}</td>
                     <td>{!! $group->description !!}</td>
-                    <td>{{ $group->school_id }}</td>
+                    <td>{{ $group->schoolName->name }}</td>
+                    <td>{{ count($group->studentsList) }}</td>
                     <td><a class="btn btn-primary" href="{{route('attendancegroup.show', [$group])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('attendancegroup.edit', [$group])}}">Edit</a></td>
                     <form class="form-control" method="post" action="{{route('attendancegroup.destroy', [$group])}}">

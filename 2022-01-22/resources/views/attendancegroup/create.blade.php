@@ -14,7 +14,7 @@
 
 <form class="form-control" action="{{ route('attendancegroup.store') }}" method="POST">
 
-<input class="form-control" name="attendancegroup_name" type="text" placeholder="Company name">
+<input class="form-control" name="attendancegroup_name" type="text" placeholder="Attendance Group name">
 
 <select class="form-select" name="attendancegroup_difficulties">
     @foreach ($difficulties as $difficulty)

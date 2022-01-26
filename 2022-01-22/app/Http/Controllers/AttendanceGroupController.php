@@ -42,7 +42,14 @@ class AttendanceGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attendancegroup = new AttendanceGroup;
+        $attendancegroup->name = $request->attendancegroup_name;
+        $attendancegroup->difficulty_id = $request->attendancegroup_difficulties;
+        $attendancegroup->school_id = $request->attendancegroup_schools;
+        $attendancegroup->description = $request->attendancegroup_description;
+
+        $attendancegroup->save();
+        return redirect()->route('attendancegroup.index');
     }
 
     /**
