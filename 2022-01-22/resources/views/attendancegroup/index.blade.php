@@ -52,8 +52,8 @@
                     <td>{!! $group->description !!}</td>
                     <td>{{ $group->schoolName->name }}</td>
                     <td>{{ count($group->studentsList) }}</td>
-                    <td><a class="btn btn-primary" href="{{route('attendancegroup.show', [$group])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('attendancegroup.edit', [$group])}}">Edit</a></td>
+                    <td><a class="btn btn-primary" href="{{route('attendancegroup.show', [$group->id])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('attendancegroup.edit', [$group->id])}}">Edit</a></td>
                     <form class="form-control" method="post" action="{{route('attendancegroup.destroy', [$group])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
