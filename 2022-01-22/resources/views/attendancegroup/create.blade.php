@@ -16,11 +16,11 @@
 
 <input class="form-control" name="attendancegroup_name" type="text" placeholder="Company name">
 
-{{-- <select class="form-select" name="attendancegroup_type">
-    @foreach ($types as $type)
-    <option selected value="{{ $type->id }}">{{ $type->short_name }}, {{$type->name }}</option> 
+<select class="form-select" name="attendancegroup_difficulties">
+    @foreach ($difficulties as $difficulty)
+    <option selected value="{{ $difficulty->id }}">{{ $difficulty->name }}</option> 
     @endforeach
-</select> --}}
+</select>
 
 <select class="form-select" name="attendancegroup_schools">
     @foreach ($schools as $school)

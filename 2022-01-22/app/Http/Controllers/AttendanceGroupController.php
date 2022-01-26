@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use App\Models\AttendanceGroup;
+use App\Models\Difficulty;
 use App\Http\Requests\StoreAttendanceGroupRequest;
 use App\Http\Requests\UpdateAttendanceGroupRequest;
 use Illuminate\Http\Request; 
@@ -28,8 +29,9 @@ class AttendanceGroupController extends Controller
      */
     public function create()
     {
-        $schools = School::all(); 
-        return view('attendancegroup.create', ['schools' => $schools]);
+        $schools = School::all();
+        $difficulies = Difficulty::all();  
+        return view('attendancegroup.create', ['schools' => $schools], ['difficulties' => $difficulies]);
     }
 
     /**

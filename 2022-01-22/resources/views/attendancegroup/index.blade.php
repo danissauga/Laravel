@@ -47,7 +47,7 @@
                 <tr>
                     <td>{{ $group->id }}</td>
                     <td>{{ $group->name }}</td>
-                    <td>{{ $group->difficulty }}</td>
+                    <td>{{ $group->difficultiesList->name }}</td>
                     <td>{!! $group->description !!}</td>
                     <td>{{ $group->school_id }}</td>
                     <td><a class="btn btn-primary" href="{{route('attendancegroup.show', [$group])}}">Show</a></td>

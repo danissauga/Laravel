@@ -11,4 +11,7 @@ class AttendanceGroup extends Model
     public function schoolsList() {
         return $this->hasMany(Schools::class, 'school_id','id');
     }
+    public function difficultiesList() {
+        return $this->belongsTo(Difficulty::class, 'difficulty_id','id');
+    }
 }
