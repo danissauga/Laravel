@@ -13,11 +13,10 @@ class AttendanceGroupFactory extends Factory
      */
     public function definition()
     {   
-        $difficulty_levels=array('Easy level', 'Middle level', 'High level');
         return [
             'name' => $this->faker->unique()->catchPhrase(),
             'description' => $this->faker->realText($maxNbChars = 100, $indexSize = 2),
-            'difficulty' => $difficulty_levels[rand(0,2)],
+            'difficulty_id' => rand(1,4),
             'school_id' => rand(1,10)
         ];
     }
