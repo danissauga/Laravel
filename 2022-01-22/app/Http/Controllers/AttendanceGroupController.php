@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\AttendanceGroup;
+use App\Models\Difficulty;
+use App\Models\Student;
 use App\Http\Requests\StoreAttendanceGroupRequest;
 use App\Http\Requests\UpdateAttendanceGroupRequest;
+use Illuminate\Http\Request; 
 
 class AttendanceGroupController extends Controller
 {
@@ -15,7 +19,8 @@ class AttendanceGroupController extends Controller
      */
     public function index()
     {
-        //
+       $attendancegroups = AttendanceGroup::all();
+       return view('attendancegroup.index', ['attendancegroups' => $attendancegroups]);
     }
 
     /**
@@ -25,7 +30,9 @@ class AttendanceGroupController extends Controller
      */
     public function create()
     {
-        //
+        $schools = School::all();
+        $difficulies = Difficulty::all();  
+        return view('attendancegroup.create', ['schools' => $schools], ['difficulties' => $difficulies]);
     }
 
     /**
@@ -34,9 +41,16 @@ class AttendanceGroupController extends Controller
      * @param  \App\Http\Requests\StoreAttendanceGroupRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAttendanceGroupRequest $request)
+    public function store(Request $request)
     {
-        //
+        $attendanceGroup = new AttendanceGroup;
+        $attendanceGroup->name = $request->attendancegroup_name;
+        $attendanceGroup->difficulty_id = $request->attendancegroup_difficulties;
+        $attendanceGroup->school_id = $request->attendancegroup_schools;
+        $attendanceGroup->description = $request->attendancegroup_description;
+
+        $attendanceGroup->save();
+        return redirect()->route('attendancegroup.index');
     }
 
     /**
@@ -58,7 +72,9 @@ class AttendanceGroupController extends Controller
      */
     public function edit(AttendanceGroup $attendanceGroup)
     {
-        //
+        $schools = School::all();
+        $difficulties = Difficulty::all(); 
+        return view('attendancegroup.edit',['attendanceGroup'=>$attendanceGroup, 'schools'=>$schools, 'difficulties'=>$difficulties]);
     }
 
     /**
@@ -68,9 +84,15 @@ class AttendanceGroupController extends Controller
      * @param  \App\Models\AttendanceGroup  $attendanceGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAttendanceGroupRequest $request, AttendanceGroup $attendanceGroup)
+    public function update(Request $request, AttendanceGroup $attendanceGroup)
     {
-        //
+        $attendanceGroup->name = $request->attendancegroup_name;
+        $attendanceGroup->difficulty_id = $request->attendancegroup_difficulties;
+        $attendanceGroup->school_id = $request->attendancegroup_schools;
+        $attendanceGroup->description = $request->attendancegroup_description;
+
+        $attendanceGroup->save();
+        return redirect()->route('attendancegroup.index');
     }
 
     /**
@@ -81,6 +103,12 @@ class AttendanceGroupController extends Controller
      */
     public function destroy(AttendanceGroup $attendanceGroup)
     {
-        //
+       $attendanceGroups = $attendanceGroup->schoolsCount;
+        if (count($attendanceGroups) != 0) {
+            return redirect()->route('attendancegroup.index')->with('error_message','Delete is not possible because Attendance Group has schools and students');
+        }
+
+        $attendanceGroups->delete();
+            return redirect()->route('attendancegroup.index')->with('success_message','Record removed success!');
     }
 }

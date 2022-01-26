@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::prefix('students')->group(function() {
 
     Route::get('', 'App\Http\Controllers\StudentController@index')->name('student.index');
@@ -29,10 +30,10 @@ Route::prefix('attendancegroups')->group(function() {
     Route::get('', 'App\Http\Controllers\AttendanceGroupController@index')->name('attendancegroup.index');
     Route::get('create', 'App\Http\Controllers\AttendanceGroupController@create')->name('attendancegroup.create');
     Route::post('store', 'App\Http\Controllers\AttendanceGroupController@store')->name('attendancegroup.store');
-    Route::get('edit/{attendancegroup}', 'App\Http\Controllers\AttendanceGroupController@edit')->name('attendancegroup.edit');
-    Route::get('show/{attendancegroup}', 'App\Http\Controllers\AttendanceGroupController@show')->name('attendancegroup.show');
-    Route::post('update/{attendancegroup}', 'App\Http\Controllers\AttendanceGroupController@update')->name('attendancegroup.update');
-    Route::post('destroy/{attendancegroup}', 'App\Http\Controllers\AttendanceGroupController@destroy')->name('attendancegroup.destroy');
+    Route::get('edit/{attendanceGroup}', 'App\Http\Controllers\AttendanceGroupController@edit')->name('attendancegroup.edit');
+    Route::get('show/{attendanceGroup}', 'App\Http\Controllers\AttendanceGroupController@show')->name('attendancegroup.show');
+    Route::post('update/{attendanceGroup}', 'App\Http\Controllers\AttendanceGroupController@update')->name('attendancegroup.update');
+    Route::post('destroy/{attendanceGroup}', 'App\Http\Controllers\AttendanceGroupController@destroy')->name('attendancegroup.destroy');
 
 });
 Route::prefix('schools')->group(function() {
@@ -48,5 +49,5 @@ Route::prefix('schools')->group(function() {
 });
 
 Route::get('/', function () {
-    return view('schools');
+    return redirect()->route('school.index');
 });

@@ -9,38 +9,44 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     
-    <title>Add company data</title>
+    <title>Edit group data</title>
 </head>
 <body>
 
 <div class="container">
-    <h1>Add Company form</h1>
+    <h1>Edit group form</h1>
 
-<form class="form-control" action="{{ route('company.update',['company'=>$company]) }}" method="POST">
 
-<input class="form-control" name="company_name" type="text" placeholder="Company name" value="{{ $company->name }}">
+    <form class="form-control" action="{{ route('attendancegroup.store',['attendanceGroup'=>$attendanceGroup]) }}" method="POST">
 
-<select class="form-select" name="company_type">
-    @foreach ($types as $type)
-        @if ($type->id == $company->type_id)
-        <option selected value="{{ $type->id }}">{{ $type->short_name }}, {{$type->name }}</option> 
-        @else
-        <option value="{{ $type->id }}">{{ $type->short_name }}, {{$type->name }}</option> 
-        @endif
+<input class="form-control" name="attendancegroup_name" type="text" placeholder="Attendance Group name" value="{{ $attendanceGroup->name }}">
+
+<select class="form-select" name="attendancegroup_difficulties">
+    @foreach ($difficulties as $difficulty)
+    @if ($attendanceGroup->difficulty_id == $difficulty->id) 
+        <option selected value="{{ $difficulty->id }}">{{ $difficulty->name }}</option>
+    @else
+    <option value="{{ $difficulty->id }}">{{ $difficulty->name }}</option>
+    @endif
+    @endforeach
+</select>
+<select class="form-select" name="attendancegroup_schools">
+    @foreach ($schools as $school)
+    @if ( $school->id == $attendanceGroup->school_id ) 
+        <option selected value="{{ $school->id }}">{{ $school->name }}</option> 
+    @else
+    <option value="{{ $school->id }}">{{ $school->name }}</option> 
+    @endif
     @endforeach
 </select>
 
-<textarea id="summernote" class="form-control" name="company_description">
-{{ $company->description }}
-</textarea>
-
+<input class="form-control" name="attendancegroup_description" type="text" placeholder="Attendance Group description" value="{{ $attendanceGroup->description }}">
 
 @csrf
-<input class="btn btn-primary" type="submit" value="Update">
-<a class="btn btn-secondary" href="{{ route('company.index') }}">Back to list</a>
+<input class="btn btn-primary" type="submit" value="Add">
+<a class="btn btn-secondary" href="{{ route('attendancegroup.index') }}">Back to list</a>
 
 </form>
-
 </div>
 
 
