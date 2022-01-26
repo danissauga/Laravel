@@ -5,16 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>companys list</title>
+    <title>Attendance Groups list</title>
 </head>
 <body>
 
 <div class="container">
-    <h1>Companys list</h1>
+    <h1>Attendance Groups list</h1>
     <div class="form-group pt-2 pb-2">
-        <a class="btn btn-primary" href="{{route('company.create') }}">Add company</a>
-        <a class="btn btn-primary" href="{{route('type.create') }}">Add company type</a>
-        <a class="btn btn-secondary" href="{{route('client.index') }}">Companies list</a>
+        <a class="btn btn-primary" href="{{route('attendancegroup.create') }}">Add attendance group</a>
+        <a class="btn btn-secondary" href="{{route('school.index') }}">Schools list</a>
 </div>
  
         @if (session()->has('error_message'))
@@ -30,30 +29,30 @@
                 </div>
         @endif
 
-        @if (count($companys) == 0)
-            <p>There is no company</p>
+        @if (count($attendancegroups) == 0)
+            <p>There is no Attendance Groups</p>
         @endif
  
         <table class="table table-striped">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Company type</th>
+                <th>Difficulty</th>
                 <th>Descriotion</th>
-                <th>Clients count</th>
+                <th>School name</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($companys as $company)
+            @foreach ($attendancegroups as $group)
                 <tr>
-                    <td>{{ $company->id }}</td>
-                    <td>{{ $company->name }}</td>
-                    <td>{{ $company->companyType->name}}</td>
-                    <td>{!! $company->description !!}</td>
-                    <td>{{ count($company->companyClients) }}</td>
-                    <td><a class="btn btn-primary" href="{{route('company.show', [$company])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('company.edit', [$company])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('company.destroy', [$company])}}">
+                    <td>{{ $group->id }}</td>
+                    <td>{{ $group->name }}</td>
+                    <td>{{ $group->difficulty }}</td>
+                    <td>{!! $group->description !!}</td>
+                    <td>{{ $group->school_id }}</td>
+                    <td><a class="btn btn-primary" href="{{route('attendancegroup.show', [$group])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('attendancegroup.edit', [$group])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('attendancegroup.destroy', [$group])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>

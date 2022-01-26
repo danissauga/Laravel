@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::prefix('students')->group(function() {
 
     Route::get('', 'App\Http\Controllers\StudentController@index')->name('student.index');
@@ -48,5 +49,5 @@ Route::prefix('schools')->group(function() {
 });
 
 Route::get('/', function () {
-    return view('schools');
+    return redirect()->route('school.index');
 });
