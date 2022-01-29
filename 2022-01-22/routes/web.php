@@ -51,3 +51,7 @@ Route::prefix('schools')->group(function() {
 Route::get('/', function () {
     return redirect()->route('school.index');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
