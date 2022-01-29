@@ -60,8 +60,8 @@ class AttendanceGroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(AttendanceGroup $attendanceGroup)
-    {
-        //
+    { 
+        return view('attendancegroup.show',['attendanceGroup'=>$attendanceGroup]);
     }
 
     /**

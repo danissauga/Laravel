@@ -20,8 +20,4 @@ class AttendanceGroup extends Model
     public function studentsList() {
         return $this->hasMany(Student::class, 'group_id','id');
     }
-    public function studentsCount() {
-        return $this->hasMany(Student::class, 'id','group_id');
-    }
-
 }
