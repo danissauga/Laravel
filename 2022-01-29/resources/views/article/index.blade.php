@@ -26,26 +26,26 @@
             <p>There is no articles</p>
         @endif
  
-       {{-- <table class="table table-striped">
+       <table class="table table-striped">
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Surename</th>
-                <th>Group</th>
-                <th>Photo</th>
+                <th>Title</th>
+                <th>Excerpt(</th>
+                <th>Description</th>
+                <th>Author</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($students as $student)
+            @foreach ($articles as $article)
                 <tr>
-                    <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->surename }}</td>
-                    <td>{{ $student->studentGroup->name }}</td>
-                    <td>{{ $student->image_url }}</td>
-                    <td><a class="btn btn-primary" href="{{route('student.show', [$student])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('student.edit', [$student])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('student.destroy', [$student])}}">
+                    <td>{{ $article->id }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td>{{ $article->excerpt }}</td>
+                    <td>{{ $article->description }}</td>
+                    <td>{{ $article->author }}</td>
+                    <td><a class="btn btn-primary" href="{{route('article.show', [$article])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('article.edit', [$article])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('article.destroy', [$article])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
@@ -53,6 +53,6 @@
                     </form>
                 </tr>
             @endforeach
-        </table> --}}
+        </table>
 </div>
 @endsection

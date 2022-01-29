@@ -14,7 +14,10 @@ class ArticleCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->unique()->catchPhrase(),
+            'description' => $this->faker->paragraph(1),
+            'article_id'=> $this->faker->numberBetween(1, 10),
+            'image_id'=> $this->faker->numberBetween(1, 10)
         ];
     }
 }

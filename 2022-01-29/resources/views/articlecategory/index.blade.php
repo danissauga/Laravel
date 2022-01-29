@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Students list</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('content')
 
 <div class="container">
-    <h1>Students list</h1>
-    <div class="form-group pt-2 pb-2">
+    <h1>Articles Categories list</h1>
+    {{-- <div class="form-group pt-2 pb-2">
         <a class="btn btn-primary" href="{{route('student.create') }}">Add student</a>
         <a class="btn btn-primary" href="{{route('school.create') }}">Add School </a>
         <a class="btn btn-secondary" href="{{route('school.index') }}">School list</a>
-</div>
+    </div> --}}
  
         @if (session()->has('error_message'))
         <div class="alert alert-danger">
@@ -30,30 +22,30 @@
                 </div>
         @endif
 
-        @if (count($students) == 0)
-            <p>There is no students</p>
+        @if (count($articlecategories) == 0)
+            <p>There is no articles</p>
         @endif
  
-        <table class="table table-striped">
+      <table class="table table-striped">
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Surename</th>
-                <th>Group</th>
-                <th>Photo</th>
+                <th>Title</th>
+                <th>Desctition</th>
+                <th>Iamge</th>
+                <th>Article</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
-            @foreach ($students as $student)
+            @foreach ($articlecategories as $articlecategory)
                 <tr>
-                    <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->surename }}</td>
-                    <td>{{ $student->studentGroup->name }}</td>
-                    <td>{{ $student->image_url }}</td>
-                    <td><a class="btn btn-primary" href="{{route('student.show', [$student])}}">Show</a></td>
-                    <td><a class="btn btn-secondary" href="{{route('student.edit', [$student])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('student.destroy', [$student])}}">
+                    <td>{{ $articlecategory->id }}</td>
+                    <td>{{ $articlecategory->title }}</td>
+                    <td>{{ $articlecategory->description }}</td>
+                    <td>{{ $articlecategory->image_id }}</td>
+                    <td>{{ $articlecategory->article_id }}</td>
+                    <td><a class="btn btn-primary" href="{{route('articlecategory.show', [$articlecategory])}}">Show</a></td>
+                    <td><a class="btn btn-secondary" href="{{route('articlecategory.edit', [$articlecategory])}}">Edit</a></td>
+                    <form class="form-control" method="post" action="{{route('articlecategory.destroy', [$articlecategory])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
@@ -63,6 +55,4 @@
             @endforeach
         </table>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
+@endsection

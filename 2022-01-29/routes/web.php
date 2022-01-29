@@ -32,7 +32,7 @@ Route::prefix('articles')->group(function() {
     Route::post('destroy/{article}', 'App\Http\Controllers\ArticleController@destroy')->name('article.destroy');
 
 });
-Route::prefix('articlecategory')->group(function() {
+Route::prefix('articlecategories')->group(function() {
 
     Route::get('', 'App\Http\Controllers\ArticleCategoryController@index')->name('articlecategory.index');
     Route::get('create', 'App\Http\Controllers\ArticleCategoryController@create')->name('articlecategory.create');
@@ -43,14 +43,14 @@ Route::prefix('articlecategory')->group(function() {
     Route::post('destroy/{articleCategory}', 'App\Http\Controllers\ArticleCategoryController@destroy')->name('articlecategory.destroy');
 
 });
-Route::prefix('articleimage')->group(function() {
+Route::prefix('articleimages')->group(function() {
 
-    Route::get('', 'App\Http\Controllers\ArticleImageCategoryController@index')->name('articlecategory.index');
-    Route::get('create', 'App\Http\Controllers\ArticleImageCategoryController@create')->name('articlecategory.create');
-    Route::post('store', 'App\Http\Controllers\ArticleImageCategoryController@store')->name('articlecategory.store');
-    Route::get('edit/{articleCategory}', 'App\Http\Controllers\ArticleIamgeCategoryController@edit')->name('articlecategory.edit');
-    Route::get('show/{articleCategory}', 'App\Http\Controllers\ArticleImageCategoryController@show')->name('articlecategory.show');
-    Route::post('update/{articleCategory}', 'App\Http\Controllers\ArticleImageCategoryController@update')->name('articlecategory.update');
-    Route::post('destroy/{articleCategory}', 'App\Http\Controllers\ArticleImageCategoryController@destroy')->name('articlecategory.destroy');
+    Route::get('', 'App\Http\Controllers\ArticleImageController@index')->name('articleimage.index');
+    Route::get('create', 'App\Http\Controllers\ArticleImageController@create')->name('articleimage.create');
+    Route::post('store', 'App\Http\Controllers\ArticleImageController@store')->name('articleimage.store');
+    Route::get('edit/{articleImage}', 'App\Http\Controllers\ArticleIamgeController@edit')->name('articleimage.edit');
+    Route::get('show/{articleImage}', 'App\Http\Controllers\ArticleImageController@show')->name('articleimage.show');
+    Route::post('update/{articleImage}', 'App\Http\Controllers\ArticleImageController@update')->name('articleimage.update');
+    Route::post('destroy/{articleImage}', 'App\Http\Controllers\ArticleImageController@destroy')->name('articleimage.destroy');
 
 });

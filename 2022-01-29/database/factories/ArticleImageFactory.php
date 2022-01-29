@@ -14,7 +14,11 @@ class ArticleImageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'alt' => $this->faker->unique()->catchPhrase(),
+            'src' => $this->faker->image('D:\xampp\htdocs\Laravel\2022-01-29\public\images', 640, 480, 'animals', false),
+            'width' => '125',
+            'height' => '125',
+            'class' => 'img-thumbnail'
         ];
     }
 }

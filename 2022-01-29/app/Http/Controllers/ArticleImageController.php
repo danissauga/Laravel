@@ -15,7 +15,8 @@ class ArticleImageController extends Controller
      */
     public function index()
     {
-        //
+        $articleimages = ArticleImage::all();
+        return view('articleimage.index', ['articleimages' => $articleimages]);
     }
 
     /**
