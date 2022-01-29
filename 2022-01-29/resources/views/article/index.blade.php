@@ -30,7 +30,7 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Excerpt(</th>
+                <th>Excerpt</th>
                 <th>Description</th>
                 <th>Author</th>
                 <th class="col-2" colspan="3">Tools</th>

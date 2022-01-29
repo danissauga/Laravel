@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +24,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('articles')->group(function() {
 
-    Route::get('', 'App\Http\Controllers\ArticleController@index')->name('article.index');
+    Route::get('', 'App\Http\Controllers\ArticleController@index')->name('article.index')->middleware('auth');
     Route::get('create', 'App\Http\Controllers\ArticleController@create')->name('article.create');
     Route::post('store', 'App\Http\Controllers\ArticleController@store')->name('article.store');
     Route::get('edit/{article}', 'App\Http\Controllers\ArticleController@edit')->name('article.edit');
-    Route::get('show/{article}', 'App\Http\Controllers\ArticleController@show')->name('article.show');
+    Route::get('show/{article}', 'App\Http\Controllers\ArticleController@show')->name('article.show')->middleware('auth');
     Route::post('update/{article}', 'App\Http\Controllers\ArticleController@update')->name('article.update');
     Route::post('destroy/{article}', 'App\Http\Controllers\ArticleController@destroy')->name('article.destroy');
 
 });
 Route::prefix('articlecategories')->group(function() {
 
-    Route::get('', 'App\Http\Controllers\ArticleCategoryController@index')->name('articlecategory.index');
+    Route::get('', 'App\Http\Controllers\ArticleCategoryController@index')->name('articlecategory.index')->middleware('auth');
     Route::get('create', 'App\Http\Controllers\ArticleCategoryController@create')->name('articlecategory.create');
     Route::post('store', 'App\Http\Controllers\ArticleCategoryController@store')->name('articlecategory.store');
     Route::get('edit/{articleCategory}', 'App\Http\Controllers\ArticleCategoryController@edit')->name('articlecategory.edit');
@@ -45,7 +46,7 @@ Route::prefix('articlecategories')->group(function() {
 });
 Route::prefix('articleimages')->group(function() {
 
-    Route::get('', 'App\Http\Controllers\ArticleImageController@index')->name('articleimage.index');
+    Route::get('', 'App\Http\Controllers\ArticleImageController@index')->name('articleimage.index')->middleware('auth');
     Route::get('create', 'App\Http\Controllers\ArticleImageController@create')->name('articleimage.create');
     Route::post('store', 'App\Http\Controllers\ArticleImageController@store')->name('articleimage.store');
     Route::get('edit/{articleImage}', 'App\Http\Controllers\ArticleIamgeController@edit')->name('articleimage.edit');
