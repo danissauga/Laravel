@@ -31,7 +31,7 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Desctition</th>
-                <th>Iamge</th>
+                <th>Image</th>
                 <th>Article</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
@@ -41,8 +41,12 @@
                     <td>{{ $articlecategory->id }}</td>
                     <td>{{ $articlecategory->title }}</td>
                     <td>{{ $articlecategory->description }}</td>
-                    <td>{{ $articlecategory->image_id }}</td>
-                    <td>{{ $articlecategory->article_id }}</td>
+                    <td>
+                        <img id='image_{{$articlecategory->getArticleImage->id}}' class='{{$articlecategory->getArticleImage->class}}' src='{{'/images/'.$articlecategory->getArticleImage->src}}' alt='{{$articlecategory->getArticleImage->alt}}' width='{{$articlecategory->getArticleImage->width}}' height='{{$articlecategory->getArticleImage->height}}' />  
+                    </td>
+                    <td>
+                        {{ $articlecategory->getArticle->title }}
+                    </td>
                     <td><a class="btn btn-primary" href="{{route('articlecategory.show', [$articlecategory])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('articlecategory.edit', [$articlecategory])}}">Edit</a></td>
                     <form class="form-control" method="post" action="{{route('articlecategory.destroy', [$articlecategory])}}">
