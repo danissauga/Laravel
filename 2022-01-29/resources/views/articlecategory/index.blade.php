@@ -31,7 +31,6 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Desctition</th>
-                <th>Image</th>
                 <th>Article</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
@@ -41,9 +40,6 @@
                     <td>{{ $articlecategory->id }}</td>
                     <td>{{ $articlecategory->title }}</td>
                     <td>{{ $articlecategory->description }}</td>
-                    <td>
-                        <img id='image_{{$articlecategory->getArticleImage->id}}' class='{{$articlecategory->getArticleImage->class}}' src='{{'/images/'.$articlecategory->getArticleImage->src}}' alt='{{$articlecategory->getArticleImage->alt}}' width='{{$articlecategory->getArticleImage->width}}' height='{{$articlecategory->getArticleImage->height}}' />  
-                    </td>
                     <td>
                         {{ $articlecategory->getArticle->title }}
                     </td>

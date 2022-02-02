@@ -17,8 +17,8 @@ class ArticleFactory extends Factory
             'title' => $this->faker->unique()->catchPhrase(),
             'excerpt' => $this->faker->paragraph(4),
             'description' => $this->faker->paragraph(2),
-            'author'=> $this->faker->name()
-            //'image_url' => $this->faker->image(null, 640, 480)
+            'author'=> $this->faker->name(),
+            'image_id' => rand(1,10)
         ];
     }
 }

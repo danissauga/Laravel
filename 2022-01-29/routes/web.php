@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('articles')->group(function() {
 
     Route::get('', 'App\Http\Controllers\ArticleController@index')->name('article.index')->middleware('auth');
-    Route::get('create', 'App\Http\Controllers\ArticleController@create')->name('article.create');
+    Route::get('create', 'App\Http\Controllers\ArticleController@create')->name('article.create')->middleware('auth');
     Route::post('store', 'App\Http\Controllers\ArticleController@store')->name('article.store');
     Route::get('edit/{article}', 'App\Http\Controllers\ArticleController@edit')->name('article.edit');
     Route::get('show/{article}', 'App\Http\Controllers\ArticleController@show')->name('article.show')->middleware('auth');

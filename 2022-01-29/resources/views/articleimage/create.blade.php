@@ -8,7 +8,7 @@
                     <div class="card-header">Profile Image</div>
     
                     <div class="card-body">
-                        <form method="POST" class="form-validation" action="{{route('profileimage.store') }}" enctype="multipart/form-data">
+                        <form method="POST" class="form-validation" action="{{route('articleimage.store') }}" enctype="multipart/form-data">
                             @csrf
     
                             <div class="row mb-3">

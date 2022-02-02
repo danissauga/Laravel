@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ArticleCategory;
 use App\Http\Requests\StoreArticleCategoryRequest;
 use App\Http\Requests\UpdateArticleCategoryRequest;
+use Illuminate\Http\Request;  
 
 class ArticleCategoryController extends Controller
 {
@@ -26,7 +27,7 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('articlecategory.create');
     }
 
     /**

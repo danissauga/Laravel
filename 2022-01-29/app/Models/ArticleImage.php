@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleImage extends Model
 {
     use HasFactory;
+
+    public function getUsedImages() {
+        return $this->hasMany(Article::class, 'image_id','id');
+    }
 }
