@@ -19,6 +19,8 @@ class CreateArticlesTable extends Migration
             $table->text('excerpt');
             $table->text('description');
             $table->string('author');
+            $table->unsignedBigInteger('image_id');
+            $table->foreign('image_id')->references('id')->on('article_images');  
             $table->timestamps();
         });
     }

@@ -33,6 +33,7 @@
                 <th>Excerpt</th>
                 <th>Description</th>
                 <th>Author</th>
+                <th>Author image</th>
                 <th class="col-2" colspan="3">Tools</th>
             </tr>
 
@@ -43,13 +44,16 @@
                     <td>{{ $article->excerpt }}</td>
                     <td>{{ $article->description }}</td>
                     <td>{{ $article->author }}</td>
+                    <td>
+                        <img id='image_{{$article->getArticleImage->id }}' class='{{$article->getArticleImage->class}}' src='{{'/images/'.$article->getArticleImage->src }}' alt='{{$article->getArticleImage->alt }}' />  
+                    </td>
                     <td><a class="btn btn-primary" href="{{route('article.show', [$article])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('article.edit', [$article])}}">Edit</a></td>
                     <form class="form-control" method="post" action="{{route('article.destroy', [$article])}}">
-                    <td>
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </td>
-                    @csrf
+                        <td>
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </td>
+                        @csrf
                     </form>
                 </tr>
             @endforeach

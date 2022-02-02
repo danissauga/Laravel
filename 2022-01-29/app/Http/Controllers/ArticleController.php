@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleImage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 
@@ -82,6 +83,14 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $articleimages = $article->getAllArticleImages;
+
+        if (count($articleimages) != 0) {
+            return redirect()->route('article.index')->with('error_message','Delete is not possible because company has clients');
+        }
+
+        $article->delete();
+            return redirect()->route('article.index')->with('success_message','Record removed success!');
+    
     }
 }
