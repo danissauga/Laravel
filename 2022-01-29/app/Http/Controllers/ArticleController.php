@@ -104,7 +104,7 @@ class ArticleController extends Controller
         $articleimages = $article->getAllArticleImages;
 
         if (count($articleimages) != 0) {
-            return redirect()->route('article.index')->with('error_message','Delete is not possible because company has clients');
+            return redirect()->route('article.index')->with('error_message','Delete is not possible because Article has image');
         }
 
         $article->delete();

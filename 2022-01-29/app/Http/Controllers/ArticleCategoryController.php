@@ -27,7 +27,7 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('articlecategory.create');
     }
 
     /**

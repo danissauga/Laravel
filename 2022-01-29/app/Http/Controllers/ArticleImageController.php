@@ -28,7 +28,7 @@ class ArticleImageController extends Controller
      */
     public function create()
     {
-        //
+        return view('articleimage.create');
     }
 
     /**
@@ -37,9 +37,21 @@ class ArticleImageController extends Controller
      * @param  \App\Http\Requests\StoreArticleImageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArticleImageRequest $request)
-    {
-        //
+    public function store(Request $request)
+    {   
+
+        $articleImage = new ArticleImage;
+        $articleImage->alt = $request->image_alt;
+        $imageName = 'file_'.time().'.'.$request->image_src->extension();
+        $request->image_src->move(public_path('images'), $imageName);
+        $articleImage->src = $imageName;
+
+        $articleImage->width = $request->image_width;
+        $articleImage->height = $request->image_height;
+        $articleImage->class = $request->image_class;
+
+        $articleImage->save();
+        
     }
 
     /**
