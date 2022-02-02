@@ -3,11 +3,11 @@
 
 <div class="container">
     <h1>Articles list</h1>
-    {{-- <div class="form-group pt-2 pb-2">
-        <a class="btn btn-primary" href="{{route('student.create') }}">Add student</a>
-        <a class="btn btn-primary" href="{{route('school.create') }}">Add School </a>
-        <a class="btn btn-secondary" href="{{route('school.index') }}">School list</a>
-    </div> --}}
+     <div class="form-group pt-2 pb-2">
+      <a class="btn btn-primary" href="{{route('article.create') }}">Creat article</a>
+      {{--<a class="btn btn-primary" href="{{route('school.create') }}">Add School </a>
+        <a class="btn btn-secondary" href="{{route('school.index') }}">School list</a> --}}
+    </div> 
  
         @if (session()->has('error_message'))
         <div class="alert alert-danger">

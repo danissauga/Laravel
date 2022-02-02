@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Add Student data</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('content')
 
 <div class="container">
-    <h1>Add Student form</h1>
+    <h1>Edit article data</h1>
 
-<form class="form-control" action="{{ route('student.store') }}" method="POST">
+<form class="form-control" action="{{ route('article.store') }}" method="POST">
 
-<input class="form-control" name="student_name" type="text" placeholder="Student name">
-<input class="form-control" name="student_surename" type="text" placeholder="Student surename">
+<input class="form-control" name="article_title" type="text" placeholder="Article title">
+<input class="form-control" name="article_excerpt" type="text" placeholder="Article excerpt">
+<input class="form-control" name="article_author" type="text" placeholder="Article Author">
+<input class="form-control" name="article_description" type="text" placeholder="Article deskription">
 
-<select class="form-select" name="student_group">
-    @foreach ($attendancegroups as $group)
-    <option selected value="{{ $group->id }}">{{ $group->name }}</option> 
+<select class="form-select" name="article_image">
+@foreach ($articleimages as $image)
+        <option value="{{ $image->id }}">{{ $image->src }}</option>
     @endforeach
 </select>
 
-<input class="form-control" name="student_image" type="text" placeholder="Student image">
-
 @csrf
-<input class="btn btn-primary" type="submit" value="Add">
-<a class="btn btn-secondary" href="{{ route('student.index') }}">Back to list</a>
+<input class="btn btn-primary" type="submit" value="Update">
+<a class="btn btn-secondary" href="{{ route('article.index') }}">Back to list</a>
 
 </form>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
+
+@endsection

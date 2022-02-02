@@ -28,7 +28,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $articleImages = ArticleImage::all(); 
+        return view('article.create', ['articleimages'=>$articleImages]);
     }
 
     /**
@@ -37,9 +38,17 @@ class ArticleController extends Controller
      * @param  \App\Http\Requests\StoreArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArticleRequest $request)
-    {
-        //
+    public function store(Request $request)
+    {   
+        $article = new Article;
+        $article->title = $request->article_title;
+        $article->excerpt = $request->article_excerpt;
+        $article->description = $request->article_description;
+        $article->author = $request->article_author;
+        $article->image_id = $request->article_image;
+
+        $article->save();
+        return redirect()->route('article.index'); 
     }
 
     /**
@@ -60,7 +69,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
-    {   $articleImages = ArticleImage::all(); 
+    {   
+        $articleImages = ArticleImage::all(); 
         return view('article.edit',['article'=> $article, 'articleImages'=>$articleImages]);                       
     }
 
