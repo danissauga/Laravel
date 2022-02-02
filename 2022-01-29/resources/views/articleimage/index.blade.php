@@ -19,7 +19,6 @@
         @if (session()->has('success_message'))
                 <div class="alert alert-success">
                     {{session()->get('success_message')}}
-                    success_message
                 </div>
         @endif
 
@@ -50,12 +49,14 @@
                     <td>{{ $articleimage->class }}</td>
                     <td><a class="btn btn-primary" href="{{route('articleimage.show', [$articleimage])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('articleimage.edit', [$articleimage])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('articleimage.destroy', [$articleimage])}}">
+                    
                     <td>
-                        <button class="btn btn-danger" type="submit">Delete</button>
+                        <form method="post" action="{{route('articleimage.destroy', [$articleimage])}}">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                            @csrf
+                        </form>
                     </td>
-                    @csrf
-                    </form>
+                    
                 </tr>
             @endforeach
         </table>

@@ -51,7 +51,10 @@ class ArticleImageController extends Controller
         $articleImage->class = $request->image_class;
 
         $articleImage->save();
-        
+
+        $articleimages = ArticleImage::all();
+        return view('articleimage.index', ['articleimages' => $articleimages]);
+
     }
 
     /**
@@ -96,6 +99,27 @@ class ArticleImageController extends Controller
      */
     public function destroy(ArticleImage $articleImage)
     {
-        //
+         $imageName = ArticleImage::select('src')->where('id', $articleImage->id)->first();
+         $imagePath = public_path('images').$imageName->src;
+
+        $usedimages = $articleImage->getUsedImages;
+
+        if (count($usedimages) != 0) {
+         
+            $articleimages = ArticleImage::all();
+            return redirect()->route('articleimage.index')->with('error_message','Delete is not possible because image is used');      
+
+        }
+        
+        if (file_exists($imagePath)) {
+                   
+            unlink($imagePath);
+                ArticleImage::where('id', $articleImage->id)->delete();
+        }else{
+                ArticleImage::where('id', $articleImage->id)->delete();
+            
+        }
+        $articleimages = ArticleImage::all();
+        return redirect()->route('articleimage.index',['articleimages'=> $articleimages])->with('success_message','Record removed success!');
     }
 }
