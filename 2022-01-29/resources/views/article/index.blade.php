@@ -49,12 +49,14 @@
                     </td>
                     <td><a class="btn btn-primary" href="{{route('article.show', [$article])}}">Show</a></td>
                     <td><a class="btn btn-secondary" href="{{route('article.edit', [$article])}}">Edit</a></td>
-                    <form class="form-control" method="post" action="{{route('article.destroy', [$article])}}">
-                        <td>
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </td>
-                        @csrf
-                    </form>
+                    
+                    <td>
+                        <form method="post" action="{{route('article.destroy', [$article])}}">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            @csrf
+                        </form>
+                    </td>
+                    
                 </tr>
             @endforeach
         </table>

@@ -6,6 +6,7 @@ use App\Models\ArticleImage;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleImageRequest;
 use App\Http\Requests\UpdateArticleImageRequest;
+use Illuminate\Http\Request;  
 
 class ArticleImageController extends Controller
 {

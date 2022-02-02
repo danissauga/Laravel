@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\ArticleImage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Http\Request;  
 
 class ArticleController extends Controller
 {
@@ -59,8 +60,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
-    {
-        //
+    {   $articleImages = ArticleImage::all(); 
+        return view('article.edit',['article'=> $article, 'articleImages'=>$articleImages]);                       
     }
 
     /**
@@ -70,9 +71,16 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(Request $request, Article $article)
     {
-        //
+        $article->title = $request->article_title;
+        $article->excerpt = $request->article_excerpt;
+        $article->description = $request->article_description;
+        $article->author = $request->article_author;
+        $article->image_id = $request->article_image;
+
+        $article->save();
+        return redirect()->route('article.index'); 
     }
 
     /**
