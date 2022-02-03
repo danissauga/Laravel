@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -31,13 +32,19 @@ class AuthorController extends Controller
         } else {
             $authors = Author::orderBy($sortCollumn, $sortOrder)->get();
         }
-        $select_array = array(
-            'id',
-            'name',
-            'surename',
-            'username',
-            'description'
-        );
+       // DB::select('SHOW TABLES');
+
+       $select_array = DB::getSchemaBuilder()->getColumnListing('authors');
+       array_slice($select_array, 1, -2);
+      
+
+        // $select_array = array(
+        //     'id',
+        //     'name',
+        //     'surename',
+        //     'username',
+        //     'description'
+        // );
        // $author = $authors->first();
         // $author =(array) $author;
         // $author=array_keys($author);
