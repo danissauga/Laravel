@@ -6,7 +6,7 @@ use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use Illuminate\Http\Request;
-use \Illuminate\Support\Facades\DB;
+//use \Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -32,28 +32,14 @@ class AuthorController extends Controller
         } else {
             $authors = Author::orderBy($sortCollumn, $sortOrder)->get();
         }
-       // DB::select('SHOW TABLES');
 
-       $select_array = DB::getSchemaBuilder()->getColumnListing('authors');
-       array_slice($select_array, 1, -2);
-      
+       //$select_array = DB::getSchemaBuilder()->getColumnListing('authors'); //naudotina Model`yje
+       // array_slice($select_array, 1, -2); //apribojimas, kiek imti elementu
 
-        // $select_array = array(
-        //     'id',
-        //     'name',
-        //     'surename',
-        //     'username',
-        //     'description'
-        // );
-       // $author = $authors->first();
-        // $author =(array) $author;
-        // $author=array_keys($author);
-        // foreach ($author as $aut => $key) {
-
-        // }
-
+       $select_array = array_keys($authors->first()->getAttributes());
+       
                 
-        return view('author.index', ['authors' => $authors, 'sortOrder'=> $sortOrder, 'sortCollumn' => $sortCollumn, 'select_array' => $select_array]);
+       return view('author.index', ['authors' => $authors, 'sortOrder'=> $sortOrder, 'sortCollumn' => $sortCollumn, 'select_array' => $select_array]);
 
     }
      
@@ -123,4 +109,23 @@ class AuthorController extends Controller
     {
         //
     }
+
+    /**
+     * Searching function.
+     *
+     * @param  \App\Models\Author  $author
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {   
+        $search_key = $request->search_key;
+        $authors = Author::where('description','like','%'.$search_key.'%')
+        ->orWhere('name', 'like', '%'.$search_key.'%')  
+        ->orWhere('surename', 'like', '%'.$search_key.'%') 
+        ->orWhere('username', 'like', '%'.$search_key.'%') 
+        ->orWhere('id', 'like', '%'.$search_key.'%')              
+        ->get();
+        return view('author.search', ['authors' => $authors]);
+
+    } 
 }

@@ -26,6 +26,19 @@ Route::prefix('authors')->group(function() {
 
 
     Route::get('', 'App\Http\Controllers\AuthorController@index')->name('author.index');
+    Route::get('search', 'App\Http\Controllers\AuthorController@search')->name('author.search');
+    // Route::get('create', 'App\Http\Controllers\ProfileImageController@create')->name('profileimage.create');
+    // Route::post('store', 'App\Http\Controllers\ProfileImageController@store' )->name('profileimage.store');
+    // Route::get('edit/{profileImage}', 'App\Http\Controllers\ProfileImageController@edit')->name('profileimage.edit');
+    // Route::post('update/{profileImage}', 'App\Http\Controllers\ProfileImageController@update')->name('profileimage.update');
+
+
+});
+Route::prefix('books')->group(function() {
+
+
+    Route::get('', 'App\Http\Controllers\BookController@index')->name('book.index');
+    Route::get('bookfilter', 'App\Http\Controllers\BookController@bookfilter')->name('book.bookfilter');
     // Route::get('create', 'App\Http\Controllers\ProfileImageController@create')->name('profileimage.create');
     // Route::post('store', 'App\Http\Controllers\ProfileImageController@store' )->name('profileimage.store');
     // Route::get('edit/{profileImage}', 'App\Http\Controllers\ProfileImageController@edit')->name('profileimage.edit');
