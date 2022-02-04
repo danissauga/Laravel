@@ -13,7 +13,7 @@
 
 <select class="form-select" name="article_image">
 @foreach ($articleimages as $image)
-        <option value="{{ $image->id }}">{{ $image->src }}</option>
+        <option value="{{ $image->id }}">{{ $image->alt }}</option>
     @endforeach
 </select>
 
