@@ -31,8 +31,6 @@
         </select>
         <input type="submit" name="Sort">
     </form>
-  
-
         @if (count($products) == 0)
             <p>There is no products</p>
         @endif
