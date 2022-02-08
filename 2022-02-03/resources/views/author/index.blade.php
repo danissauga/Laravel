@@ -13,8 +13,6 @@
                 @endif
             @endforeach
         </select>
-
-       
         <select name="sortOrder">
             @if ($sortOrder == 'asc' || empty($sortOrder)) 
             <option value="asc" selected>Ascending</option>
@@ -23,13 +21,12 @@
             <option value="asc">Ascending</option>
             <option value="desc" selected>Descendind</option>
             @endif
-
         </select>
-       
-        <input type="submit" name="Sort">
-    </form>
-    <form action="{{route('author.search')}}">
-    @csrf
+        {{-- <select name="recordsPerPage">
+            @foreach ($authors->recordPerPage as $key => $page) 
+                <option value="{{ $key }}" >{{ $page }}</option>
+            @endforeach
+        </select> --}}
         <input type="text" name="search_key">
         <button type="submit">Search</button>
     </form>
@@ -52,6 +49,7 @@
         </tr>
         @endforeach
     </table>
+    {!! $authors->appends(Request::all())->links() !!}
     <div>
      
     </div>
