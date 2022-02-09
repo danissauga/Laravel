@@ -82,6 +82,9 @@
             </td>
             <td><a style="border: none; background-color:transparent;" href="{{route('product.edit', [$product])}}"><i class="fas fa-edit text-gray-300"></i></a></td>
             <td>
+            <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $value->id }})" class="btn btn-primary btn-sm">Edit</button>
+            </td>
+            <td>
                 <form method="post" action="{{route('product.destroy', [$product])}}">
                 @csrf
                     <button type="submit" style="border: none; background-color:transparent;"><i class="fas fa-trash fa-lg text-danger"></i></button>

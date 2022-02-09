@@ -14,7 +14,11 @@ class PaginationSettingSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   
+        DB::table('pagination_settings')->insert([
+            'title' => '5',
+            'value' => '5'       
+        ]);
         DB::table('pagination_settings')->insert([
             'title' => '15',
             'value' => '15'       
