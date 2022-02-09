@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PaginationSetting;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,8 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
+                PaginationSettingSeeder::class,
                 ProductCategorySeeder::class,
                 ProductSeeder::class
+                
             ]);
     }
 }

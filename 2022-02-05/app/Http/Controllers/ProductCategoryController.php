@@ -24,9 +24,9 @@ class ProductCategoryController extends Controller
 
 
         if (empty($sortCollumn) || empty($sortOrder)) {
-            $productCategories = ProductCategory::all();
+            $productCategories = ProductCategory::simplePaginate(2);
         } else {
-            $productCategories = ProductCategory::orderBy($sortCollumn, $sortOrder)->get();
+            $productCategories = ProductCategory::orderBy($sortCollumn, $sortOrder)->simplePaginate(2);
         }
 
 

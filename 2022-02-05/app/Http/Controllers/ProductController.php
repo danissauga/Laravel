@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\PaginationSetting;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductCategory;
@@ -20,9 +21,12 @@ class ProductController extends Controller
         $productCategories= ProductCategory::orderBy('title', 'asc')->get();
         $sortCollumn = $request->sortCollumn;
         $sortOrder = $request->sortOrder;
+        $paginate = $request->paginateSetting;
+        $paginationSettings = PaginationSetting::all();
+
 
         if (empty($sortCollumn) || empty($sortOrder)) {
-            $products = $products = Product::all();
+            $products = $products = Product::paginate($paginate);
         } else {
 
             if($sortCollumn == "category_id") {
@@ -34,11 +38,11 @@ class ProductController extends Controller
                     return $query->getProductCategory->title;
                     },SORT_REGULAR,$sortBool)->all();
             }
-            $products = Product::orderBy($sortCollumn, $sortOrder)->get();
+            $products = Product::orderBy($sortCollumn, $sortOrder)->paginate($paginate);
             //$products = $products = Product::all();
         }
         
-        return view('product.index',['products' => $products, 'sortCollumn' => $sortCollumn, 'sortOrder' => $sortOrder, 'productCategories'=>$productCategories ]);
+        return view('product.index',['products' => $products, 'sortCollumn' => $sortCollumn, 'sortOrder' => $sortOrder, 'productCategories'=>$productCategories, 'paginationSettings'=>$paginationSettings, 'paginateSetting'=>$paginate ]);
     }
 
     /**
