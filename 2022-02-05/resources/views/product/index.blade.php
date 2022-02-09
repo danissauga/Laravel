@@ -20,6 +20,17 @@
             <option value="desc" selected>Descendind</option>
             @endif
         </select>
+       
+        <select name="paginateSetting">
+            @foreach ($paginationSettings as $setting)
+            @if ($paginateSetting == $setting->value)
+                <option selected value="{{ $setting->value }}">{{ $setting->title }}</option>
+            @else 
+                <option value="{{ $setting->value }}">{{ $setting->title }}</option> 
+            @endif
+            @endforeach
+        </select>
+
         <input type="submit" name="Sort">
     </form>
     <form method="GET" action="{{route('product.categoryfilter')}}">
@@ -31,7 +42,6 @@
         </select>
         <input type="submit" name="Sort">
     </form>
-  
 
         @if (count($products) == 0)
             <p>There is no products</p>
@@ -58,7 +68,7 @@
             <td>Price</td>
             <td>Category</td>
             <td>Image</td>
-            <th class="col-2" colspan="2">Tools</th>  
+            <th style="width: 50px;" colspan="2">Tools</th>  
         </tr>
         @foreach ($products as $product)
         <tr>
@@ -70,16 +80,17 @@
             <td>
                 <img src="{{ $product->image_url }}" alt="{{ $product->image_url }}" class="img-thumbnail" width="80" />
             </td>
-            <td><a class="btn btn-secondary" href="{{route('product.edit', [$product])}}">Edit</a></td>
+            <td><a style="border: none; background-color:transparent;" href="{{route('product.edit', [$product])}}"><i class="fas fa-edit text-gray-300"></i></a></td>
             <td>
                 <form method="post" action="{{route('product.destroy', [$product])}}">
                 @csrf
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    <button type="submit" style="border: none; background-color:transparent;"><i class="fas fa-trash fa-lg text-danger"></i></button>
+                </form>
             </td>
         </tr>
         @endforeach
     </table>
+    {!! $products->links() !!}
 </div>
 
 @endsection  

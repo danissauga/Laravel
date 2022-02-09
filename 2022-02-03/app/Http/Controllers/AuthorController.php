@@ -19,25 +19,20 @@ class AuthorController extends Controller
     {
         $sortCollumn = $request->sortCollumn;
         $sortOrder = $request->sortOrder;
-        //$authors = Author::all(); //surusiuota didėjimo tvarka
-       /// $authors = Author::sort(); tas pat kas all()
-
-        //true -- Mazejimo tvarka
-        //False -- didejimo tvarka.
-
-        //$authors = Author::all()->sortBy('name', SORT_REGULAR, false);
-        
+        $recordPerPage = $request->recordsPerPage;
+        $search_key = $request->search_key;
         if (empty($sortCollumn) || empty($sortOrder)) {
-            $authors = Author::all();
+            $authors =Author::paginate($recordPerPage);
         } else {
-            $authors = Author::orderBy($sortCollumn, $sortOrder)->get();
+            $authors = Author::where('description','like','%'.$search_key.'%')
+            ->orWhere('name', 'like', '%'.$search_key.'%')  
+            ->orWhere('surename', 'like', '%'.$search_key.'%') 
+            ->orWhere('username', 'like', '%'.$search_key.'%') 
+            ->orWhere('id', 'like', '%'.$search_key.'%')
+            ->orderBy($sortCollumn, $sortOrder)
+            ->paginate($recordPerPage);
         }
-
-       //$select_array = DB::getSchemaBuilder()->getColumnListing('authors'); //naudotina Model`yje
-       // array_slice($select_array, 1, -2); //apribojimas, kiek imti elementu
-
        $select_array = array_keys($authors->first()->getAttributes());
-       
                 
        return view('author.index', ['authors' => $authors, 'sortOrder'=> $sortOrder, 'sortCollumn' => $sortCollumn, 'select_array' => $select_array]);
 

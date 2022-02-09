@@ -73,5 +73,6 @@
         </tr>
         @endforeach
     </table>
+     {!! $productCategories->links() !!}
 </div>
 @endsection  
