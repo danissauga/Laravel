@@ -56,7 +56,7 @@
             <td>Price</td>
             <td>Category</td>
             <td>Image</td>
-            <th class="col-2" colspan="2">Tools</th>  
+            <th class="col-3" colspan="2">Tools</th>  
         </tr>
         @foreach ($products as $product)
         <tr>
@@ -72,12 +72,39 @@
             <td>
                 <form method="post" action="{{route('product.destroy', [$product])}}">
                 @csrf
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    <button type="submit" style="border: none; background-color:transparent;"><i class="fas fa-trash fa-lg text-danger"></i></button>
+                </form>
+            </td>
+            <td>
+                            <button data-toggle="modal" id="mediumButton" data-target="#mediumModal" 
+                                data-attr="{{ route('product.edit', $product->id) }}" style="border: none; background-color:transparent;">
+                                <i class="fas fa-edit text-gray-300"></i> 
+                            </button>
+                                
             </td>
         </tr>
         @endforeach
     </table>
 </div>
+
+<!-- medium modal -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="mediumBody">
+                    <div>
+                        <!-- the result to be displayed apply here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection  
