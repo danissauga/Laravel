@@ -32,12 +32,7 @@ class AuthorController extends Controller
             ->orderBy($sortCollumn, $sortOrder)
             ->paginate($recordPerPage);
         }
-
-       //$select_array = DB::getSchemaBuilder()->getColumnListing('authors'); //naudotina Model`yje
-       // array_slice($select_array, 1, -2); //apribojimas, kiek imti elementu
-
        $select_array = array_keys($authors->first()->getAttributes());
-       
                 
        return view('author.index', ['authors' => $authors, 'sortOrder'=> $sortOrder, 'sortCollumn' => $sortCollumn, 'select_array' => $select_array]);
 
