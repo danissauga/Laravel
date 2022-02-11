@@ -21,11 +21,13 @@ class ProductController extends Controller
         $productCategories= ProductCategory::orderBy('title', 'asc')->get();
         $sortCollumn = $request->sortCollumn;
         $sortOrder = $request->sortOrder;
+        $category_id = $request->category_id;
         $paginate = $request->paginateSetting;
-        $paginationSettings = PaginationSetting::all();
+        $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
 
 
         if (empty($sortCollumn) || empty($sortOrder)) {
+            //$products = $products = Product::paginate($paginate);
             $products = $products = Product::paginate($paginate);
         } else {
 
@@ -38,11 +40,17 @@ class ProductController extends Controller
                     return $query->getProductCategory->title;
                     },SORT_REGULAR,$sortBool)->all();
             }
-            $products = Product::orderBy($sortCollumn, $sortOrder)->paginate($paginate);
-            //$products = $products = Product::all();
+        if ($category_id == 'all' || empty($category_id)) {
+                    $products = Product::orderBy($sortCollumn, $sortOrder)->paginate($paginate);
+                }   
+                else {
+                    $products = Product::where('category_id', '=' , $category_id)
+                    ->orderBy($sortCollumn, $sortOrder)->paginate($paginate);
+                }           
         }
+   
+        return view('product.index',['products' => $products, 'sortCollumn' => $sortCollumn, 'sortOrder' => $sortOrder, 'productCategories'=>$productCategories, 'paginationSettings'=>$paginationSettings, 'paginateSetting'=>$paginate, 'category_id'=>$category_id ]);
         
-        return view('product.index',['products' => $products, 'sortCollumn' => $sortCollumn, 'sortOrder' => $sortOrder, 'productCategories'=>$productCategories, 'paginationSettings'=>$paginationSettings, 'paginateSetting'=>$paginate ]);
     }
 
     /**

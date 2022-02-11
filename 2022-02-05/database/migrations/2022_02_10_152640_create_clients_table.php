@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class CreatePaginationSettingsTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,14 @@ class CreatePaginationSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pagination_settings', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->bigInteger('value');
-            $table->tinyInteger('visible');
+            $table->string('name');
+            $table->string('surename');
+            $table->string('phone');
+
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -31,6 +30,6 @@ class CreatePaginationSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pagination_settings');
+        Schema::dropIfExists('clients');
     }
 }

@@ -17,19 +17,23 @@ class PaginationSettingSeeder extends Seeder
     {   
         DB::table('pagination_settings')->insert([
             'title' => '5',
-            'value' => '5'       
+            'value' => 5,       
+            'visible' => 1 
         ]);
         DB::table('pagination_settings')->insert([
             'title' => '15',
-            'value' => '15'       
+            'value' => 15,
+            'visible' => 1       
         ]);
         DB::table('pagination_settings')->insert([
             'title' => '30',
-            'value' => '30'       
+            'value' => 30,
+            'visible' => 0       
         ]);
         DB::table('pagination_settings')->insert([
             'title' => '45',
-            'value' => '45'       
+            'value' => 45,
+            'visible' => 1       
         ]);
        
     }

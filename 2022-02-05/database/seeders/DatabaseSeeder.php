@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             [
                 PaginationSettingSeeder::class,
                 ProductCategorySeeder::class,
-                ProductSeeder::class
+                ProductSeeder::class,
+                ClientSeeder::class
                 
             ]);
     }
