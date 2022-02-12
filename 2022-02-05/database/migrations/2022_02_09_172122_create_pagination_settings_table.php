@@ -17,7 +17,8 @@ class CreatePaginationSettingsTable extends Migration
         Schema::create('pagination_settings', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('value');
+            $table->bigInteger('value');
+            $table->tinyInteger('visible');
             $table->timestamps();
         });
         

@@ -47,3 +47,16 @@ Route::prefix('products')->group(function() {
 
 
 });
+Route::prefix('clients')->group(function() {
+
+
+    Route::get('', 'App\Http\Controllers\ClientController@index')->name('client.index');
+    // Route::get('categoryfilter', 'App\Http\Controllers\ProductController@categoryfilter')->name('product.categoryfilter');
+    Route::get('create', 'App\Http\Controllers\ProductController@create')->name('client.create');
+    // Route::post('store', 'App\Http\Controllers\ProductController@store' )->name('product.store');
+    Route::get('edit/{product}', 'App\Http\Controllers\ClientController@edit')->name('client.edit');
+    Route::post('update/{product}', 'App\Http\Controllers\ClientController@update')->name('client.update');
+    //Route::post('destroy/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.destroy');
+
+
+});

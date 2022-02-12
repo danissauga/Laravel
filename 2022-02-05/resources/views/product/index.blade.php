@@ -30,20 +30,22 @@
             @endif
             @endforeach
         </select>
-
-        <input type="submit" name="Sort">
-    </form>
-    <form method="GET" action="{{route('product.categoryfilter')}}">
-    @csrf
         <select name="category_id">
+            <option value="all">All records</option>
             @foreach ($productCategories as $category )
+            @if ($category_id == $category->id)
+                <option selected value="{{ $category->id }}">{{ $category->title }}</option>
+            @else
                 <option value="{{ $category->id }}">{{ $category->title }}</option>
+            @endif
             @endforeach
         </select>
-        <input type="submit" name="Sort">
+        <input type="submit" name="Atrinkti">
     </form>
 
-        @if (count($products) == 0)
+<a href="{{route('product.index')}}" class="btn btn-secondary">Clear filters</a>
+    
+@if (count($products) == 0)
             <p>There is no products</p>
         @endif
 
@@ -81,6 +83,7 @@
                 <img src="{{ $product->image_url }}" alt="{{ $product->image_url }}" class="img-thumbnail" width="80" />
             </td>
             <td><a style="border: none; background-color:transparent;" href="{{route('product.edit', [$product])}}"><i class="fas fa-edit text-gray-300"></i></a></td>
+            
             <td>
                 <form method="post" action="{{route('product.destroy', [$product])}}">
                 @csrf
@@ -90,7 +93,10 @@
         </tr>
         @endforeach
     </table>
-    {!! $products->links() !!}
+  {{--   {!! $products->links() !!} --}}
+  @if ($paginateSetting != 1) 
+    {!! $products->appends(Request::except('page'))->render() !!}
+  @endif
 </div>
 
 @endsection  
