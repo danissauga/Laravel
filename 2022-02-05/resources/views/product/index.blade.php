@@ -94,7 +94,9 @@
         @endforeach
     </table>
   {{--   {!! $products->links() !!} --}}
+  @if ($paginateSetting != 1) 
     {!! $products->appends(Request::except('page'))->render() !!}
+  @endif
 </div>
 
 @endsection  
