@@ -1,0 +1,54 @@
+@extends('layouts.app')
+@section('content')
+
+<div class="container">
+<h1> Tasks list </h1>
+
+<form method="GET" action="{{route('task.index')}}">
+    @csrf
+    <select name="sortCollumn">
+            @foreach ($select_array as $key => $collumn)
+                @if (($collumn == $sortCollumn) || (empty($sortCollumn) && $key == 0))
+                    <option selected value="{{ $collumn }}">{{ $collumn }}</option>
+                @else
+                <option value="{{ $collumn }}">{{ $collumn }}</option>
+                @endif
+            @endforeach
+        </select>
+        <select name="sortOrder">
+            @if ($sortOrder == 'asc' || empty($sortOrder))
+            <option value="asc" selected>Ascending</option>
+            <option value="desc" >Descendind</option>
+            @else
+            <option value="asc">Ascending</option>
+            <option value="desc" selected>Descendind</option>
+            @endif
+        </select>
+    <button type="submit" class="btn btn-secondary">Atrinkti</button>
+</form>
+
+<table class="table">
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Descrtiption</td>
+            <td>Status</td>
+            
+        </tr>
+        @foreach ($tasks as $task)
+        <tr>
+            <td>{{ $task->id }}</td>
+            <td>{{ $task->title }}</td>
+            <td>{{ $task->description }}</td>
+            <td>{{ $task->getTaskStatus->title }}</td>
+            
+        </tr>
+        @endforeach
+    </table>
+  {{--   {!! $products->links() !!} 
+  @if ($paginateSetting != 1) 
+    {!! $products->appends(Request::except('page'))->render() !!}
+  @endif--}}
+</div>
+
+@endsection  
