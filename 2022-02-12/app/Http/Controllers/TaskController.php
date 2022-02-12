@@ -26,6 +26,12 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
 
         $paginate = $request->paginateSetting;
+        
+    if (empty($paginate)) {
+        $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
+        $paginate = $defaultPaginate->value;
+    }
+
         $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
 
         $tem_task = Task::all();

@@ -11,4 +11,5 @@ class Task extends Model
     public function getTaskStatus() {
         return $this->belongsTo(TaskStatus::class, 'status_id','id');
     }
+    
 }
