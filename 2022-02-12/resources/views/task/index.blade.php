@@ -33,6 +33,16 @@
             @endif
             @endforeach
         </select>
+        <select name="taskStatus">
+            <option selected value="all">All statuses</option>
+            @foreach ($taskStatuses as $status)
+            @if ($taskStatus == $status->id)
+                <option selected value="{{ $status->id }}">{{ $status->title }}</option>
+            @else
+                <option value="{{ $status->id }}">{{ $status->title }}</option>
+            @endif
+            @endforeach
+        </select>
     <button type="submit" class="btn btn-secondary">Atrinkti</button>
 </form>
 
