@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\PaginationSetting;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Http\Request; 
@@ -20,11 +21,14 @@ class TaskController extends Controller
         $sortCollumn = $request->sortCollumn;
         $sortOrder = $request->sortOrder;
 
+        $paginate = $request->paginateSetting;
+        $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
+
         $tem_task = Task::all();
         $select_array = array_keys($tem_task->first()->getAttributes());
 
         if (empty($sortCollumn) || empty($sortOrder)) {
-            $tasks = Task::all();
+            $tasks = Task::paginate($paginate);
         }
         else {
 
@@ -37,10 +41,14 @@ class TaskController extends Controller
                     return $query->getTaskStatus->title;
                     },SORT_REGULAR,$sortBool)->all();
             }
-            $tasks = Task::orderBy($sortCollumn, $sortOrder)->get();
+            if ($paginate == 1) { $tasks = Task::orderBy($sortCollumn, $sortOrder)->get(); }
+                else {
+                    $tasks = Task::orderBy($sortCollumn, $sortOrder)->paginate($paginate);
+                }
+           // $tasks = Task::orderBy($sortCollumn, $sortOrder)->paginate($paginate);
         }
        // $tasks = Task::all();    
-        return view('task.index',['tasks' => $tasks, 'sortCollumn'=>$sortCollumn, 'sortOrder'=> $sortOrder, 'select_array'=>$select_array]);
+        return view('task.index',['tasks' => $tasks, 'sortCollumn'=>$sortCollumn, 'sortOrder'=> $sortOrder, 'select_array'=>$select_array, 'paginationSettings'=>$paginationSettings,'paginateSetting'=>$paginate]);
 
     }
 

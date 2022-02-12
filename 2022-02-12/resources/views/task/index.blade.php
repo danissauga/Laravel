@@ -24,17 +24,28 @@
             <option value="desc" selected>Descendind</option>
             @endif
         </select>
+        <select name="paginateSetting">
+            @foreach ($paginationSettings as $setting)
+            @if ($paginateSetting == $setting->value)
+                <option selected value="{{ $setting->value }}">{{ $setting->title }}</option>
+            @else
+                <option value="{{ $setting->value }}">{{ $setting->title }}</option>
+            @endif
+            @endforeach
+        </select>
     <button type="submit" class="btn btn-secondary">Atrinkti</button>
 </form>
 
-<table class="table">
+<table class="table table-hover">
+    <thead>
         <tr>
             <td>ID</td>
             <td>Title</td>
             <td>Descrtiption</td>
             <td>Status</td>
-            
         </tr>
+    </thead>
+    <tbody>
         @foreach ($tasks as $task)
         <tr>
             <td>{{ $task->id }}</td>
@@ -44,11 +55,12 @@
             
         </tr>
         @endforeach
-    </table>
-  {{--   {!! $products->links() !!} 
+    </tbody>
+</table>
+  {{--   {!! $products->links() !!} --}}
   @if ($paginateSetting != 1) 
-    {!! $products->appends(Request::except('page'))->render() !!}
-  @endif--}}
+    {!! $tasks->appends(Request::except('page'))->render() !!}
+  @endif
 </div>
 
 @endsection  
