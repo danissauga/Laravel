@@ -4,7 +4,7 @@
 <div class="container">
 <h1> Tasks list </h1>
 
-<form method="GET" action="{{route('task.indexsortable')}}">
+<form method="GET" action="{{route('task.indexsortable',[$tasks->appends(Request::except('page'))->render()])}}">
     @csrf
 
     <select name="paginateSetting">
@@ -27,7 +27,8 @@
             @endforeach
         </select>
     <button type="submit" class="btn btn-secondary">Atrinkti</button>
-
+    <input hidden name="sort" type="text" value="{{ $sort }}"/>
+    <input hidden name="direction" type="text" value="{{ $direction }}"/>
 
 </form>
 
