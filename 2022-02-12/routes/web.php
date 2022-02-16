@@ -25,6 +25,7 @@ Route::prefix('tasks')->group(function() {
 
   
     Route::get('', 'App\Http\Controllers\TaskController@index')->name('task.index');
+    Route::get('/sortable', 'App\Http\Controllers\TaskController@indexsortable')->name('task.indexsortable');
    
 
 

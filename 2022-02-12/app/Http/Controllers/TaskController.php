@@ -26,6 +26,12 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
 
         $paginate = $request->paginateSetting;
+        
+    if (empty($paginate)) {
+        $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
+        $paginate = $defaultPaginate->value;
+    }
+
         $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
 
         $tem_task = Task::all();
@@ -133,5 +139,40 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+    }
+    public function indexsortable(Request $request) {
+
+        $taskStatus = $request->taskStatus;
+        $taskStatuses = TaskStatus::all();
+
+        $paginate = $request->paginateSetting;
+        
+    if (empty($paginate)) {
+        $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
+        $paginate = $defaultPaginate->value;
+    }
+
+        $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
+
+        $tem_task = Task::all();
+        $select_array = array_keys($tem_task->first()->getAttributes());
+        
+        if (($taskStatus == 'all') || (empty($taskStatus))) {
+            
+            $tasks = Task::sortable()->paginate($paginate);
+        }
+        else {
+            $tasks = Task::where('status_id','=',$taskStatus)
+            ->sortable()->paginate($paginate);
+        }
+
+        return view('task.indexsortable',
+        ['tasks' => $tasks,
+        'select_array'=>$select_array,
+        'paginationSettings'=>$paginationSettings,
+        'paginateSetting'=>$paginate,
+        'taskStatus'=> $taskStatus, 
+        'taskStatuses'=> $taskStatuses
+        ]);
     }
 }
