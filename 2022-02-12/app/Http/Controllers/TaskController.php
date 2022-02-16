@@ -142,6 +142,9 @@ class TaskController extends Controller
     }
     public function indexsortable(Request $request) {
 
+        $sortCollumn = $request->sort;
+        $sortOrder = $request->direction;    
+
         $taskStatus = $request->taskStatus;
         $taskStatuses = TaskStatus::all();
 
@@ -172,7 +175,9 @@ class TaskController extends Controller
         'paginationSettings'=>$paginationSettings,
         'paginateSetting'=>$paginate,
         'taskStatus'=> $taskStatus, 
-        'taskStatuses'=> $taskStatuses
+        'taskStatuses'=> $taskStatuses,
+        'sort'=>$sortCollumn,
+        'direction'=> $sortOrder
         ]);
     }
 }
