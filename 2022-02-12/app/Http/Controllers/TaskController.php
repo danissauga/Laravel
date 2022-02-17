@@ -154,19 +154,27 @@ class TaskController extends Controller
         $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
         $paginate = $defaultPaginate->value;
     }
-
         $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
 
         $tem_task = Task::all();
         $select_array = array_keys($tem_task->first()->getAttributes());
         
         if (($taskStatus == 'all') || (empty($taskStatus))) {
-            
-            $tasks = Task::sortable()->paginate($paginate);
+            if ($paginate == 'all') {
+                $tasks = Task::sortable()->get();
+            }
+            else {
+                $tasks = Task::sortable()->paginate($paginate);    
+            } 
         }
         else {
+            if ($paginate == 'all') {
             $tasks = Task::where('status_id','=',$taskStatus)
+            ->sortable()->get(); }
+            else {
+                $tasks = Task::where('status_id','=',$taskStatus)
             ->sortable()->paginate($paginate);
+            }
         }
 
         return view('task.indexsortable',
@@ -180,9 +188,28 @@ class TaskController extends Controller
         'direction'=> $sortOrder
         ]);
     }
-    public function indexadvancedsort() {
-        $tasks = Task::select('tasks.*')->join('task_statuses','tasks.status_id', '=', 'task_statuses.id')->paginate(15);
+    public function indexadvancedsort(Request $request) {
 
+        $sortCollumn = $request->sortCollumn;
+        $sortOrder = $request->sortOrder;
+
+        $taskStatus = $request->taskStatus;
+        $taskStatuses = TaskStatus::all();
+
+        $paginate = $request->paginateSetting;
+        
+    if (empty($paginate)) {
+        $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
+        $paginate = $defaultPaginate->value;
+    }
+
+        $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
+
+        $tem_task = Task::all();
+        $select_array = array_keys($tem_task->first()->getAttributes());
+
+
+        $tasks = Task::select('tasks.*')->join('task_statuses','tasks.status_id', '=', 'task_statuses.id')->paginate(15);
         return view('task.indexadvancedsort', ['tasks' => $tasks]);
     }
 
