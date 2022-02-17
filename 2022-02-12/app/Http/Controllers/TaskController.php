@@ -180,4 +180,11 @@ class TaskController extends Controller
         'direction'=> $sortOrder
         ]);
     }
+    public function indexadvancedsort() {
+        $tasks = Task::select('tasks.*')->join('task_statuses','tasks.status_id', '=', 'task_statuses.id')->paginate(15);
+
+        return view('task.indexadvancedsort', ['tasks' => $tasks]);
+    }
+
+
 }
