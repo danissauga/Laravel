@@ -4,7 +4,7 @@
 <div class="container">
 <h1> Tasks list </h1>
 
-<form method="GET" action="{{route('task.indexsortable',[$tasks->appends(Request::except('page'))->render()])}}">
+<form method="GET" action="{{route('task.indexsortable')}}">
     @csrf
 
     <select name="paginateSetting">
@@ -38,7 +38,8 @@
             <td style="width: 50px;">@sortablelink('id','ID')</td>
             <td>@sortablelink('title','Title')</td>
             <td>@sortablelink('description','Descrtiption')</td>
-            <td>@sortablelink('status_id','Status')</td>
+        {{--     <td>@sortablelink('status_id','Status')</td> --}}
+            <td style="width: 100px;" >@sortablelink('getTaskStatus.title','Status')</td>
         </tr>
     </thead>
     <tbody>
