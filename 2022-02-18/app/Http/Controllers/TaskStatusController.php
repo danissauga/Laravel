@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use App\Http\Requests\StoreTaskStatusRequest;
 use App\Http\Requests\UpdateTaskStatusRequest;
+use App\Models\Task;
+use Illuminate\Http\Request;  
 
 class TaskStatusController extends Controller
 {
@@ -35,9 +37,29 @@ class TaskStatusController extends Controller
      * @param  \App\Http\Requests\StoreTaskStatusRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskStatusRequest $request)
+    public function store(Request $request)
     {
-        //
+        
+        $task = new Task();
+
+        $task->title = $request->taskTitle;
+        $task->description = $request->taskDescription;
+        //jei checkbox pazymetas, turi buti kuriamas kitas autorius
+        if($request->addNewTask){
+            $taskStatus = new TaskStatus;
+
+            $taskStatus->title=$request->newTask;
+            $taskStatus->save();
+
+            $task->status_id = $taskStatus->id;
+
+        } else {
+            $task->status_id = $request->taskStatus;
+        }
+
+        $task->save();
+
+        return redirect()->route('task.index');
     }
 
     /**

@@ -9,7 +9,7 @@
 <div id="tasks_list">
     <div class="form-group">
             <label for="tasksStatus">Tasks status</label>
-            <select class="form-select" id="taskStatus>">
+            <select class="form-select" id="taskStatus" name="taskStatus">
                 @foreach ($taskstatuses as $status)
                     <option value="{{ $status->id }}">{{ $status->title}}</option>
                 @endforeach
