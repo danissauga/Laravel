@@ -3,7 +3,7 @@
 
 <div class="container">
     <h2>Categories list</h2>
-
+    <a class="btn btn-primary" href="{{route('category.create')}}">Add new category</a>
     <table class="table table-hover">
     <thead>
         <tr>
@@ -12,6 +12,7 @@
             <td>@sortablelink('description','Category descrioption')</td>
             <td>Post`s count</td>
             <td>Status</td>
+            <td colspan="2">Tools</td>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +23,14 @@
             <td>{{ $category->description }}</td>
             <td>{{ count($category->categoryHasPosts) }}</td>
             <td>{{ $category->categoryHasStatus->title }}</td>
-            <td><a class="btn btn-primary" href="{{route('category.show', [$category])}}">Show</a></td>
+            <td><a class="btn btn-primary" href="{{route('category.show', [$category])}}">Show</a>
+                <a class="btn btn-secondary" href="{{route('category.edit', [$category])}}">Edit</a></td>
+                <form class="form-control" method="post" action="{{route('category.destroy', [$category])}}">
+                    <td>
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </td>
+                    @csrf
+                </form>
         </tr>
         @endforeach
     </tbody>

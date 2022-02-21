@@ -3,7 +3,9 @@
 
 <div class="container">
     <h2>Post`s list</h2>
-
+    <a class="btn btn-primary" href="{{route('post.create')}}">Create post</a>
+    <a class="btn btn-primary" href="{{route('category.create')}}">Create Category</a>
+    <a class="btn btn-primary" href="{{route('category.index')}}">Categories list</a>
     <form method="GET" action="{{route('post.index')}}">
     @csrf
 
@@ -49,20 +51,19 @@
             <td>{{ $post->id }}</td>
             <td>{{ $post->title }}</td>
             <td>{{ $post->postContent }}</td>
-            <td>{{ $post->postHasCategory->title }}</td>
-            
-    {{--         <td><a class="btn btn-secondary" href="{{route('school.edit', [$school])}}">Edit</a></td>
-                <form class="form-control" method="post" action="{{route('school.destroy', [$school])}}">
+            <td>{{ $post->postHasCategory->title }}</td> 
+            <td><a class="btn btn-secondary" href="{{route('post.edit', [$post])}}">Edit</a></td>
+                <form class="form-control" method="post" action="{{route('post.destroy', [$post])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
                     @csrf
-                </form> --}}
-
+                </form>
         </tr>
         @endforeach
     </tbody>
     </table>
+    
        @if ($paginateSetting != 1)
         {!! $posts->appends(Request::except('page'))->render() !!}
     @endif
