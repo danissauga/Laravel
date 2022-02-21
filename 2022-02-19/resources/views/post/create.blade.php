@@ -19,6 +19,10 @@
         <label for="newCategory">New category</label>
             <input id="newCategory" class="form-control" name="newCategory" type="text">
     </div>
+    <div class="form-group pb-2">
+    <label for="newCategoryDescription">New category descriotion</label>
+        <textarea type="text" class="form-control" name="newCategoryDescription"></textarea>
+    </div>
     <div class="form-group">
             <label for="allStatuses">Category status</label>
             <select class="form-select" id="allStatuses" name="allStatuses">
@@ -28,6 +32,7 @@
             </select>
     </div>
 </div>
+
 <div class="form-group">
         <label for="addNewCategory">Add new category ?
             <input id="addNewCategory" name="addNewCategory" type="checkbox">
@@ -43,8 +48,9 @@
 </div>
 
 <div class="form-group">
-    <button class="btn btn-primary" type="submit">Įterpti</button>
+    <button class="btn btn-primary" type="submit">Add post</button>
 </div>
+
 </form>
 </div>
 

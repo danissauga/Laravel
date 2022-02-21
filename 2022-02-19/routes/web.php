@@ -30,6 +30,7 @@ Route::prefix('categories')->group(function() {
     Route::get('edit/{category}', 'App\Http\Controllers\CategoryController@edit')->name('category.edit');
     Route::post('update/{category}', 'App\Http\Controllers\CategoryController@update')->name('category.update');
     Route::get('show/{category}', 'App\Http\Controllers\CategoryController@show')->name('category.show'); 
+    Route::post('destroy/{category}', 'App\Http\Controllers\CategoryController@destroy')->name('category.destroy');
 
 });
 Route::prefix('posts')->group(function() {
@@ -39,5 +40,6 @@ Route::prefix('posts')->group(function() {
     Route::post('store', 'App\Http\Controllers\PostController@store')->name('post.store');
     Route::get('edit/{post}', 'App\Http\Controllers\PostController@edit')->name('post.edit');
     Route::post('update/{post}', 'App\Http\Controllers\PostController@update')->name('post.update'); 
+    Route::post('destroy/{post}', 'App\Http\Controllers\PostController@destroy')->name('post.destroy');
 
 });

@@ -89,24 +89,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post;
-
         $post->title = $request->postTitle;
         $post->postContent = $request->postContent;
         
-        //jei checkbox pazymetas, turi buti kuriamas kitas autorius
         if($request->addNewCategory){
             $category = new Category;
-
-            $category->title=$request->newCategory;
+            $category->title = $request->newCategory;
+            $category->description = $request->newCategoryDescription;
             $category->status_id = $request->allStatuses;
             $category->save();
 
             $post->category_id = $category->id;
-
         } else {
             $post->category_id = $request->allCategories;
         }
-
         $post->save();
 
         return redirect()->route('post.index');
@@ -131,7 +127,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.edit',['post'=>$post]);
+        $categories = Category::all();
+        $statuses = Status::all();
+        return view('post.edit',['post' => $post, 'categories' => $categories, 'statuses' => $statuses]);
     }
 
     /**
@@ -141,9 +139,25 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->title = $request->postTitle;
+        $post->postContent = $request->postContent;
+        
+        if($request->addNewCategory){
+            $category = new Category;
+            $category->title = $request->newCategory;
+            $category->description = $request->newCategoryDescription;
+            $category->status_id = $request->allStatuses;
+            $category->save();
+
+            $post->category_id = $category->id;
+        } else {
+            $post->category_id = $request->allCategories;
+        }
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -154,6 +168,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
-    }
+        $post->delete(); 
+        return redirect()->route('post.index');   
+    }  
 }

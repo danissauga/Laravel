@@ -34,8 +34,8 @@ class CategoryController extends Controller
      */
     public function create()
     {   
-        //
-
+        $statuses = Status::all();
+        return view('category.create',['statuses' => $statuses]);
     }
 
     /**
@@ -44,9 +44,25 @@ class CategoryController extends Controller
      * @param  \App\Http\Requests\StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
-        //
+        $category = new Category;
+        $category->title = $request->newCategory;
+        $category->description = $request->newCategoryDescription;
+        $category->status_id = $request->allStatuses;
+        $category->save();
+
+        if($request->addNewPost){
+            $count = count($request->postTitle);
+            for ($i=0 ; $i<$count; $i++){ 
+                $post = new Post;
+                $post->title = $request->postTitle[$i];
+                $post->postContent = $request->postContent[$i];
+                $post->category_id = $category->id;
+                $post->save();
+            }
+        }        
+        return redirect()->route('post.index');
     }
 
     /**
@@ -95,6 +111,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('category.index');  
     }
 }
