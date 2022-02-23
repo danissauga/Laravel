@@ -4,6 +4,8 @@
 <div class="container">
     <h2>Categories list</h2>
     <a class="btn btn-primary" href="{{route('category.create')}}">Add new category</a>
+    <a class="btn btn-primary" href="{{route('category.createadvanced')}}">Add new category advanced</a>
+
     <a class="btn btn-secondary" href="{{route('post.index')}}">Go to post`s list</a>
     @if (session()->has('error_message'))
         <div class="alert alert-danger mt-2">
