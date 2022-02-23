@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -41,5 +38,10 @@ Route::prefix('posts')->group(function() {
     Route::get('edit/{post}', 'App\Http\Controllers\PostController@edit')->name('post.edit');
     Route::post('update/{post}', 'App\Http\Controllers\PostController@update')->name('post.update'); 
     Route::post('destroy/{post}', 'App\Http\Controllers\PostController@destroy')->name('post.destroy');
+    Route::get('show/{post}', 'App\Http\Controllers\PostController@show')->name('post.show'); 
 
+});
+
+Route::get('/', function () {
+    return redirect()->route('post.index');
 });

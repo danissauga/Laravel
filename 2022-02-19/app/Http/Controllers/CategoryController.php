@@ -62,7 +62,7 @@ class CategoryController extends Controller
                 $post->save();
             }
         }        
-        return redirect()->route('post.index');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -87,8 +87,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {
-        return view('category.edit');
+    {   
+        $statuses = Status::all();
+        return view('category.edit',['category'=>$category,'statuses'=>$statuses]);
     }
 
     /**
@@ -98,9 +99,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->title = $request->categoryTitle;
+        $category->description = $request->categoryDescription;
+        $category->status_id = $request->allStatuses;
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -111,7 +117,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $categories = $category->categoryHasPosts;
+        if (count($categories) != 0) {
+            return redirect()->route('category.index')->with('error_message','Delete is not possible because Category has post`s');
+        }
         $category->delete();
-        return redirect()->route('category.index');  
+        return redirect()->route('category.index')->with('success_message','Category removed success!');  
     }
 }

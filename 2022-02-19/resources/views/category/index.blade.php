@@ -4,6 +4,24 @@
 <div class="container">
     <h2>Categories list</h2>
     <a class="btn btn-primary" href="{{route('category.create')}}">Add new category</a>
+    <a class="btn btn-secondary" href="{{route('post.index')}}">Go to post`s list</a>
+    @if (session()->has('error_message'))
+        <div class="alert alert-danger mt-2">
+            {{session()->get('error_message')}}
+        </div>
+        @endif
+
+        @if (session()->has('success_message'))
+                <div class="alert alert-success mt-2">
+                    {{session()->get('success_message')}}
+                </div>
+        @endif
+
+        @if (count($categories) == 0)
+            <p>There is no company</p>
+        @endif
+
+
     <table class="table table-hover">
     <thead>
         <tr>
@@ -35,10 +53,9 @@
         @endforeach
     </tbody>
     </table>
-     {!! $categories->appends(Request::except('page'))->render() !!}
-    {{--     @if ($paginateSetting != 1)
-        {!! $tasks->appends(Request::except('page'))->render() !!}
-    @endif--}}
+        
+        {!! $categories->appends(Request::except('page'))->render() !!}
+   
 
 </div>
 
