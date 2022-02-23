@@ -38,6 +38,18 @@ class CategoryController extends Controller
         return view('category.create',['statuses' => $statuses]);
     }
 
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createadvanced()
+    {   
+        $statuses = Status::all();
+        return view('category.createadvanced',['statuses' => $statuses]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
