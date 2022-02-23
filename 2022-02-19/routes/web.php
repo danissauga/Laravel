@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -43,4 +40,8 @@ Route::prefix('posts')->group(function() {
     Route::post('destroy/{post}', 'App\Http\Controllers\PostController@destroy')->name('post.destroy');
     Route::get('show/{post}', 'App\Http\Controllers\PostController@show')->name('post.show'); 
 
+});
+
+Route::get('/', function () {
+    return redirect()->route('post.index');
 });
