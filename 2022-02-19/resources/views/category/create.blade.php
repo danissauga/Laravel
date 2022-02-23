@@ -2,6 +2,7 @@
 @section('content')
 <div class="container">
 <h4>Add new Category</h4>
+<a class="btn btn-secondary" href="{{route('category.index')}}">Back to categories list</a>
 <form method="POST" action="{{route('category.store')}}">
 @csrf
 <div  id="add_category">

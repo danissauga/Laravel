@@ -4,6 +4,10 @@
     <h2>Show category -> {{ $category->title }} <- details </h2>
 <h3>This category has post`s</h3>
 <a class="btn btn-secondary" href="{{route('category.index')}}">Back to Categories list</a>
+
+@if (count($posts) == 0)
+            <p class="mt-3">There is no posts in this category !</p>
+@else
 <table class="table table-hover">
     <thead>
         <tr>
@@ -23,5 +27,6 @@
     </tbody>
     </table>
     {!! $posts->appends(Request::except('page'))->render() !!}
+@endif
 </div>
 @endsection

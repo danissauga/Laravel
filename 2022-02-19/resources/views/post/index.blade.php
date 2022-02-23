@@ -43,6 +43,7 @@
             <td>@sortablelink('postContent','Post Content')</td>
          {{--     <td  style="width: 200px;">@sortablelink('category_id','Category')</td> --}}
            <td style="width: 300px;" >@sortablelink('postHasCategory.title','Category')</td>
+           <td colspan="3">Tools</td>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +54,8 @@
             <td>{{ $post->postContent }}</td>
             <td>{{ $post->postHasCategory->title }}</td> 
             <td><a class="btn btn-secondary" href="{{route('post.edit', [$post])}}">Edit</a></td>
+            <td><a class="btn btn-secondary" href="{{route('post.show', [$post])}}">View</a></td>
+            </td>
                 <form class="form-control" method="post" action="{{route('post.destroy', [$post])}}">
                     <td>
                         <button class="btn btn-danger" type="submit">Delete</button>
