@@ -74,6 +74,57 @@
     @enderror
 </div>
 
+<div class="form-group pb-2">
+    <label for="postNumber">Post number 1</label>
+    <input type="number" class="form-control @error('postNumber') is-invalid @enderror" value="{{ old('postNumber') }}" name="postNumber">
+    @error('postNumber')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group pb-2">
+    <label for="postNumberTest">Post number 1 test</label>
+    <input type="number" class="form-control @error('postNumberTest') is-invalid @enderror" value="{{ old('postNumberTest') }}" name="postNumberTest">
+    @error('postNumberTest')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group pb-2">
+    <label for="postDateFrom">Post Date from</label>
+    <input type="text" class="form-control @error('postDateFrom') is-invalid @enderror" value="{{ old('postDateFrom') }}" name="postDateFrom">
+    @error('postDateFrom')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group pb-2">
+    <label for="postDateTo">Post date to</label>
+    <input type="text" class="form-control @error('postDateTo') is-invalid @enderror" value="{{ old('postDateTo') }}" name="postDateTo">
+    @error('postDateTo')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group pb-2">
+    <label for="postPhone">Post phone </label>
+    <input type="text" class="form-control @error('postPhone') is-invalid @enderror" value="{{ old('postPhone') }}" name="postPhone">
+    @error('postPhone')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+
 <div class="form-group">
     <button class="btn btn-primary" type="submit">Add post</button>
 </div>
