@@ -2,6 +2,22 @@
 @section('content')
 <div class="container">
 <h4>Add new Post</h4>
+
+<div class="errors">
+{{-- {{ print_r($errors) }} 
+@if ($errors->any())
+    <div class="alert alert-danger">
+       <ul>
+            @foreatch ($errors->all() as $error)
+                <li>
+                    {{ $error }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+@endif--}}
+</div>
+
 <form method="POST" action="{{route('post.store')}}">
 @csrf
 <div id="categories_list">
@@ -40,11 +56,22 @@
 </div>
 <div class="form-group">
     <label for="postTitle">Post title</label>
-    <input class="form-control" type="text" name="postTitle" value="">
+    <input type="text" class="form-control @error('postTitle') is-invalid @enderror" name="postTitle" value="{{ old('postTitle') }}">
+@error('postTitle')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+@enderror
 </div>
+                        
 <div class="form-group pb-2">
     <label for="postContent">Post descriotion</label>
-    <textarea type="text" class="form-control" name="postContent"></textarea>
+    <textarea type="text" class="form-control @error('postContent') is-invalid @enderror" name="postContent">{{ old('postContent') }}</textarea>
+    @error('postContent')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>
 
 <div class="form-group">
