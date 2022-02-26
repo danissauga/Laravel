@@ -23,7 +23,8 @@ Route::prefix('categories')->group(function() {
 
     Route::get('', 'App\Http\Controllers\CategoryController@index')->name('category.index');
     Route::get('create', 'App\Http\Controllers\CategoryController@create')->name('category.create');
-
+    Route::get('createvalidate', 'App\Http\Controllers\CategoryController@createvalidate')->name('category.createvalidate');
+    Route::post('storevalidate', 'App\Http\Controllers\CategoryController@storevalidate')->name('category.storevalidate');
     Route::get('create/advanced', 'App\Http\Controllers\CategoryController@createadvanced')->name('category.createadvanced');
 
     Route::post('store', 'App\Http\Controllers\CategoryController@store')->name('category.store');

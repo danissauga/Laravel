@@ -58,6 +58,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $category = new Category;
         $category->title = $request->newCategory;
         $category->description = $request->newCategoryDescription;
@@ -135,5 +136,29 @@ class CategoryController extends Controller
         }
         $category->delete();
         return redirect()->route('category.index')->with('success_message','Category removed success!');  
+    }
+    public function createvalidate(Request $request) {
+
+        $fieldsCount = $request->fieldsCount;
+        if (!$fieldsCount) {
+            $fieldsCount = 1;
+        }
+        $statuses = Status::all();
+        return view('category.createvalidate',['statuses' => $statuses, 'fieldsCount'=> $fieldsCount]); 
+
+    }
+    public function storevalidate(Request $request) {
+
+        $postsCount = $request->postCount;
+
+       // dd($request->postTitle);
+
+       $request->validate([
+        "postTitle.*.title" => "required|min:10|max:50|alpha",
+        "postContent.*.content" => "required",
+        ]);  
+     // dd($request->postTitle); 
+     return redirect()->route('category.index');
+
     }
 }
