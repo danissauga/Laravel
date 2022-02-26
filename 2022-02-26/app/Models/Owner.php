@@ -16,5 +16,8 @@ class Owner extends Model
     public function ownerHasTask() {
         return $this->belongsTo(Task::class, 'id','owner_id');
     }
+    public function ownerHasTasks() {
+        return $this->hasMany(Task::class, 'owner_id','id');
+    }
 
 }

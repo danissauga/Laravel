@@ -159,6 +159,11 @@ class OwnerController extends Controller
      */
     public function destroy(Owner $owner)
     {
-        //
+        $tasks = $owner->ownerHasTasks;
+        if (count($tasks) != 0) {
+            return redirect()->route('owner.index')->with('error_message','Delete is not possible because Owner has Task`s');
+        }
+        $owner->delete();
+        return redirect()->route('owner.index')->with('success_message','Owner removed success!');    
     }
 }

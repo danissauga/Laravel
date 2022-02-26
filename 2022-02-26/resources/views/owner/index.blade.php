@@ -6,6 +6,19 @@
 
     <a class="btn btn-primary" href="{{route('owner.create')}}">Add new owner</a>   
 
+    @if (session()->has('error_message'))
+        <div class="alert alert-danger mt-2">
+            {{session()->get('error_message')}}
+        </div>
+        @endif
+
+        @if (session()->has('success_message'))
+                <div class="alert alert-success mt-2">
+                    {{session()->get('success_message')}}
+                </div>
+        @endif
+
+
     <form method="GET" action="{{route('owner.index')}}">
     @csrf
 
