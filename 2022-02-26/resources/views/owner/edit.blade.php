@@ -1,68 +1,54 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-<h4>Edit Post</h4>
-<form method="POST" action="{{route('post.update',['post'=>$post])}}">
+<h4>Add new Owner</h4>
+<a class="btn btn-secondary" href="{{route('owner.index')}}">Back to owners list</a>
+<form method="post" action="{{route('owner.update', ['owner'=>$owner])}}">
 @csrf
-<div id="categories_list">
+<div  id="add_wner" >
     <div class="form-group">
-            <label for="allCategories">Category</label>
-            <select class="form-select" id="allCategories" name="allCategories">
-                @foreach ($categories as $category)
-                @if ($post->category_id == $category->id)
-                    <option selected value="{{ $category->id }}">{{ $category->title}}</option>
-                @else
-                    <option value="{{ $category->id }}">{{ $category->title}}</option>
-                @endif
-                @endforeach
-            </select>
-    </div>
-</div>
-<div  id="add_category" class="d-none" >
-    <div class="form-group">
-        <label for="newCategory">New category</label>
-            <input id="newCategory" class="form-control" name="newCategory" type="text">
-    </div>
-    <div class="form-group pb-2">
-    <label for="newCategoryDescription">New category descriotion</label>
-        <textarea type="text" class="form-control" name="newCategoryDescription"></textarea>
+        <label for="newOwnerName">Name</label>
+            <input id="newOwnerName" class="form-control @error('newOwnerName') is-invalid @enderror" name="newOwnerName" type="text" value="{{ $owner->name }}" required>
+        @error('newOwnerName')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     <div class="form-group">
-            <label for="allStatuses">Category status</label>
-            <select class="form-select" id="allStatuses" name="allStatuses">
-                @foreach ($statuses as $status)
-                    <option value="{{ $status->id }}">{{ $status->title}}</option>
-                @endforeach
-            </select>
+        <label for="newOwnerSurename">Surename</label>
+            <input id="newOwnerSurename" class="form-control @error('newOwnerSurename') is-invalid @enderror" name="newOwnerSurename" type="text" value="{{ $owner->surename }}" required>
+            @error('newOwnerSurename')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
-</div>
-<div class="form-group">
-        <label for="addNewCategory">Add new category ?
-            <input id="addNewCategory" name="addNewCategory" type="checkbox">
-        </label>
-</div>
-<div class="form-group">
-    <label for="postTitle">Post title</label>
-    <input class="form-control" type="text" name="postTitle" value="{{ $post->title }}">
-</div>
-<div class="form-group pb-2">
-    <label for="postContent">Post descriotion</label>
-    <textarea type="text" class="form-control" name="postContent">{{ $post->postContent }}</textarea>
+    <div class="form-group">
+        <label for="newOwnerEmail">Email</label>
+            <input id="newOwnerEmail" class="form-control @error('newOwnerEmail') is-invalid @enderror" name="newOwnerEmail" type="email" value="{{ $owner->email }}" required>
+            @error('newOwnerEmail')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    <div class="form-group">
+        <label for="newOwnerPhone">Phone</label>
+            <input id="newOwnerPhone" class="form-control @error('newOwnerPhone') is-invalid @enderror" name="newOwnerPhone" type="text" value="{{ $owner->phone }}" required>
+            @error('newOwnerPhone')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 </div>
 
 <div class="form-group">
-    <button class="btn btn-primary" type="submit">Update</button>
+    <button class="btn btn-primary" type="submit">Add Owner</button>
 </div>
+
 </form>
 </div>
 
-<script>
-$(document).ready(function(){
-    $('#addNewCategory').click(function(){
-        $("#add_category").toggleClass('d-none');
-        $("#categories_list").toggleClass('d-none');
-       
-    });
-});
-</script>
-@endsection
+@endsection 

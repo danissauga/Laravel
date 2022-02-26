@@ -122,7 +122,7 @@ class OwnerController extends Controller
      */
     public function edit(Owner $owner)
     {
-        //
+        return view('owner.edit',['owner'=>$owner]); 
     }
 
     /**
@@ -132,9 +132,23 @@ class OwnerController extends Controller
      * @param  \App\Models\Owner  $owner
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOwnerRequest $request, Owner $owner)
+    public function update(Request $request, Owner $owner)
     {
-        //
+        $request->validate([
+            "newOwnerName" => "required|min:2|max:15|alpha",
+            "newOwnerSurename" => "required|min:2|max:15|alpha",
+            "newOwnerEmail" => "required|email:rfc,dns",
+            "newOwnerPhone" => ['required','max:12','regex:/(86|\+3706)\d{7}/'],
+        ]);
+
+        $owner->name = $request->newOwnerName;
+        $owner->surename = $request->newOwnerSurename;
+        $owner->email = $request->newOwnerEmail;
+        $owner->phone = $request->newOwnerPhone;
+
+        $owner->save();
+
+        return redirect()->route('owner.index');
     }
 
     /**
