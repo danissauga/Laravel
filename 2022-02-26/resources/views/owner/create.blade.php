@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 <h4>Add new Owner</h4>
-
+<a class="btn btn-secondary" href="{{route('owner.index')}}">Back to owners list</a>
 <form method="post" action="{{route('owner.store')}}">
 @csrf
 <div  id="add_wner" >
