@@ -8,19 +8,39 @@
 <div  id="add_wner" >
     <div class="form-group">
         <label for="newOwnerName">Name</label>
-            <input id="newOwnerName" class="form-control" name="newOwnerName" type="text" require>
+            <input id="newOwnerName" class="form-control @error('newOwnerName') is-invalid @enderror" name="newOwnerName" type="text" value="{{ old('newOwnerName') }}" required>
+        @error('newOwnerName')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     <div class="form-group">
         <label for="newOwnerSurename">Surename</label>
-            <input id="newOwnerSurename" class="form-control" name="newOwnerSurename" type="text" require>
+            <input id="newOwnerSurename" class="form-control @error('newOwnerSurename') is-invalid @enderror" name="newOwnerSurename" type="text" value="{{ old('newOwnerSurename') }}" required>
+            @error('newOwnerSurename')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     <div class="form-group">
         <label for="newOwnerEmail">Email</label>
-            <input id="newOwnerEmail" class="form-control" name="newOwnerEmail" type="email" require>
+            <input id="newOwnerEmail" class="form-control @error('newOwnerEmail') is-invalid @enderror" name="newOwnerEmail" type="email" value="{{ old('newOwnerEmail') }}" required>
+            @error('newOwnerEmail')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     <div class="form-group">
         <label for="newOwnerPhone">Phone</label>
-            <input id="newOwnerPhone" class="form-control" name="newOwnerPhone" type="number" require>
+            <input id="newOwnerPhone" class="form-control @error('newOwnerPhone') is-invalid @enderror" name="newOwnerPhone" type="text" value="{{ old('newOwnerPhone') }}" required>
+            @error('newOwnerPhone')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
 </div>
 

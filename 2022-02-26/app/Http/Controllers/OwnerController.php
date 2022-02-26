@@ -82,12 +82,20 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request);
+        
+        $request->validate([
+            "newOwnerName" => "required|min:2|max:15|alpha",
+            "newOwnerSurename" => "required|min:2|max:15|alpha",
+            "newOwnerEmail" => "required|email:rfc,dns",
+            "newOwnerPhone" => ['required','max:12','regex:/(86|\+3706)\d{7}/'],
+        ]);
+
+
         $owner = new Owner;
-        $owner->name = $request->NewOwnerName;
-        $owner->surename = $request->NewOwnerSurename;
-        $owner->email = $request->NewOwnerEmail;
-        $owner->phone = $request->NewOwnerPhone;
+        $owner->name = $request->newOwnerName;
+        $owner->surename = $request->newOwnerSurename;
+        $owner->email = $request->newOwnerEmail;
+        $owner->phone = $request->newOwnerPhone;
 
        
         $owner->save();
