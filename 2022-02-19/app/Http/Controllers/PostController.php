@@ -88,6 +88,37 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //alpha_num -> tik raides ir skaiciai, nepripazysta tarpu
+        //alpha_dash -> tikrina tik raides ir skaicius bet priima _ ir -, nepripazysta tarpu
+        //numeric", // 1 1.5 2.6 -1 -25 0
+        //integer - , 0, +
+        // nauralusis skaicius apsaugomas  gt:0
+        // nauralusis skaicius apsaugomas  gte:0 daugiau arba lygu 0
+        // nauralusis skaicius apsaugomas lt les then
+        // nauralusis skaicius apsaugomas lte les then re equal
+        //date - tikrina ar data
+        //date_equals - ar data lygi 
+        //berore -> data yra pries nurodyta
+        //berore_or_equal -> data yra pries nurodyta arba lygi jai
+        //after -> ar data yra po nurodytos
+        //after_or_equal -> ar data yra po nurodytos arba lygi jai
+
+        //telefono tikrinimas
+        //+370 652 97772
+        //865297772 - integer, kiek skaiciu
+
+        // "postPhone" => "required|regex:/^(86|\+3706)\d{7}\",
+
+        $request->validate([
+            "postTitle" => "required|min:10|max:50|alpha",
+            "postContent" => "required",
+            "postNumber" => "required",
+            "postNumberTest" => "required|gt:postNumber",
+            "postDateFrom" => "required|date|date_equals:postDateTo",
+            "postDateTo" => "required|date",
+            "postPhone" => ['required', 'regex:/(86|\+3706)\d{7}/'],
+        ]);
+
         $post = new Post;
         $post->title = $request->postTitle;
         $post->postContent = $request->postContent;
