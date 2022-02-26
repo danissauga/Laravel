@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OwnerSeeder::class,
             TaskSeeder::class,
-           // ClientSeeder::class
+           PaginationSettingSeeder::class,
         ]);
     }
 }

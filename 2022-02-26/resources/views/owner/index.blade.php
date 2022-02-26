@@ -2,11 +2,11 @@
 @section('content')
 
 <div class="container">
-    <h2>Post`s list</h2>
-    <a class="btn btn-primary" href="{{route('post.create')}}">Create post</a>
-    <a class="btn btn-primary" href="{{route('category.create')}}">Create Category</a>
-    <a class="btn btn-primary" href="{{route('category.index')}}">Categories list</a>
-    <form method="GET" action="{{route('post.index')}}">
+    <h2>Owner`s list</h2>
+
+    <a class="btn btn-primary" href="{{route('owner.create')}}">Add new owner</a>   
+
+    <form method="GET" action="{{route('owner.index')}}">
     @csrf
 
     <select name="paginateSetting">
@@ -15,16 +15,6 @@
                 <option selected value="{{ $setting->value }}">{{ $setting->title }}</option>
             @else
                 <option value="{{ $setting->value }}">{{ $setting->title }}</option>
-            @endif
-            @endforeach
-        </select>
-        <select name="allCategories">
-            <option selected value="all">All categories</option>
-            @foreach ($allCategories as $selectCategory)
-            @if ($category == $selectCategory->id)
-                <option selected value="{{ $selectCategory->id }}">{{ $selectCategory->title }}</option>
-            @else
-                <option value="{{ $selectCategory->id }}">{{ $selectCategory->title }}</option>
             @endif
             @endforeach
         </select>
@@ -39,25 +29,25 @@
     <thead>
         <tr>
             <td style="width: 50px;">@sortablelink('id','ID')</td>
-            <td>@sortablelink('title','Title')</td>
-            <td>@sortablelink('postContent','Post Content')</td>
-         {{--     <td  style="width: 200px;">@sortablelink('category_id','Category')</td> --}}
-           <td style="width: 300px;" >@sortablelink('postHasCategory.title','Category')</td>
+            <td>@sortablelink('name','Name')</td>
+            <td>@sortablelink('surename','Surename')</td>
+            <td>@sortablelink('email','Email')</td>
+            <td>@sortablelink('phone','Phone number')</td>
            <td colspan="3">Tools</td>
         </tr>
     </thead>
     <tbody>
-        @foreach ($posts as $post)
+        @foreach ($owners as $owner)
         <tr>
-            <td>{{ $post->id }}</td>
-            <td>{{ $post->title }}</td>
-            <td>{{ $post->postContent }}</td>
-            <td>{{ $post->postHasCategory->title }}</td> 
-            <td><a class="btn btn-secondary" href="{{route('post.edit', [$post])}}">Edit</a></td>
-            <td><a class="btn btn-secondary" href="{{route('post.show', [$post])}}">View</a></td>
-            </td>
-                <form class="form-control" method="post" action="{{route('post.destroy', [$post])}}">
-                    <td>
+            <td>{{ $owner->id }}</td>
+            <td>{{ $owner->name }}</td>
+            <td>{{ $owner->surename }}</td>
+            <td>{{ $owner->email }}</td>
+            <td>{{ $owner->phone }}</td> 
+            <td style="width: 80px;"><a class="btn btn-secondary" href="{{route('owner.edit', [$owner])}}">Edit</a></td>
+            <td style="width: 80px;"><a class="btn btn-secondary" href="{{route('owner.show', [$owner])}}">View</a></td>
+                <form class="form-control" method="post" action="{{route('owner.destroy', [$owner])}}">
+                    <td style="width: 80px;">
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </td>
                     @csrf
@@ -68,7 +58,7 @@
     </table>
     
        @if ($paginateSetting != 1)
-        {!! $posts->appends(Request::except('page'))->render() !!}
+        {!! $owners->appends(Request::except('page'))->render() !!}
     @endif
 
 </div>
