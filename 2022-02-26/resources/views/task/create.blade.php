@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="task_start_date">Start Date</label>
-                        <input class="form-control @error("taskStart_date.".$i.".start_date") is-invalid @enderror " type='text' name='taskStart_date[][start_date]' value="{{old("taskStart_date.".$i.".start_date") }}" />
+                        <input class="form-control @error("taskStart_date.".$i.".start_date") is-invalid @enderror " type='date' name='taskStart_date[][start_date]' value="{{old("taskStart_date.".$i.".start_date") }}" />
                         @error("taskStart_date.".$i.".start_date")
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="task_end_date">End Date</label>
-                        <input class="form-control @error("taskEnd_date.".$i.".end_date") is-invalid @enderror " type='text' name='taskEnd_date[][end_date]' value="{{old("taskEnd_date.".$i.".end_date") }}" />
+                        <input class="form-control @error("taskEnd_date.".$i.".end_date") is-invalid @enderror " type='date' name='taskEnd_date[][end_date]' value="{{old("taskEnd_date.".$i.".end_date") }}" />
                         @error("taskEnd_date.".$i.".end_date")
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -60,8 +60,8 @@
                     </div>
      
                     <div class="form-group col-md-3">
-                        <label for="task_owner_id">Owner ID</label>
-                        <select name="task_owner_id" class="form-select form-control @error("taskOwner_id.".$i.".owner_id") is-invalid @enderror">
+                        <label for="taskOwnerId">Owner ID</label>
+                        <select name="taskOwnerId[][owner_id]" class="form-select form-control @error("taskOwnerId.".$i.".owner_id") is-invalid @enderror">
                         @foreach ($owners as $owner)
                             <option value="{{ $owner->id }}">{{ $owner->name }} {{ $owner->surename }}</option>
                         @endforeach

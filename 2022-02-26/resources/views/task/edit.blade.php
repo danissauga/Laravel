@@ -1,68 +1,80 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="container">
-<h4>Edit Post</h4>
-<form method="POST" action="{{route('post.update',['post'=>$post])}}">
-@csrf
-<div id="categories_list">
-    <div class="form-group">
-            <label for="allCategories">Category</label>
-            <select class="form-select" id="allCategories" name="allCategories">
-                @foreach ($categories as $category)
-                @if ($post->category_id == $category->id)
-                    <option selected value="{{ $category->id }}">{{ $category->title}}</option>
-                @else
-                    <option value="{{ $category->id }}">{{ $category->title}}</option>
-                @endif
-                @endforeach
-            </select>
-    </div>
-</div>
-<div  id="add_category" class="d-none" >
-    <div class="form-group">
-        <label for="newCategory">New category</label>
-            <input id="newCategory" class="form-control" name="newCategory" type="text">
-    </div>
-    <div class="form-group pb-2">
-    <label for="newCategoryDescription">New category descriotion</label>
-        <textarea type="text" class="form-control" name="newCategoryDescription"></textarea>
-    </div>
-    <div class="form-group">
-            <label for="allStatuses">Category status</label>
-            <select class="form-select" id="allStatuses" name="allStatuses">
-                @foreach ($statuses as $status)
-                    <option value="{{ $status->id }}">{{ $status->title}}</option>
-                @endforeach
-            </select>
-    </div>
-</div>
-<div class="form-group">
-        <label for="addNewCategory">Add new category ?
-            <input id="addNewCategory" name="addNewCategory" type="checkbox">
-        </label>
-</div>
-<div class="form-group">
-    <label for="postTitle">Post title</label>
-    <input class="form-control" type="text" name="postTitle" value="{{ $post->title }}">
-</div>
-<div class="form-group pb-2">
-    <label for="postContent">Post descriotion</label>
-    <textarea type="text" class="form-control" name="postContent">{{ $post->postContent }}</textarea>
-</div>
-
-<div class="form-group">
-    <button class="btn btn-primary" type="submit">Update</button>
-</div>
-</form>
-</div>
-
-<script>
-$(document).ready(function(){
-    $('#addNewCategory').click(function(){
-        $("#add_category").toggleClass('d-none');
-        $("#categories_list").toggleClass('d-none');
-       
-    });
-});
-</script>
+  
+    <div class="container">  
+        <form method="POST" action="{{route('task.update', ['task' => $task])}}" enctype="multipart/form-data">
+            @csrf
+           
+                <div class="row task">
+                    <div class="form-group col-md-3">
+                        <label for="task_title">Title</label>
+                        <input class="form-control @error("taskTitle") is-invalid @enderror" type='text' name='taskTitle' value="{{ $task->title }}" />
+                        @error("taskTitle")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="task_description">Description</label>
+                        <input class="form-control @error("taskDescription") is-invalid @enderror " type='text' name='taskDescription' value="{{ $task->description }}" />
+                        @error("taskDescription")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="task_start_date">Start Date</label>
+                        <input class="form-control @error("taskStart_date") is-invalid @enderror " type='date' name='taskStart_date' value="{{ $task->start_date }}" />
+                        @error("taskStart_date")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="task_end_date">End Date</label>
+                        <input class="form-control @error("taskEnd_date") is-invalid @enderror " type='date' name='taskEnd_date' value="{{ $task->end_date }}" />
+                        @error("taskEnd_date")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input hidden value="{{ $task->logo }}" name="oldLogo" type="text">
+                        <label for="task_logo">Logo </label>
+                        <input class="form-control @error("taskLogo") is-invalid @enderror " type='file' name='taskLogo' autofocus/>
+                        @error("taskLogo")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+     
+                    <div class="form-group col-md-3">
+                        <label for="taskOwnerId">Owner ID</label>
+                        <select name="taskOwnerId" class="form-select form-control @error("taskOwnerId") is-invalid @enderror">
+                        @foreach ($owners as $owner)
+                            @if ($owner->id == $task->owner_id)
+                                <option selected value="{{ $owner->id }}">{{ $owner->name }} {{ $owner->surename }}</option>
+                            @else
+                                <option value="{{ $owner->id }}">{{ $owner->name }} {{ $owner->surename }}</option>
+                            @endif
+                        @endforeach
+                        </select>
+                        @error("taskOwner_id")
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>   
+        </form>    
+    </div>    
 @endsection
