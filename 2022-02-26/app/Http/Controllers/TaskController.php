@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Owner;
+use App\Models\PaginationSetting;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -13,9 +16,39 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $sortCollumn = $request->sort;
+        $sortOrder = $request->direction;
+        
+        $paginate = $request->paginateSetting;
+
+       
+
+    if (empty($paginate)) {
+        $defaultPaginate = PaginationSetting::where('default_value', '=' , 1)->first();
+        $paginate = $defaultPaginate->value;
+    }
+        $paginationSettings = PaginationSetting::where('visible', '=' , 1)->get();
+
+        $tem_task = Task::all();
+        $select_array = array_keys($tem_task->first()->getAttributes());
+           
+        if ($paginate == 1) {
+                $tasks = Task::sortable()->get();
+            }
+            else {
+                $tasks = Task::sortable()->paginate($paginate);
+        }
+         
+        return view('task.index',
+        ['tasks'=>$tasks,
+        'select_array'=>$select_array,  
+        'paginationSettings'=>$paginationSettings,
+        'paginateSetting'=>$paginate,
+        'sort'=>$sortCollumn,
+        'direction'=> $sortOrder
+        ]);
     }
 
     /**
@@ -23,9 +56,18 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $tasksCount = $request->tasksCount;
+
+        if(!$tasksCount) {
+            $tasksCount = 1;
+        }  
+
+        $owners = Owner::all();
+
+        return view("task.create", ['tasksCount' => $tasksCount, 'owners'=>$owners]);
+     
     }
 
     /**
@@ -34,7 +76,7 @@ class TaskController extends Controller
      * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
         //
     }
