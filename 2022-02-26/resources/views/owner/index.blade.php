@@ -5,7 +5,7 @@
     <h2>Owner`s list</h2>
 
     <a class="btn btn-primary" href="{{route('owner.create')}}">Add new owner</a>   
-
+    <a class="btn btn-secondary" href="{{route('task.index')}}">Tasks list</a>
     @if (session()->has('error_message'))
         <div class="alert alert-danger mt-2">
             {{session()->get('error_message')}}

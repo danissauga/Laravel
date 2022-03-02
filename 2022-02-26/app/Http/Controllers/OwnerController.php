@@ -36,7 +36,7 @@ class OwnerController extends Controller
         $select_array = array_keys($tem_owner->first()->getAttributes());
 
         if (($task == 'all') || (empty($task))) {
-            if ($paginate == 'all') {
+            if ($paginate == 1) {
                 $owners = Owner::sortable()->get();
             }
             else {
@@ -44,7 +44,7 @@ class OwnerController extends Controller
             }
         }
         else {
-            if ($paginate == 'all') {
+            if ($paginate == 1) {
             $owners = Owner::where('owner_id','=',$task)
             ->sortable()->get(); }
             else {
@@ -110,8 +110,8 @@ class OwnerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Owner $owner)
-    {
-        //
+    {   $tasks = Task::where('owner_id','=',$owner->id)->get();
+        return view('owner.show',['owner'=>$owner, 'tasks'=> $tasks]);
     }
 
     /**
