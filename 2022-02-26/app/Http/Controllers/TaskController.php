@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Owner;
 use App\Models\PaginationSetting;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -78,7 +79,36 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $request->validate([
+            "taskTitle.*.title" => "required|alpha|min:6|max:255",
+            "taskDescription.*.description" => "required|max:1500",
+            "taskStart_date.*.start_date" => "required|date|before:taskEnd_date.*.end_date", 
+            "taskEnd_date.*.end_date" => "required|date",
+            "taskOwnerId.*.owner_id" => "required|gt:0",
+            "taskLogo.*.logo" => "required|image"
+        ]);
+        $tasksCount = count($request->taskTitle);
+
+    //dd($request->taskOwnerId);
+    
+        for($i=0; $i< $tasksCount; $i++ ) {
+            $task = new Task;
+            $task->title = $request->taskTitle[$i]['title'];
+            $task->description = $request->taskDescription[$i]['description'];
+            $task->start_date = $request->taskStart_date[$i]['start_date'];
+            $task->end_date = $request->taskEnd_date[$i]['end_date'];
+            $imageName = 'file_'.time().'.'.$request->taskLogo[$i]['logo']->extension();
+            $request->taskLogo[$i]['logo']->move(public_path('images'), $imageName);
+            $task->logo = $imageName;
+            $task->owner_id = $request->taskOwnerId[$i]['owner_id'];
+            $task->save(); 
+        }
+    
+    
+   return redirect()->route('task.index');;
+
+
     }
 
     /**
@@ -100,7 +130,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $owners = Owner::all();
+        return view('task.edit',['owners' => $owners, 'task' => $task]);
     }
 
     /**
@@ -110,9 +141,40 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, Task $task)
     {
-        //
+        $request->validate([
+             "taskTitle" => "required|alpha|min:6|max:255",
+             "taskDescription" => "required|max:1500",
+             "taskStart_date" => "required|date|before:taskEnd_date", 
+             "taskEnd_date" => "required|date",
+             "taskOwnerId" => "required|gt:0",
+         ]);
+
+        //dd($request->taskOwnerId);
+        
+        
+        $task->title = $request->taskTitle;
+        $task->description = $request->taskDescription;
+        $task->start_date = $request->taskStart_date;
+        $task->end_date = $request->taskEnd_date;
+   
+        if ($request->taskLogo != "") { 
+            $request->validate([
+                "taskLogo" => "required|image"
+            ]);
+                $file_path = public_path("images/".$request->oldLogo); 
+            
+                if(File::exists($file_path)) File::delete($file_path);
+
+            $imageName = 'file_'.time().'.'.$request->taskLogo->extension();
+            $request->taskLogo->move(public_path('images'), $imageName);
+            $task->logo = $imageName;
+        }
+        $task->owner_id = $request->taskOwnerId;
+        $task->save(); 
+     
+   return redirect()->route('task.index');
     }
 
     /**
