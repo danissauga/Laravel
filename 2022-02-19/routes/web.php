@@ -26,7 +26,6 @@ Route::prefix('categories')->group(function() {
     Route::get('createvalidate', 'App\Http\Controllers\CategoryController@createvalidate')->name('category.createvalidate');
     Route::post('storevalidate', 'App\Http\Controllers\CategoryController@storevalidate')->name('category.storevalidate');
     Route::get('create/advanced', 'App\Http\Controllers\CategoryController@createadvanced')->name('category.createadvanced');
-
     Route::post('store', 'App\Http\Controllers\CategoryController@store')->name('category.store');
     Route::get('edit/{category}', 'App\Http\Controllers\CategoryController@edit')->name('category.edit');
     Route::post('update/{category}', 'App\Http\Controllers\CategoryController@update')->name('category.update');
@@ -35,7 +34,8 @@ Route::prefix('categories')->group(function() {
 
 });
 Route::prefix('posts')->group(function() {
-
+    Route::get('ajaxcreate', 'App\Http\Controllers\PostController@ajaxcreate')->name('post.ajaxcreate');
+    Route::post('ajaxstore', 'App\Http\Controllers\PostController@ajaxstore')->name('post.ajaxstore');
     Route::get('', 'App\Http\Controllers\PostController@index')->name('post.index');
     Route::get('create', 'App\Http\Controllers\PostController@create')->name('post.create');
     Route::post('store', 'App\Http\Controllers\PostController@store')->name('post.store');

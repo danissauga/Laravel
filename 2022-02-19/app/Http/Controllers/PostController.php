@@ -201,5 +201,38 @@ class PostController extends Controller
     {
         $post->delete(); 
         return redirect()->route('post.index');   
-    }  
+    } 
+    public function ajaxcreate()
+    {   
+        $categories = Category::all();
+        $statuses = Status::all();
+        return view('post.ajaxcreate',['categories' => $categories,'statuses' => $statuses]);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxstore(Request $request)
+    {
+        
+
+        $post = new Post;
+        $post->title = $request->postTitle;
+        $post->postContent = $request->postContent;
+        $post->category_id = $request->category;
+        $post->save();
+
+        $post_array = array(
+            'success'=>'Post cretet succesfuly!',
+            'postTitle'=>$request->postTitle,
+            'postContent'=>$request->postTitle,
+            'category'=>$request->category
+        );
+        //return redirect()->route('post.index');
+        return response()->json($post_array); 
+
+    }
+
 }
