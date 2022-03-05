@@ -57,17 +57,17 @@ $("#storeNewType").on('click',(function() {
 }));
 
 $(document).on('click', '.delete-type', function() {
-    let typeid;
-    typeid = $(this).attr('data-typeid');
-    console.log(typeid);
+    let typeId;
+    typeId = $(this).attr('data-typeid');
+    console.log(typeId);
 
     $.ajax({
-        type: 'POST',// formoje method POST GET
-        url: '/types/deleteAjax/' + typeid  ,// formoje action
+        type: 'POST',
+        url: '/types/deleteAjax/' + typeId,
         success: function(data) {
            console.log(data);
 
-           $('.type'+typeid).remove();
+           $('.type'+typeId).remove();
             $("#alert").removeClass("d-none");
             $("#alert").html(data.successMessage);
             
@@ -81,17 +81,16 @@ $(document).on('click', '.delete-type', function() {
 
 
 $(document).on('click', '.edit-type', function() {
-    let typeid;
+    let typeId;
     let type_edit_link;
-    typeid = $(this).attr('data-typeid');
+    typeId = $(this).attr('data-typeid');
     type_edit_link = $("#type_edit_link").val();
-      console.log(type_edit_link);
-
+    
       $.ajax({
           type: 'GET',
-          url: type_edit_link,
+          url: type_edit_link + typeId,
           success: function(data) {
-            $('#edit_type_id').val(data.typeid);
+            $('#edit_type_id').val(data.typeId);
              $('#edit_type_title').val(data.typeTitle);
              $('#edit_type_description').val(data.typeDescription);
           }
@@ -100,30 +99,54 @@ $(document).on('click', '.edit-type', function() {
   });
 
 
-$(document).on('click', '.update-type', function() {
-    let typeid;
+  $("#updateTypeContent").on('click', function() {
+    
+    let typeId;
     let type_title;
     let type_description;
     let type_update_link;
 
-    typeid = $('#edit_type_id').val();
+    typeId = $('#edit_type_id').val();
     type_title = $('#edit_type_title').val();
     type_description = $('#edit_type_description').val();
-    type_update_link = $("#type_update_link");
+    type_update_link = $("#type_update_link").val();
 
+    console.log(type_update_link);
     $.ajax({
           type: 'POST',
-          url: type_update_link +'/'+ typeid,
+          url: type_update_link + typeId ,
           data: {type_title: type_title, type_description: type_description},
           success: function(data) {
                       
-            $(".type"+typeid+ " " + ".col-type-title").html(data.typeTitle)
-            $(".type"+typeid+ " " + ".col-type-title").html(data.typeDescription)
+            $(".type"+typeId+ " " + ".col-type-title").html(data.typeTitle)
+            $(".type"+typeId+ " " + ".col-type-description").html(data.typeDescription)
             $( "#editTypeModalClose" ).click(); 
             $("#alert").removeClass("d-none");
             $("#alert").html(data.successMessage);       
 
-            
+            setTimeout(() => {
+                $('#alert').addClass('d-none');
+              }, 2000);
+
           }
       });
-  })
+  });
+
+  $(document).on('click', '.show-type', function() {
+    let typeId;
+    let type_show_link;
+    typeId = $(this).attr('data-typeId');
+    type_show_link = $("#type_show_link").val();
+    console.log(typeId);
+
+    $.ajax({
+        type: 'GET',
+        url: type_show_link + typeId,
+        success: function(data) {
+            $('.show-type-id').html(data.typeId);
+            $('.show-type-title').html(data.typeTitle);
+            $('.show-type-description').html(data.typeDescription);
+         }
+    });
+
+});

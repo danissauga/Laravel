@@ -38,24 +38,50 @@
         </div>
         <div class="modal-body">
           <div class="ajaxForm">
-            <input type="hidden" id="edit_type_id" name="type_id" />
+            <input type="hidden" id="edit_type_id" name="edit_type_id" />
             <div class="form-group">
-                <label for="type_name">Type title</label>
-                <input id="edit_type_name" class="form-control" type="text" name="type_name" />
+                <label for="edit_type_title">Type title</label>
+                <input id="edit_type_title" class="form-control" type="text" name="edit_type_title" />
             </div>
             <div class="form-group">
-                <label for="type_description">Type Description</label>
-                <input id="edit_type_description" class="form-control" type="text" name="type_description" />
+                <label for="edit_type_description">Type Description</label>
+                <input id="edit_type_description" class="form-control" type="text" name="edit_type_title" />
             </div>
         </div>
         </div>
         <div class="modal-footer">
-        <input hidden id="type_edit_link" type="text" value="{{ route('type.showAjax',['type'=>$type])}}"/>
-         <input hidden id="type_update_link" type="text" value="{{ route('type.updateAjax',['type'=>$type])}}"/>
+        <input hidden id="type_edit_link" type="text" value="/types/showAjax/"/>
+         <input hidden id="type_update_link" type="text" value="/types/updateAjax/"/>
           <button type="button" id="editTypeModalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button id="update-type" type="button" class="btn btn-primary">Update</button>
+          <button id="updateTypeContent" type="button" class="btn btn-primary">Update</button>
         </div>
       </div>
     </div>
   </div>
-<script src="{{ asset('js/typeModals.js') }}"></script>  
+
+<!-- Show Type Modal -->
+  <div class="modal fade" id="showType" tabindex="-1" aria-labelledby="showTypeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showTypeLabel">Show Type details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="show-type-id">
+            </div>
+            <div class="show-type-title">
+            </div>
+            <div class="show-type-description">
+            </div>
+        </div>
+        <div class="modal-footer">
+        <input hidden id="type_show_link" type="text" value="types/showAjax/"/>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="{{ asset('js/typeModals.js') }}"></script>  
