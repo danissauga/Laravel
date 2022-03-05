@@ -79,7 +79,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-        
+        @extends('components.typeModals')
         @extends('components.articleModals')
     </div>
 </body>

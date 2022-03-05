@@ -68,17 +68,24 @@ class TypeController extends Controller
     }
 
 
-    /**
+   
+ /**
      * Display the specified resource.
      *
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type)
+    public function showAjax(Type $type)
     {
-        //
+        $type_array = array(
+            'successMessage' => "Type retrieved succesfuly",
+            'typeId' => $type->id,
+            'typeTitle' => $type->title,
+            'typeDescription' => $type->description,
+        );
+        $json_response =response()->json($type_array);
+        return $json_response;
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -101,7 +108,29 @@ class TypeController extends Controller
     {
         //
     }
+/**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateTypeRequest  $request
+     * @param  \App\Models\Type  $type
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAjax(Request $request, Type $type)
+    {
+        $type->title = $request->type_title;
+        $type->description = $request->type_description;
 
+        $type->save();
+
+        $type_array = array(
+            'successMessage' => "Type updated succesfuly",
+            'typeId' => $type->id,
+            'typeName' => $type->title,
+            'typeDescription' => $type->description,
+        );
+        $json_response = response()->json($type_array);
+        return $json_response;
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -111,5 +140,20 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         //
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Type  $type
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAjax(Type $type)
+    {
+        $type->delete();
+        $success_array = array(
+            'successMessage' => "Type deleted successfuly". $type->id,
+        );
+        $json_response =response()->json($success_array);
+        return $json_response;
     }
 }
