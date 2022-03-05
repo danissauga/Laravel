@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -14,8 +15,9 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $types = Type::all();
+        return view('type.index',['types'=>$types]);                    
     }
 
     /**
@@ -38,6 +40,33 @@ class TypeController extends Controller
     {
         //
     }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreTypeRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAjax(Request $request)
+    {
+        $type = new Type;
+        $type->title = $request->type_title;
+        $type->description = $request->type_description;
+
+        $type->save();
+
+        $type_array = array(
+            'successMessage' => "Type stored succesfuly",
+            'typeId' => $type->id,
+            'typeTitle' => $type->title,
+            'typeDescription' => $type->description,
+        );
+
+        //
+        $json_response =response()->json($type_array); //javascript masyva
+        return $json_response;
+    }
+
 
     /**
      * Display the specified resource.
