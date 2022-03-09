@@ -26,7 +26,7 @@ $("#storeNewType").on('click',(function() {
     type_description = $('#type_description').val();
     type_store_link = $('#type_store_link').val();
 
-    console.log(type_title + " " + type_description);
+    ///console.log(type_store_link + " " + type_description);
 
     $.ajax({
          type: 'POST',

@@ -38,7 +38,7 @@
         </div>
         <div class="modal-body">
           <div class="ajaxForm">
-            <input type="hidden" id="edit_type_id" name="edit_type_id" />
+            
             <div class="form-group">
                 <label for="edit_type_title">Type title</label>
                 <input id="edit_type_title" class="form-control" type="text" name="edit_type_title" />
@@ -50,6 +50,7 @@
         </div>
         </div>
         <div class="modal-footer">
+        <input type="hidden" id="edit_type_id" name="edit_type_id" />
         <input hidden id="type_edit_link" type="text" value="/types/showAjax/"/>
          <input hidden id="type_update_link" type="text" value="/types/updateAjax/"/>
           <button type="button" id="editTypeModalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

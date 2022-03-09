@@ -42,5 +42,5 @@ Route::prefix('types')->group(function() {
 });
 
 Route::get('/', function () {
-    return view('article.index');
+    return redirect()->route('article.index');
 });
