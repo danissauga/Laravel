@@ -12,6 +12,7 @@
 <table id="type-table" class="table table-striped">
         <tr>
             <th>Id</th>
+            <th><input type="checkbox" id="select_all"/></th>
             <th>Title</th>
             <th>Description</th>
             <th>Action</th>
@@ -19,6 +20,7 @@
         @foreach ($types as $type)
         <tr class="type{{$type->id}}">
             <td class="col-type-id">{{$type->id}}</td>
+            <td class="col-type-select"><input type="checkbox" id="type_select_{{$type->id}}"/></td>
             <td class="col-type-title">{{$type->title}}</td>
             <td class="col-type-description">{{$type->description}}</td>
             <td>           
@@ -34,6 +36,7 @@
 <table class="type_table_row_template d-none">
         <tr>
           <td class="col-type-id"></td>
+          <td class="col-type-select"></td>
           <td class="col-type-title"></td>
           <td class="col-type-description"></td>
           <td>
