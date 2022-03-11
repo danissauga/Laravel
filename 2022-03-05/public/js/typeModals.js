@@ -9,8 +9,9 @@ $.ajaxSetup({
     $(".type_table_row_template tr").addClass("type"+typeId);
     $(".type_table_row_template .delete-type").attr('data-typeid', typeId );
     $(".type_table_row_template .show-type").attr('data-typeid', typeId );
-    $(".type_table_row_template .edit-type").attr('data-ctypeid', typeId );
-    $(".type_table_row_template .col-type-id").html(typeId );
+    $(".type_table_row_template .edit-type").attr('data-typeid', typeId );
+    $(".type_table_row_template .col-type-id").html(typeId);
+    $(".type_table_row_template .col-type-select").html("<input type='checkbox' class='select-type' id='type_select_"+typeId+"'/>");
     $(".type_table_row_template .col-type-title").html(typeTitle );
     $(".type_table_row_template .col-type-description").html(typeDescription );
     
@@ -67,9 +68,26 @@ $(document).on('click', '.delete-type', function() {
         success: function(data) {
            console.log(data);
 
-           $('.type'+typeId).remove();
+           if($.isEmptyObject(data.errorMessage)) {
+            //sekmes atveji
+            $('#alert').removeClass('alert-danger');
+            $('#alert').addClass('alert-success');
             $("#alert").removeClass("d-none");
+            $('.type'+typeId).remove();
             $("#alert").html(data.successMessage);
+
+        } else {
+            //nesekme
+            $('#alert').removeClass('alert-success');
+            $('#alert').addClass('alert-danger');
+            $("#alert").removeClass("d-none");
+            $("#alert").html(data.errorMessage);
+        }
+
+
+          //  $('.type'+typeId).remove();
+          //   $("#alert").removeClass("d-none");
+          //   $("#alert").html(data.successMessage);
             
             setTimeout(() => {
                 $('#alert').addClass('d-none');
@@ -147,6 +165,16 @@ $(document).on('click', '.edit-type', function() {
             $('.show-type-title').html(data.typeTitle);
             $('.show-type-description').html(data.typeDescription);
          }
+    });
+
+});
+
+
+$('#select_all_types').on('click', function () {
+  
+  let status = $(this).prop('checked'); 
+    $(".select-type").each( function() {  
+    $(this).prop("checked",status);
     });
 
 });

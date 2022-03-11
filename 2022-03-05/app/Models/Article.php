@@ -11,4 +11,7 @@ class Article extends Model
     public function articleHasType() {
         return $this->belongsTo(Type::class, 'type_id','id');
     }
+    public function articleHasTypes() {
+        return $this->hasMany(Type::class, 'id','type_id');
+    }
 }

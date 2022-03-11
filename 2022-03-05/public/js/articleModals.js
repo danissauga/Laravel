@@ -17,6 +17,41 @@ $.ajaxSetup({
     return $(".article_table_row_template tbody").html();
   }
 
+  $(document).on('click', '.delete-article', function() {
+    let articleId;
+    articleId = $(this).attr('data-articleId');
+    console.log(articleId);
+
+    $.ajax({
+        type: 'POST',
+        url: '/articles/deleteAjax/' + articleId,
+        success: function(data) {
+           console.log(data);
+
+           if($.isEmptyObject(data.errorMessage)) {
+            //sekmes atveji
+            $('#alert').removeClass('alert-danger');
+            $('#alert').addClass('alert-success');
+            $("#alert").removeClass("d-none");
+            $('.article'+articleId).remove();
+            $("#alert").html(data.successMessage);
+
+        } else {
+            //nesekme
+            $('#alert').removeClass('alert-success');
+            $('#alert').addClass('alert-danger');
+            $("#alert").removeClass("d-none");
+            $("#alert").html(data.errorMessage);
+        }
+  
+            setTimeout(() => {
+                $('#alert').addClass('d-none');
+              }, 2000);
+        }
+    });
+
+});
+
 $(document).on('click', '.edit-article', function() {
     let articleId;
     let article_edit_link;
@@ -138,6 +173,16 @@ $(document).on('click', '.show-article', function() {
             $('.show-article-title').html(data.articleTitle);
             $('.show-article-description').html(data.articleDescription);
          }
+    });
+
+});
+
+
+$('#select_all_articles').on('click', function () {
+  
+  let status = $(this).prop('checked'); 
+    $(".select-article").each( function() {  
+    $(this).prop("checked",status);
     });
 
 });

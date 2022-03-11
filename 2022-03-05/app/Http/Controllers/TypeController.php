@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use App\Models\Article;
 use Illuminate\Http\Request;
+
+use function PHPSTORM_META\type;
 
 class TypeController extends Controller
 {
@@ -149,11 +152,21 @@ class TypeController extends Controller
      */
     public function destroyAjax(Type $type)
     {
-        $type->delete();
-        $success_array = array(
-            'successMessage' => "Type deleted successfuly". $type->id,
-        );
-        $json_response =response()->json($success_array);
+        $articles_count = count($type->typeHasArticles);
+     //   dd($articles_count);
+        if ($articles_count == 0) {
+            $type->delete();
+            $feedback_array = array(
+                'successMessage' => "Type deleted successfuly". $type->id,
+            );
+        } else {
+
+            $feedback_array = array(
+                'errorMessage' => "Type has acticle and can`t by delete". $type->id,
+            );    
+        }
+
+        $json_response =response()->json($feedback_array);
         return $json_response;
     }
 }

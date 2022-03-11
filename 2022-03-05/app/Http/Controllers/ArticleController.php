@@ -149,4 +149,23 @@ class ArticleController extends Controller
     {
         //
     }
+    public function destroyAjax(Article $article)
+    {
+        $type_count = count($article->articleHasTypes);
+       // dd($type_count);
+        if ($type_count == 0) {
+            $article->delete();
+            $feedback_array = array(
+                'successMessage' => "Article deleted successfuly". $article->id,
+            );
+        } else {
+
+            $feedback_array = array(
+                'errorMessage' => "Acticle has type and can`t by delete". $article->id,
+            );    
+        }
+
+        $json_response =response()->json($feedback_array);
+        return $json_response;
+    }
 }
