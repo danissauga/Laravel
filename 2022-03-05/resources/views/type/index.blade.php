@@ -7,11 +7,15 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typeCreate">
   Add new Type
 </button>
+<a class="btn btn-primary" href="{{ route('article.index') }}" >
+  Article list
+</a>
 <div id="alert" class="alert alert-success d-none">
 </div>
 <table id="type-table" class="table table-striped">
         <tr>
             <th>Id</th>
+            <th style="width: 20px;"><input type="checkbox" id="select_all_types"/></th>
             <th>Title</th>
             <th>Description</th>
             <th>Action</th>
@@ -19,6 +23,7 @@
         @foreach ($types as $type)
         <tr class="type{{$type->id}}">
             <td class="col-type-id">{{$type->id}}</td>
+            <td class="col-type-select"><input type="checkbox" class="select-type" id="type_select_{{$type->id}}"/></td>
             <td class="col-type-title">{{$type->title}}</td>
             <td class="col-type-description">{{$type->description}}</td>
             <td>           
@@ -34,6 +39,7 @@
 <table class="type_table_row_template d-none">
         <tr>
           <td class="col-type-id"></td>
+          <td class="col-type-select"></td>
           <td class="col-type-title"></td>
           <td class="col-type-description"></td>
           <td>

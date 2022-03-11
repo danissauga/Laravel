@@ -12,6 +12,7 @@
 <table id="article-table" class="table table-striped">
         <tr>
             <th>Id</th>
+            <th style="width: 20px;"><input type="checkbox" id="select_all_articles"/></th>
             <th>Type</th>
             <th>Title</th>
             <th>Description</th>
@@ -20,6 +21,7 @@
         @foreach ($articles as $article)
         <tr class="article{{$article->id}}">
             <td class="col-article-id">{{$article->id}}</td>
+            <td class="col-article-select"><input type="checkbox" class="select-article" id="article_select_{{$article->id}}"/></td>
             <td class="col-article-type-id">{{$article->articleHasType->title}}</td>
             <td class="col-article-title">{{$article->title}}</td>
             <td class="col-article-description">{{$article->description}}</td>
@@ -34,15 +36,15 @@
 </div>
 <!-- Table add content template -->
 <table class="article_table_row_template d-none">
-        <tr>
+        <tr class="article{{$article->id}}">
           <td class="col-article-id"></td>
           <td class="col-article-type-id"></td>
           <td class="col-article-title"></td>
           <td class="col-article-description"></td>
           <td>
-            <button class="btn btn-danger delete-article" type="submit" data-typeId="">DELETE</button>
-            <button type="button" class="btn btn-primary show-article" data-bs-toggle="modal" data-bs-target="#showArticle" data-typeId="">Show</button>
-            <button type="button" class="btn btn-secondary edit-article" data-bs-toggle="modal" data-bs-target="#editArticle" data-typeId="">Edit</button>
+            <button class="btn btn-danger delete-article" type="submit" data-articleId="">DELETE</button>
+            <button type="button" class="btn btn-primary show-article" data-bs-toggle="modal" data-bs-target="#showArticle" data-articleId="">Show</button>
+            <button type="button" class="btn btn-secondary edit-article" data-bs-toggle="modal" data-bs-target="#editArticle" data-articleId="">Edit</button>
           </td>
         </tr>
     </table>  
