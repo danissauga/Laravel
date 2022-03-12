@@ -264,3 +264,48 @@ $(document).on('input', '#typeSearchBox', function() {
   let searchContent = $('#typeSearchBox').val();
   search_type(searchContent);     
 });
+
+$('.type-sort').click(function() {
+  let sort;
+  let direction;
+
+  sort = $(this).attr('data-sort');
+  direction = $(this).attr('data-direction');
+
+  $("#hidden-sort").val(sort);
+  $("#hidden-direction").val(direction);
+
+  if(direction == 'asc') {
+    $(this).attr('data-direction', 'desc');
+  } else {
+    $(this).attr('data-direction', 'asc');
+  }
+
+  console.log(direction);
+
+  $.ajax({
+        type: 'GET',// formoje method POST GET
+        url: 'types/indexAjax'  ,// formoje action
+        data: {sort: sort, direction: direction },
+        success: function(data) {
+          // data
+          console.log(data.types);
+  //         //perbraizysiu lentele
+  //           //ciklo kuris pereina per visa masyva
+  //           //kiekvienos ciklo iteracijos metu mes tiesiog turime klienta prikabinti prie tbody tago
+  //           // foreach $clients as $client
+            $("#type-table tbody").html('');
+             $.each(data.types, function(key, type) {
+              //  $client->clientCompany->title
+                  let html;
+                  html = createTypeRow(type.id, type.title, type.description);
+                  // console.log(html)
+                  $("#type-table tbody").append(html);
+             });
+
+
+  //         //mygtuku rikiavimui
+
+        }
+    });
+});

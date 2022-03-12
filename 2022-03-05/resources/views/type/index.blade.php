@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<style>
+th div {
+  cursor: pointer;
+}
+</style>
 
 <div class="container">
 <h3>Type`s list</h3>
@@ -30,14 +35,16 @@
 <div id="alert" class="alert alert-success d-none">
 </div>
 
+<input id="hidden-sort" type="hidden" value="id" />
+<input id="hidden-direction" type="hidden" value="asc" />
 
 <table id="type-table" class="table table-striped">
     <thead>
         <tr>
-            <th>Id</th>
+            <th><div class="type-sort" data-sort="id" data-direction="asc">ID</div></th>
             <th style="width: 20px;"><input type="checkbox" id="select_all_types"/></th>
-            <th>Title</th>
-            <th>Description</th>
+            <th><div class="type-sort" data-sort="title" data-direction="asc">Title</div></th>
+            <th><div class="type-sort" data-sort="description" data-direction="asc">Description</div></th>
             <th>Action</th>
         </tr>
     </thead>
