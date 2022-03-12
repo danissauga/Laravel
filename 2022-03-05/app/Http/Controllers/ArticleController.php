@@ -7,6 +7,7 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -168,4 +169,40 @@ class ArticleController extends Controller
         $json_response =response()->json($feedback_array);
         return $json_response;
     }
+
+    public function searchAjax(Request $request) {
+
+        $searchValue = $request->searchValue;
+        
+        if ($searchValue == '') {
+            $articles = Article::all();
+        } 
+        else {
+
+        $articles = DB::table('articles')
+        ->selectraw('types.title as type_title, articles.*')
+        ->join('types','types.id','=','articles.type_id')
+        ->where('articles.title', 'like', "%{$searchValue}%")
+        ->orWhere('articles.description', 'like', "%{$searchValue}%")
+        ->orWhere('types.title', 'like', "%{$searchValue}%")
+        ->get();
+
+          }
+
+        if(count($articles) > 0) {
+            $articles_array = array(
+                'articles' => $articles
+            );
+        } else {
+            $articles_array = array(
+                'errorMessage' => 'No articles found'
+            );
+        }
+
+        $json_response =response()->json($articles_array);
+        return $json_response;
+
+    }
+
+
 }

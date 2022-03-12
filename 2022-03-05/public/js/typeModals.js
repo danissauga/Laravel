@@ -214,7 +214,7 @@ $('#delete-selected').on('click', function () {
   });
 });
 //search functions
-function search(searchValue) {
+function search_type(searchValue) {
 
  let searchFieldCount= searchValue.length;
    if (searchFieldCount >= 1 && searchFieldCount < 3 ) {
@@ -262,5 +262,5 @@ function search(searchValue) {
 // });
 $(document).on('input', '#typeSearchBox', function() { 
   let searchContent = $('#typeSearchBox').val();
-  search(searchContent);     
+  search_type(searchContent);     
 });
