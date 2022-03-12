@@ -7,6 +7,9 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleCreate">
   Add new Type
 </button>
+<a class="btn btn-primary" href="{{ route('type.index') }}" >
+  Type list
+</a>
 <div id="alert" class="alert alert-success d-none">
 </div>
 <table id="article-table" class="table table-striped">
