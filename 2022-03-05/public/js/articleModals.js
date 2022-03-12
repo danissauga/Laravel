@@ -105,6 +105,8 @@ $("#updateArticleContent").on('click', function() {
             $(".article"+articleId+ " " + ".col-article-description").html(data.articleDescription)
             $( "#editArticleModalClose" ).click(); 
             $("#alert").removeClass("d-none");
+            $("#alert").removeClass("alert-danger");
+            $("#alert").addClass("alert-success");
             $("#alert").html(data.successMessage);       
 
             setTimeout(() => {
