@@ -19,8 +19,19 @@ class TypeController extends Controller
      */
     public function index()
     {   
-        $types = Type::all();
+        $types = Type::sortable()->get();
         return view('type.index',['types'=>$types]);                    
+    }
+
+    public function indexAjax() {
+
+        $types = Type::sortable()->get();
+
+        $types_array = array(
+            'types' => $types
+        );
+        $json_response =response()->json($types_array);
+        return $json_response;
     }
 
     /**
