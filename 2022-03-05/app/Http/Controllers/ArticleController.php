@@ -187,7 +187,7 @@ class ArticleController extends Controller
         ->orWhere('types.title', 'like', "%{$searchValue}%")
         ->get();
 
-          }
+        }
 
         if(count($articles) > 0) {
             $articles_array = array(
