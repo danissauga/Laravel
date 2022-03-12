@@ -256,10 +256,10 @@ function search(searchValue) {
    }
   } 
 
-$('#search-type').click(function() {
-  let searchContent = $('#typeSearchBox').val();
-  search(searchContent);    
-});
+// $('#search-type').click(function() {
+//   let searchContent = $('#typeSearchBox').val();
+//   search(searchContent);    
+// });
 $(document).on('input', '#typeSearchBox', function() { 
   let searchContent = $('#typeSearchBox').val();
   search(searchContent);     

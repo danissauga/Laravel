@@ -20,11 +20,11 @@
         <input id="typeSearchBox" class="form-control" minlength="3" name="typeSearchBox" placeholder="Search">  
         <span class="search-feedback alert-danger"></span>
   </div>
-  <div class="col-md-1">
+  <!-- <div class="col-md-1">
         <button type="button" id="search-type" class="btn btn-secondary">
           Search
         </button> 
-  </div>  
+  </div>   -->
 </div>
 
 <div id="alert" class="alert alert-success d-none">
