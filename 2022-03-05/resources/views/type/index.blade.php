@@ -4,18 +4,35 @@
 <div class="container">
 <h3>Type`s list</h3>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typeCreate">
-  Add new Type
-</button>
-<a class="btn btn-primary" href="{{ route('article.index') }}" >
-  Article list
-</a>
-<button type="button" id="delete-selected" class="btn btn-danger">
-  Delete selected
-</button>
+<div class="row">
+  <div class="col-md-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typeCreate">
+      Add new Type
+    </button>
+    <a class="btn btn-primary" href="{{ route('article.index') }}">
+      Article list
+      </a>
+      <button type="button" id="delete-selected" class="btn btn-danger">
+      Delete selected
+      </button>
+  </div>
+  <div class="col-md-3">
+        <input id="typeSearchBox" class="form-control" minlength="3" name="typeSearchBox" placeholder="Search">  
+        <span class="search-feedback alert-danger"></span>
+  </div>
+  <div class="col-md-1">
+        <button type="button" id="search-type" class="btn btn-secondary">
+          Search
+        </button> 
+  </div>  
+</div>
+
 <div id="alert" class="alert alert-success d-none">
 </div>
+
+
 <table id="type-table" class="table table-striped">
+    <thead>
         <tr>
             <th>Id</th>
             <th style="width: 20px;"><input type="checkbox" id="select_all_types"/></th>
@@ -23,6 +40,7 @@
             <th>Description</th>
             <th>Action</th>
         </tr>
+    </thead>
         <tbody id="type-table-body">
         @foreach ($types as $type)
         <tr class="type{{$type->id}}">
@@ -39,6 +57,8 @@
         @endforeach
         </tbody>
     </table>
+    <div id="search-alert" class="alert d-none">
+    </div>
 </div>
 <!-- Table add content template -->
 <table class="type_table_row_template d-none">
