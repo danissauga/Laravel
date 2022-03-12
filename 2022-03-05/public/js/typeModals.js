@@ -213,3 +213,54 @@ $('#delete-selected').on('click', function () {
 
   });
 });
+//search functions
+function search_type(searchValue) {
+
+ let searchFieldCount= searchValue.length;
+   if (searchFieldCount >= 1 && searchFieldCount < 3 ) {
+
+    $(".search-feedback").css('display', 'block');
+    $(".search-feedback").html("Min 3");
+   
+  } 
+  else {
+    $(".search-feedback").css('display', 'none');
+
+  $.ajax({
+        type: 'GET',
+        url: 'types/searchAjax',
+        data: {searchValue: searchValue},
+        success: function(data) {
+           //   console.log(data);
+
+           if($.isEmptyObject(data.errorMessage)) {
+            //sekmes atvejis
+            $("#type-table tbody").show();
+            $("#search-alert").addClass("d-none");
+            $("#type-table tbody").html('');
+             $.each(data.types, function(key, type) {
+                  let html;
+                  html = createTypeRow(type.id, type.title,type.description);
+                  $("#type-table tbody").append(html);
+             });
+           } 
+          else {
+            //sesekmes atveju
+                $("#type-table tbody").hide();
+                $('#search-alert').addClass('alert-danger');
+                $("#search-alert").removeClass("d-none");
+                $("#search-alert").html(data.errorMessage);
+          }
+      }
+    });
+   }
+  } 
+
+// $('#search-type').click(function() {
+//   let searchContent = $('#typeSearchBox').val();
+//   search(searchContent);    
+// });
+$(document).on('input', '#typeSearchBox', function() { 
+  let searchContent = $('#typeSearchBox').val();
+  search_type(searchContent);     
+});

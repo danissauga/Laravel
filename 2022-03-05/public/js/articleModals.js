@@ -10,6 +10,7 @@ $.ajaxSetup({
     $(".article_table_row_template .show-article").attr('data-articleid', articleId );
     $(".article_table_row_template .edit-article").attr('data-articleid', articleId );
     $(".article_table_row_template .col-article-id").html(articleId );
+    $(".article_table_row_template .col-article-select").html("<input type='checkbox' class='select-article' id='article_select_"+articleId+"' value="+articleId+"/>");
     $(".article_table_row_template .col-article-type-id").html(articleTypeId );
     $(".article_table_row_template .col-article-title").html(articleTitle );
     $(".article_table_row_template .col-article-description").html(articleDescription );
@@ -227,3 +228,54 @@ $('#delete-selected-articles').on('click', function () {
   
     });
   });
+
+function search_article(searchValue) {
+
+    let searchFieldCount= searchValue.length;
+      if (searchFieldCount >= 1 && searchFieldCount < 3 ) {
+   
+       $(".search-feedback").css('display', 'block');
+       $(".search-feedback").html("Min 3");
+      
+     } 
+     else {
+       $(".search-feedback").css('display', 'none');
+   
+     $.ajax({
+           type: 'GET',
+           url: 'articles/searchAjax',
+           data: {searchValue: searchValue},
+           success: function(data) {
+                 console.log(data);
+   
+              if($.isEmptyObject(data.errorMessage)) {
+               //sekmes atvejis
+               $("#article-table tbody").show();
+               $("#search-alert").addClass("d-none");
+               $("#article-table tbody").html('');
+                $.each(data.articles, function(key, article) {
+                     let html;
+                     html = createArticleRow(article.id,article.type_title,article.title,article.description,);
+                     $("#article-table tbody").append(html);
+                });
+              } 
+             else {
+               //nesekmes atveju
+                   $("#article-table tbody").hide();
+                   $('#search-alert').addClass('alert-danger');
+                   $("#search-alert").removeClass("d-none");
+                   $("#search-alert").html(data.errorMessage);
+             }
+         }
+       });
+      }
+     } 
+   
+   // $('#search-type').click(function() {
+   //   let searchContent = $('#typeSearchBox').val();
+   //   search(searchContent);    
+   // });
+   $(document).on('input', '#articleSearchBox', function() { 
+     let searchContent = $('#articleSearchBox').val();
+     search_article(searchContent);     
+   });

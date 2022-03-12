@@ -27,6 +27,8 @@ Route::prefix('articles')->group(function() {
     Route::post('deleteAjax/{article}', 'App\Http\Controllers\ArticleController@destroyAjax')->name('article.destroyAjax');
     Route::get('showAjax/{article}', 'App\Http\Controllers\ArticleController@showAjax')->name('article.showAjax');
     Route::post('updateAjax/{article}', 'App\Http\Controllers\ArticleController@updateAjax')->name('article.updateAjax');
+    Route::get('searchAjax', 'App\Http\Controllers\ArticleController@searchAjax')->name('article.searchAjax');
+
    
 });
 
@@ -38,6 +40,7 @@ Route::prefix('types')->group(function() {
     Route::post('deleteAjax/{type}', 'App\Http\Controllers\TypeController@destroyAjax')->name('type.destroyAjax');
     Route::get('showAjax/{type}', 'App\Http\Controllers\TypeController@showAjax')->name('type.showAjax');
     Route::post('updateAjax/{type}', 'App\Http\Controllers\TypeController@updateAjax')->name('type.updateAjax');
+    Route::get('searchAjax', 'App\Http\Controllers\TypeController@searchAjax')->name('type.searchAjax');
 
 });
 
