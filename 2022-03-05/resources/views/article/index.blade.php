@@ -7,6 +7,12 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleCreate">
   Add new Type
 </button>
+<a class="btn btn-primary" href="{{ route('type.index') }}" >
+  Type list
+</a>
+<button type="button" id="delete-selected-articles" class="btn btn-danger">
+  Delete selected
+</button>
 <div id="alert" class="alert alert-success d-none">
 </div>
 <table id="article-table" class="table table-striped">
@@ -18,10 +24,11 @@
             <th>Description</th>
             <th style="width: 250px;">Action</th>
         </tr>
+        <tbody id="article-table-body">
         @foreach ($articles as $article)
         <tr class="article{{$article->id}}">
             <td class="col-article-id">{{$article->id}}</td>
-            <td class="col-article-select"><input type="checkbox" class="select-article" id="article_select_{{$article->id}}"/></td>
+            <td class="col-article-select"><input type="checkbox" class="select-article" id="article_select_{{$article->id}}" value="{{$article->id}}"/></td>
             <td class="col-article-type-id">{{$article->articleHasType->title}}</td>
             <td class="col-article-title">{{$article->title}}</td>
             <td class="col-article-description">{{$article->description}}</td>
@@ -32,6 +39,7 @@
            </td>
         </tr>
         @endforeach
+        </tbody>
     </table>
 </div>
 <!-- Table add content template -->

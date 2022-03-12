@@ -10,6 +10,9 @@
 <a class="btn btn-primary" href="{{ route('article.index') }}" >
   Article list
 </a>
+<button type="button" id="delete-selected" class="btn btn-danger">
+  Delete selected
+</button>
 <div id="alert" class="alert alert-success d-none">
 </div>
 <table id="type-table" class="table table-striped">
@@ -20,10 +23,11 @@
             <th>Description</th>
             <th>Action</th>
         </tr>
+        <tbody id="type-table-body">
         @foreach ($types as $type)
         <tr class="type{{$type->id}}">
             <td class="col-type-id">{{$type->id}}</td>
-            <td class="col-type-select"><input type="checkbox" class="select-type" id="type_select_{{$type->id}}"/></td>
+            <td class="col-type-select"><input type="checkbox" class="select-type" id="type_select_{{$type->id}}" value="{{$type->id}}"/></td>
             <td class="col-type-title">{{$type->title}}</td>
             <td class="col-type-description">{{$type->description}}</td>
             <td>           
@@ -33,6 +37,7 @@
            </td>
         </tr>
         @endforeach
+        </tbody>
     </table>
 </div>
 <!-- Table add content template -->

@@ -11,7 +11,7 @@ $.ajaxSetup({
     $(".type_table_row_template .show-type").attr('data-typeid', typeId );
     $(".type_table_row_template .edit-type").attr('data-typeid', typeId );
     $(".type_table_row_template .col-type-id").html(typeId);
-    $(".type_table_row_template .col-type-select").html("<input type='checkbox' class='select-type' id='type_select_"+typeId+"'/>");
+    $(".type_table_row_template .col-type-select").html("<input type='checkbox' class='select-type' id='type_select_"+typeId+"' value="+typeId+"/>");
     $(".type_table_row_template .col-type-title").html(typeTitle );
     $(".type_table_row_template .col-type-description").html(typeDescription );
     
@@ -60,9 +60,7 @@ $("#storeNewType").on('click',(function() {
 $(document).on('click', '.delete-type', function() {
     let typeId;
     typeId = $(this).attr('data-typeid');
-    console.log(typeId);
-
-    $.ajax({
+     $.ajax({
         type: 'POST',
         url: '/types/deleteAjax/' + typeId,
         success: function(data) {
@@ -84,11 +82,6 @@ $(document).on('click', '.delete-type', function() {
             $("#alert").html(data.errorMessage);
         }
 
-
-          //  $('.type'+typeId).remove();
-          //   $("#alert").removeClass("d-none");
-          //   $("#alert").html(data.successMessage);
-            
             setTimeout(() => {
                 $('#alert').addClass('d-none');
               }, 2000);
@@ -177,4 +170,44 @@ $('#select_all_types').on('click', function () {
     $(this).prop("checked",status);
     });
 
+});
+
+$('#delete-selected').on('click', function () {
+  $('#type-table-body input[type=checkbox]:checked').each(function () {
+      console.log(this.value);
+    let typeId = this.value;
+      $.ajax({
+        type: 'POST',
+        url: '/types/deleteAjax/' + typeId,
+        success: function(data) {
+          // console.log(data);
+
+           if($.isEmptyObject(data.errorMessage)) {
+            //sekmes atveji
+            $('#alert').removeClass('alert-danger');
+            $('#alert').addClass('alert-success');
+            $("#alert").removeClass("d-none");
+            $('.type'+typeId).remove();
+            $("#alert").html(data.successMessage);
+
+        } else {
+            //nesekme
+            $('#alert').removeClass('alert-success');
+            $('#alert').addClass('alert-danger');
+            $("#alert").removeClass("d-none");
+            $("#alert").html(data.errorMessage);
+        }
+
+           
+        }
+    });
+    $("#select_all_types").prop("checked",false);
+    $(".select-type").each( function() {  
+      $(this).prop("checked",false);
+      });
+    setTimeout(() => {
+      $('#alert').addClass('d-none');
+    }, 2000);
+
+  });
 });

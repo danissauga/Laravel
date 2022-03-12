@@ -153,7 +153,7 @@ class TypeController extends Controller
     public function destroyAjax(Type $type)
     {
         $articles_count = count($type->typeHasArticles);
-     //   dd($articles_count);
+    
         if ($articles_count == 0) {
             $type->delete();
             $feedback_array = array(
