@@ -284,28 +284,17 @@ $('.type-sort').click(function() {
   console.log(direction);
 
   $.ajax({
-        type: 'GET',// formoje method POST GET
-        url: 'types/indexAjax'  ,// formoje action
+        type: 'GET',
+        url: 'types/indexAjax',
         data: {sort: sort, direction: direction },
         success: function(data) {
-          // data
-          console.log(data.types);
-  //         //perbraizysiu lentele
-  //           //ciklo kuris pereina per visa masyva
-  //           //kiekvienos ciklo iteracijos metu mes tiesiog turime klienta prikabinti prie tbody tago
-  //           // foreach $clients as $client
+
             $("#type-table tbody").html('');
              $.each(data.types, function(key, type) {
-              //  $client->clientCompany->title
                   let html;
                   html = createTypeRow(type.id, type.title, type.description);
-                  // console.log(html)
                   $("#type-table tbody").append(html);
              });
-
-
-  //         //mygtuku rikiavimui
-
         }
     });
 });
