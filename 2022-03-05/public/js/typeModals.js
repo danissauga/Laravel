@@ -133,6 +133,8 @@ $(document).on('click', '.edit-type', function() {
             $(".type"+typeId+ " " + ".col-type-description").html(data.typeDescription)
             $( "#editTypeModalClose" ).click(); 
             $("#alert").removeClass("d-none");
+            $("#alert").removeClass("alert-danger");
+            $("#alert").addClass("alert-success");
             $("#alert").html(data.successMessage);       
 
             setTimeout(() => {
