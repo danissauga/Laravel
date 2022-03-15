@@ -28,6 +28,8 @@ Route::prefix('articles')->group(function() {
     Route::get('showAjax/{article}', 'App\Http\Controllers\ArticleController@showAjax')->name('article.showAjax');
     Route::post('updateAjax/{article}', 'App\Http\Controllers\ArticleController@updateAjax')->name('article.updateAjax');
     Route::get('searchAjax', 'App\Http\Controllers\ArticleController@searchAjax')->name('article.searchAjax');
+    Route::get('indexAjax', 'App\Http\Controllers\ArticleController@indexAjax')->name('article.indexAjax');
+    Route::get('selectByTypeAjax', 'App\Http\Controllers\ArticleController@selectByTypeAjax')->name('article.selectByTypeAjax');
 
    
 });

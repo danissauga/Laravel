@@ -6,6 +6,7 @@ $.ajaxSetup({
   });
 
   function createTypeRow(typeId, typeTitle, typeDescription) {
+    $(".type_table_row_template tr").removeAttr("class");
     $(".type_table_row_template tr").addClass("type"+typeId);
     $(".type_table_row_template .delete-type").attr('data-typeid', typeId );
     $(".type_table_row_template .show-type").attr('data-typeid', typeId );

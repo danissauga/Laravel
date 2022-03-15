@@ -5,6 +5,7 @@ $.ajaxSetup({
   });
 
   function createArticleRow(articleId, articleTypeId, articleTitle, articleDescription) {
+    $(".article_table_row_template tr").removeAttr("class");
     $(".article_table_row_template tr").addClass("article"+articleId);
     $(".article_table_row_template .delete-article").attr('data-articleid', articleId );
     $(".article_table_row_template .show-article").attr('data-articleid', articleId );
@@ -254,7 +255,7 @@ function search_article(searchValue) {
                $("#search-alert").addClass("d-none");
                $("#article-table tbody").html('');
                 $.each(data.articles, function(key, article) {
-                     let html;
+                    let html;
                      html = createArticleRow(article.id,article.type_title,article.title,article.description,);
                      $("#article-table tbody").append(html);
                 });
@@ -270,12 +271,77 @@ function search_article(searchValue) {
        });
       }
      } 
-   
-   // $('#search-type').click(function() {
-   //   let searchContent = $('#typeSearchBox').val();
-   //   search(searchContent);    
-   // });
-   $(document).on('input', '#articleSearchBox', function() { 
+
+     function select_article_by_type(article_type) {
+                 
+       $.ajax({
+             type: 'GET',
+             url: 'articles/selectByTypeAjax',
+             data: {article_type: article_type},
+             success: function(data) {
+                   console.log(data);
+     
+                if($.isEmptyObject(data.errorMessage)) {
+                 //sekmes atvejis
+                 $("#article-table tbody").show();
+                 $("#search-alert").addClass("d-none");
+                 $("#article-table tbody").html('');
+                  $.each(data.articles, function(key, article) {
+                      let html;
+                       html = createArticleRow(article.id,article.type_title,article.title,article.description,);
+                       $("#article-table tbody").append(html);
+                  });
+                } 
+               else {
+                 //nesekmes atveju
+                     $("#article-table tbody").hide();
+                     $('#search-alert').addClass('alert-danger');
+                     $("#search-alert").removeClass("d-none");
+                     $("#search-alert").html(data.errorMessage);
+               }
+           }
+         });
+        } 
+
+
+$(document).on('input', '#articleSearchBox', function() { 
      let searchContent = $('#articleSearchBox').val();
      search_article(searchContent);     
-   });
+});
+
+$('.article-sort').click(function() {
+  let sort;
+  let direction;
+
+  sort = $(this).attr('data-sort');
+  direction = $(this).attr('data-direction');
+
+  $("#hidden-sort").val(sort);
+  $("#hidden-direction").val(direction);
+
+  if(direction == 'asc') {
+    $(this).attr('data-direction', 'desc');
+  } else {
+    $(this).attr('data-direction', 'asc');
+  }
+
+  $.ajax({
+        type: 'GET',
+        url: 'articles/indexAjax',
+        data: {sort: sort, direction: direction },
+        success: function(data) {
+          
+            $("#article-table tbody").html('');
+            $.each(data.articles, function(key, article) {
+                   let html;
+                   html = createArticleRow(article.id, article.article_has_type.title, article.title, article.description);
+                   $("#article-table tbody").append(html);
+              });
+        }
+    });
+});
+
+$(document).on('change', '#article_type', function() { 
+  let type = $('#article_type').val();
+  select_article_by_type(type);     
+});

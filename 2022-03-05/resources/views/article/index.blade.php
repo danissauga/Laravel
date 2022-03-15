@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
 
+<style>
+th div {
+  cursor: pointer;
+}
+</style>
+
 <div class="container">
 <h3>Article`s list</h3>
 <!-- Button trigger modal -->
@@ -15,6 +21,14 @@
     <button type="button" id="delete-selected-articles" class="btn btn-danger">
       Delete selected
     </button>
+  </div>
+  <div class="col-md-3">
+       <select class="form-select" name="article_type" id="article_type">
+          <option selected value="all">Visi įrašai</option>
+          @foreach ($types as $type)
+             <option value="{{ $type->id }}">{{ $type->title }}</option>
+          @endforeach
+       </select>
   </div>
   <div class="col-md-3">
         <input id="articleSearchBox" class="form-control" minlength="3" name="articleSearchBox" placeholder="Search">  
@@ -32,11 +46,11 @@
 <table id="article-table" class="table table-striped">
   <thead>
         <tr>
-            <th>Id</th>
+            <th><div class="article-sort" data-sort="id" data-direction="asc">ID</div></th>
             <th style="width: 20px;"><input type="checkbox" id="select_all_articles"/></th>
-            <th>Type</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th><div class="article-sort" data-sort="type_id" data-direction="asc">Type</div></th>
+            <th><div class="article-sort" data-sort="title" data-direction="asc">Title</div></th>
+            <th><div class="article-sort" data-sort="description" data-direction="asc">Description</div></th>
             <th style="width: 250px;">Action</th>
         </tr>
   </thead>

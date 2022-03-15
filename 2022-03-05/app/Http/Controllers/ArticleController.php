@@ -18,9 +18,20 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::sortable()->get();
         $types = Type::all();
         return view('article.index',['articles'=>$articles, 'types'=>$types]);  
+    }
+
+    public function indexAjax() {
+
+        $articles = Article::with('articleHasType')->sortable()->get();
+
+        $articles_array = array(
+            'articles' => $articles
+        );
+        $json_response =response()->json($articles_array);
+        return $json_response;
     }
 
     /**
@@ -175,7 +186,10 @@ class ArticleController extends Controller
         $searchValue = $request->searchValue;
         
         if ($searchValue == '') {
-            $articles = Article::all();
+            $articles = $articles = DB::table('articles')
+            ->selectraw('types.title as type_title, articles.*')
+            ->join('types','types.id','=','articles.type_id')
+            ->get();
         } 
         else {
 
@@ -187,6 +201,40 @@ class ArticleController extends Controller
         ->orWhere('types.title', 'like', "%{$searchValue}%")
         ->get();
 
+        }
+
+        if(count($articles) > 0) {
+            $articles_array = array(
+                'articles' => $articles
+            );
+        } else {
+            $articles_array = array(
+                'errorMessage' => 'No articles found'
+            );
+        }
+
+        $json_response =response()->json($articles_array);
+        return $json_response;
+
+    }
+
+    public function selectByTypeAjax(Request $request) {
+
+        $selectType = $request->article_type;
+        
+        if ($selectType == 'all') {
+            $articles = DB::table('articles')
+            ->selectraw('types.title as type_title, articles.*')
+            ->join('types','types.id','=','articles.type_id')
+            ->get();
+        } 
+        else {
+
+        $articles = DB::table('articles')
+        ->selectraw('types.title as type_title, articles.*')
+        ->join('types','types.id','=','articles.type_id')
+        ->where('articles.type_id', '=', $selectType)
+        ->get();
         }
 
         if(count($articles) > 0) {
