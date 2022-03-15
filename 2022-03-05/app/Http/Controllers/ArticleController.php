@@ -173,9 +173,39 @@ class ArticleController extends Controller
      */
     public function updateAjax(Request $request, Article $article)
     {
-        $article->title = $request->article_title;
-        $article->description = $request->article_description;
-        $article->type_id = $request->article_type_id;
+
+        $input = [
+            'input_edit_article_title'=> $request->article_title,
+            'input_edit_article_type_id'=> $request->article_type_id,
+            'input_edit_article_description'=> $request->article_description,
+        ];
+
+        $rules = [
+            'input_edit_article_title'=> 'required',
+            'input_edit_article_type_id'=> 'required',
+            'input_edit_article_description'=> 'required',
+        ];
+
+        $messages = [
+            'required' => "This field is required"
+        ];
+
+
+        $validator = Validator::make($input, $rules, $messages); // 3 funckijos argumentas neprivalomas
+
+        //tikrina ar validatorius nepraejo
+        if($validator->fails()) {
+
+            $errors = $validator->messages()->get('*'); //pasiima visu ivykusiu klaidu sarasa
+            $article_array = array(
+                'errorMessage' => "Validator fails",
+                'errors' => $errors
+            );
+        } else {
+
+        $article->title = $request->edit_article_title;
+        $article->description = $request->edit_article_description;
+        $article->type_id = $request->edit_article_type_id;
         $article->save();
 
         $article_array = array(
@@ -186,6 +216,8 @@ class ArticleController extends Controller
             'articleTitle' => $article->title,
             'articleDescription' => $article->description,
         );
+    }
+
         $json_response = response()->json($article_array);
         return $json_response;
     }

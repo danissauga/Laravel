@@ -64,7 +64,8 @@ $(document).on('click', '.edit-article', function() {
           type: 'GET',
           url: article_edit_link + articleId,
           success: function(data) {
-            //  console.log(data.articleTypeId);
+            if($.isEmptyObject(data.errorMessage)) { 
+           
             $('#edit_article_id').val(data.articleId);
             $('#edit_article_title').val(data.articleTitle);
             $('#edit_article_description').val(data.articleDescription);
@@ -73,7 +74,17 @@ $(document).on('click', '.edit-article', function() {
                 if($(this).val() == data.articleTypeId) {  
                     $(this).attr("selected", "selected"); 
                 }
-            });        
+            }); 
+          } else {
+     
+            $('.invalid-feedback').html('');
+    
+            $.each(data.errors, function(key, error) {
+             
+              $('#'+key).addClass('is-invalid');
+              $('.input_'+key).html("<strong>"+error+"</strong>");
+            });
+          }       
             
           }
       });
@@ -166,15 +177,11 @@ $("#updateArticleContent").on('click', function() {
               }, 2000);
               
       } else {
-        
-        console.log(data.errorMessage);
-        console.log(data.errors);
-        
-        $('.create-input').removeClass('is-invalid');
+     
         $('.invalid-feedback').html('');
 
         $.each(data.errors, function(key, error) {
-          console.log(key);//key = input id
+         
           $('#'+key).addClass('is-invalid');
           $('.input_'+key).html("<strong>"+error+"</strong>");
         });
