@@ -1,13 +1,19 @@
 @extends('layouts.app')
 @section('content')
 
+<style>
+th div {
+  cursor: pointer;
+}
+</style>
+
 <div class="container">
 <h3>Article`s list</h3>
 <!-- Button trigger modal -->
 <div class="row">
   <div class="col-md-4">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleCreate">
-      Add new Type
+      Add new Article
     </button>
     <a class="btn btn-primary" href="{{ route('type.index') }}" >
       Type list
@@ -15,6 +21,14 @@
     <button type="button" id="delete-selected-articles" class="btn btn-danger">
       Delete selected
     </button>
+  </div>
+  <div class="col-md-3">
+       <select class="form-select" name="article_type" id="article_type">
+          <option selected value="all">Visi įrašai</option>
+          @foreach ($types as $type)
+             <option value="{{ $type->id }}">{{ $type->title }}</option>
+          @endforeach
+       </select>
   </div>
   <div class="col-md-3">
         <input id="articleSearchBox" class="form-control" minlength="3" name="articleSearchBox" placeholder="Search">  
@@ -27,16 +41,19 @@
   </div>   -->
 </div>
 
+<input id="hidden-sort" type="hidden" value="id" />
+<input id="hidden-direction" type="hidden" value="asc" />
+
 <div id="alert" class="alert alert-success d-none">
 </div>
 <table id="article-table" class="table table-striped">
   <thead>
         <tr>
-            <th>Id</th>
+            <th><div class="article-sort" data-sort="id" data-direction="asc">ID</div></th>
             <th style="width: 20px;"><input type="checkbox" id="select_all_articles"/></th>
-            <th>Type</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th><div class="article-sort" data-sort="type_id" data-direction="asc">Type</div></th>
+            <th><div class="article-sort" data-sort="title" data-direction="asc">Title</div></th>
+            <th><div class="article-sort" data-sort="description" data-direction="asc">Description</div></th>
             <th style="width: 250px;">Action</th>
         </tr>
   </thead>
