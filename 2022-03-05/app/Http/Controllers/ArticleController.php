@@ -56,6 +56,9 @@ class ArticleController extends Controller
     }
     public function storeAjax(Request $request)
     {
+        $sort = $request->sort;
+        $direction = $request->direction;
+
         $article = new Article;
         $article->title = $request->article_title;
         $article->type_id = $request->article_type_id;
@@ -63,7 +66,7 @@ class ArticleController extends Controller
 
         $article->save();
 
-        $articles = Article::all();
+        $articles = Article::sortable([$sort => $direction])->get();
 
         $article_array = array(
             'successMessage' => "Article stored succesfuly",

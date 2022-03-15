@@ -13,7 +13,7 @@ th div {
 <div class="row">
   <div class="col-md-4">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleCreate">
-      Add new Type
+      Add new Article
     </button>
     <a class="btn btn-primary" href="{{ route('type.index') }}" >
       Type list
@@ -40,6 +40,9 @@ th div {
         </button> 
   </div>   -->
 </div>
+
+<input id="hidden-sort" type="hidden" value="id" />
+<input id="hidden-direction" type="hidden" value="asc" />
 
 <div id="alert" class="alert alert-success d-none">
 </div>

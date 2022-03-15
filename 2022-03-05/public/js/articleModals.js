@@ -125,6 +125,11 @@ $("#updateArticleContent").on('click', function() {
     let article_type_id;
     let article_description;
     let article_store_link;
+    let sort;
+    let direction;
+
+    sort = $('#hidden-sort').val();
+    direction = $('#hidden-direction').val();
     
     article_type_id = $('#article_type_id').val();
     article_title = $('#article_title').val();
@@ -136,7 +141,7 @@ $("#updateArticleContent").on('click', function() {
     $.ajax({
          type: 'POST',
          url: article_store_link,
-         data: {article_type_id: article_type_id, article_title: article_title, article_description: article_description},
+         data: {article_type_id: article_type_id, article_title: article_title, article_description: article_description, sort:sort, direction:direction},
          success: function(data) {
           
          //console.log(data);
