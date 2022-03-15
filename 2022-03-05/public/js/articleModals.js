@@ -144,11 +144,13 @@ $("#updateArticleContent").on('click', function() {
          data: {article_type_id: article_type_id, article_title: article_title, article_description: article_description, sort:sort, direction:direction},
          success: function(data) {
           
-         //console.log(data);
+         console.log(data);
+         if($.isEmptyObject(data.errorMessage)) { 
+
          $("#article-table tbody").html('');
          $.each(data.articles, function(key, article) {
           let html;
-           html = createArticleRow(article.id,article.type_title,article.title,article.description,);
+           html = createArticleRow(article.id,article.article_has_type.title,article.title,article.description,);
            $("#article-table tbody").append(html);
           });
     
@@ -163,7 +165,21 @@ $("#updateArticleContent").on('click', function() {
                 $('#alert').addClass('d-none');
               }, 2000);
               
-       }
+      } else {
+        
+        console.log(data.errorMessage);
+        console.log(data.errors);
+        
+        $('.create-input').removeClass('is-invalid');
+        $('.invalid-feedback').html('');
+
+        $.each(data.errors, function(key, error) {
+          console.log(key);//key = input id
+          $('#'+key).addClass('is-invalid');
+          $('.input_'+key).html("<strong>"+error+"</strong>");
+        });
+      }
+    }
     });
 
 }));
@@ -277,9 +293,9 @@ function search_article(searchValue) {
          }
        });
       }
-     } 
+    } 
 
-     function select_article_by_type(article_type) {
+function select_article_by_type(article_type) {
                  
        $.ajax({
              type: 'GET',
@@ -308,7 +324,7 @@ function search_article(searchValue) {
                }
            }
          });
-        } 
+    } 
 
 
 $(document).on('input', '#articleSearchBox', function() { 

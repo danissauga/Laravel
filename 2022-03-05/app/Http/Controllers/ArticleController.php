@@ -7,7 +7,8 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use \Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator; 
 
 class ArticleController extends Controller
 {
@@ -56,6 +57,37 @@ class ArticleController extends Controller
     }
     public function storeAjax(Request $request)
     {
+
+        $input = [
+            'article_title'=> $request->article_title,
+            'article_type_id'=> $request->article_type_id,
+            'article_description'=> $request->article_description,
+        ];
+
+        $rules = [
+            'article_title'=> 'required',
+            'article_type_id'=> 'required',
+            'article_description'=> 'required',
+        ];
+
+        $messages = [
+            'required' => "This field is required"
+        ];
+
+
+        $validator = Validator::make($input, $rules, $messages); // 3 funckijos argumentas neprivalomas
+
+        //tikrina ar validatorius nepraejo
+        if($validator->fails()) {
+
+            $errors = $validator->messages()->get('*'); //pasiima visu ivykusiu klaidu sarasa
+            $article_array = array(
+                'errorMessage' => "Validator fails",
+                'errors' => $errors
+            );
+        } else {
+
+
         $sort = $request->sort;
         $direction = $request->direction;
 
@@ -66,7 +98,7 @@ class ArticleController extends Controller
 
         $article->save();
 
-        $articles = Article::sortable([$sort => $direction])->get();
+        $articles = Article::with('articleHasType')->sortable([$sort => $direction])->get();
 
         $article_array = array(
             'successMessage' => "Article stored succesfuly",
@@ -76,7 +108,7 @@ class ArticleController extends Controller
             'articleDescription' => $article->description,
             'articles' => $articles,
         );
-
+    }
         $json_response =response()->json($article_array); 
         return $json_response;
     }

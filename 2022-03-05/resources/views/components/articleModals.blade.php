@@ -11,10 +11,12 @@
             <div class="form-group">
                 <label for="article_title">Article title</label>
                 <input id="article_title" class="form-control" type="text" name="article_title" />
+                <span class="invalid-feedback input_article_title">  
             </div>
             <div class="form-group">
                 <label for="article_description">Article Description</label>
                 <input id="article_description" class="form-control" type="text" name="article_description" />
+                <span class="invalid-feedback input_article_description"> 
             </div>
             <div class="form-group">
             <label for="article_type_id">Article Type ID</label>
@@ -23,6 +25,7 @@
                     <option value="{{$type->id}}">{{$type->title}} </option>
                 @endforeach
                 </select>
+            <span class="invalid-feedback input_article_type_id">
             </div>
         </div>
         </div>
@@ -48,10 +51,12 @@
             <div class="form-group">
                 <label for="edit_article_title">Article title</label>
                 <input id="edit_article_title" class="form-control" type="text" name="edit_article_title" />
+                <span class="invalid-feedback input_article_title">   
             </div>
             <div class="form-group">
                 <label for="edit_article_description">Article Description</label>
                 <input id="edit_article_description" class="form-control" type="text" name="edit_article_description" />
+                <span class="invalid-feedback input_article_description">
             </div>
             <div class="form-group">
             <label for="edit_article_type_id">Article Type ID</label>
@@ -60,6 +65,7 @@
                     <option value="{{$type->id}}">{{$type->title}} </option>
                 @endforeach
                 </select>
+                <span class="invalid-feedback input_article_type_id">
             </div>
         </div>
         </div>
