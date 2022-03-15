@@ -63,12 +63,15 @@ class ArticleController extends Controller
 
         $article->save();
 
+        $articles = Article::all();
+
         $article_array = array(
             'successMessage' => "Article stored succesfuly",
             'articleId' => $article->id,
             'articleTypeId' => $article->type_id,
             'articleTitle' => $article->title,
             'articleDescription' => $article->description,
+            'articles' => $articles,
         );
 
         $json_response =response()->json($article_array); 

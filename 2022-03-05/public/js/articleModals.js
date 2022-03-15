@@ -139,12 +139,14 @@ $("#updateArticleContent").on('click', function() {
          data: {article_type_id: article_type_id, article_title: article_title, article_description: article_description},
          success: function(data) {
           
-          console.log(data);
-       let html;
-       html = createArticleRow(data.articleId, data.articleTypeId, data.articleTitle, data.articleDescription);
-
-    //   console.log(html);
-            $("#article-table").append(html);
+         //console.log(data);
+         $("#article-table tbody").html('');
+         $.each(data.articles, function(key, article) {
+          let html;
+           html = createArticleRow(article.id,article.type_title,article.title,article.description,);
+           $("#article-table tbody").append(html);
+          });
+    
             $( "#storeNewArticleClose" ).click();        
 
             $("#alert").removeClass("d-none");
