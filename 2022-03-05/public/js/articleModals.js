@@ -64,7 +64,8 @@ $(document).on('click', '.edit-article', function() {
           type: 'GET',
           url: article_edit_link + articleId,
           success: function(data) {
-            //  console.log(data.articleTypeId);
+            if($.isEmptyObject(data.errorMessage)) { 
+           
             $('#edit_article_id').val(data.articleId);
             $('#edit_article_title').val(data.articleTitle);
             $('#edit_article_description').val(data.articleDescription);
@@ -73,7 +74,17 @@ $(document).on('click', '.edit-article', function() {
                 if($(this).val() == data.articleTypeId) {  
                     $(this).attr("selected", "selected"); 
                 }
-            });        
+            }); 
+          } else {
+     
+            $('.invalid-feedback').html('');
+    
+            $.each(data.errors, function(key, error) {
+             
+              $('#'+key).addClass('is-invalid');
+              $('.input_'+key).html("<strong>"+error+"</strong>");
+            });
+          }       
             
           }
       });
@@ -144,11 +155,13 @@ $("#updateArticleContent").on('click', function() {
          data: {article_type_id: article_type_id, article_title: article_title, article_description: article_description, sort:sort, direction:direction},
          success: function(data) {
           
-         //console.log(data);
+         console.log(data);
+         if($.isEmptyObject(data.errorMessage)) { 
+
          $("#article-table tbody").html('');
          $.each(data.articles, function(key, article) {
           let html;
-           html = createArticleRow(article.id,article.type_title,article.title,article.description,);
+           html = createArticleRow(article.id,article.article_has_type.title,article.title,article.description,);
            $("#article-table tbody").append(html);
           });
     
@@ -163,7 +176,17 @@ $("#updateArticleContent").on('click', function() {
                 $('#alert').addClass('d-none');
               }, 2000);
               
-       }
+      } else {
+     
+        $('.invalid-feedback').html('');
+
+        $.each(data.errors, function(key, error) {
+         
+          $('#'+key).addClass('is-invalid');
+          $('.input_'+key).html("<strong>"+error+"</strong>");
+        });
+      }
+    }
     });
 
 }));
@@ -277,9 +300,9 @@ function search_article(searchValue) {
          }
        });
       }
-     } 
+    } 
 
-     function select_article_by_type(article_type) {
+function select_article_by_type(article_type) {
                  
        $.ajax({
              type: 'GET',
@@ -308,7 +331,7 @@ function search_article(searchValue) {
                }
            }
          });
-        } 
+    } 
 
 
 $(document).on('input', '#articleSearchBox', function() { 
