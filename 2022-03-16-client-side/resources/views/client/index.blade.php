@@ -23,7 +23,7 @@
         </style>
     </head>
     <body class="antialiased">
-            <div class="container">
+<div class="container">
             
     <table id="clietnt-table" class="table table-striped">
     <thead>
@@ -41,35 +41,33 @@
     </table>
     <div id="search-alert" class="alert d-none">
     </div>
-</div>
-<!-- Table add content template -->
-<table class="client_table_row_template d-none">
+    
+    <!-- Table add content template -->
+    <table class="client_table_row_template d-none">
         <tr>
           <td class="col-client-id"></td>
           <td class="col-client-name"></td>
-          <td class="col-client-surename"></td>
+          <td class="col-client-surname"></td>
           <td class="col-client-description"></td>
          
         </tr>
     </table>  
 
-<button id="page1" data-page="4">Got o page 4</button>
+    <div class="button-container">
+    </div>
 
+</div>
+<script>
 
-
-
-            </div>
-            <script>
-
-function createTypeRow(clientId, clientName, clientSurname, typeDescription) {
+function createClientRow(clientId, clientName, clientSurname, clientDescription) {
     $(".client_table_row_template tr").removeAttr("class");
     $(".client_table_row_template tr").addClass("client"+clientId);
     $(".client_table_row_template .delete-client").attr('data-clientid', clientId );
     $(".client_table_row_template .show-client").attr('data-clientid', clientId );
     $(".client_table_row_template .edit-client").attr('data-clientid', clientId );
     $(".client_table_row_template .col-client-id").html(clientId);
-    $(".client_table_row_template .col-client-select").html("<input client='checkbox' class='select-client' id='client_select_"+clientId+"' value="+clientId+"/>");
-    $(".client_table_row_template .col-client-title").html(clientTitle );
+    $(".client_table_row_template .col-client-name").html(clientName);
+    $(".client_table_row_template .col-client-surname").html(clientSurname );
     $(".client_table_row_template .col-client-description").html(clientDescription );
     
     return $(".client_table_row_template tbody").html();
@@ -78,14 +76,34 @@ function createTypeRow(clientId, clientName, clientSurname, typeDescription) {
 $(document).ready(function() {
                 console.log('Veikia');
         
-$('#page1').click(function(){
+//$('#page1').click(function(){
+    $(document).on('click', '.button-container button',function() { 
             let page = $(this).attr('data-page');
         
         $.ajax({
          type: 'GET',
-         url: 'http://127.0.0.1:8000/api/clients?page='+page,
+         url: page,
          success: function(data) {
-          console.log(data);
+         
+          $('#client-table-body').html('');
+          $('.button-container').html('');
+
+                       $.each(data.data, function(key, client) {
+
+                           let html;
+                           html = createClientRow(client.id, client.name, client.surname, client.description);
+                           $('#client-table-body').append(html);
+                       });
+                       $.each(data.links, function(key, link) {
+
+                       let button;
+                       if (link.url != null) {
+                       button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                       $('.button-container').append(button);
+                       }
+                    });
+                    
+
          }
 
         });
@@ -97,7 +115,18 @@ $('#page1').click(function(){
          //data: {type_title: type_title, type_description: type_description  },
          success: function(data) {
           
-          console.log(data);
+          $.each(data.data, function(key, client) {
+
+        let html;
+        html = createClientRow(client.id, client.name, client.surname, client.description);
+        $('#client-table-body').append(html);
+        });
+
+        $.each(data.links, function(key, link) {
+            let button;
+            button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+            $('.button-container').append(button);
+        });
                  
        }
     });
