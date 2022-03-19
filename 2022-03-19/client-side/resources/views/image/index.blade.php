@@ -181,36 +181,36 @@ $(document).on('click', '#create-image', function() {
                             console.log(data)
                         }
                 });
-                // $.ajax({
-                //     type: 'GET',
-                //     url: 'http://127.0.0.1:8000/api/images?scrf='+csrf_key,
-                //     data: {csrf:csrf},
-                //     success: function(data) {
-                //         $('#clients tbody').html('');
-                //         $('.button-container').html('');
-                //         $.each(data.data, function(key, client) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/api/images',
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                       
+                        $('#image-table-body').html('');
+                        $('.button-container').html('');
+                        $.each(data.data, function(key, image) {
 
-                //         let html;
-                //         html = createRowFromHtml(client.id, client.name, client.surname, client.description);
-                //         $('#clients tbody').append(html);
-                //         });
-                //        console.log(data.links)
-                //        $.each(data.links, function(key, link) {
-                //             let button;
-                //             if (link.url != null) {
-                //                 if(link.active == true) {
-                //                     button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                //                 }
-                //                 else {
-                //                     button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                //                 }
-                //             }
-                //             $('.button-container').append(button);
-                //        });
-                  //  }
-                
-
+                        let html;
+                        html = createRowFromHtml(image);
+                        $('#image-table-body').append(html);
+                        });
+                       
+                       $.each(data.links, function(key, link) {
+                            let button;
+                            if (link.url != null) {
+                                if(link.active == true) {
+                                    button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                                }
+                                else {
+                                    button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                                }
+                            }
+                            $('.button-container').append(button);
+                       });
+                    }           
     });
+});
 });
 </script>
 
