@@ -12,11 +12,13 @@ class ClientFactory extends Factory
      * @return array
      */
     public function definition()
-    {
+    {   
+        $test_data = ['Test MB','Test UAB','Test II'];
         return [
             'name' =>$this->faker->firstName(),
             'surname' =>$this->faker->lastName(),
             'description' =>$this->faker->paragraph(3,true),
+            'company_name' => $test_data[rand(0,2)]
         ];
     }
 }

@@ -61,7 +61,7 @@
 </div>
 <script>
 
-function createClientRow(clientId, clientName, clientSurname, clientDescription) {
+function createClientRow(clientId, clientName, clientSurname, clientDescription, clientCompany) {
     $(".client_table_row_template tr").removeAttr("class");
     $(".client_table_row_template tr").addClass("client"+clientId);
     $(".client_table_row_template .delete-client").attr('data-clientid', clientId );
@@ -95,7 +95,7 @@ $(document).ready(function() {
                        $.each(data.data, function(key, client) {
 
                            let html;
-                           html = createClientRow(client.id, client.name, client.surname, client.description);
+                           html = createClientRow(client.id, client.name, client.surname, client.description, client.company_title);
                            $('#client-table-body').append(html);
                        });
                        $.each(data.links, function(key, link) {
