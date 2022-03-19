@@ -19,8 +19,8 @@ class ImageController extends Controller
      $csrf = $request->csrf; //apsaugos token(zetonas)
        
          if(isset($csrf) && !empty($csrf) && $csrf == $imageAPIToken) {
-            $clients = Image::paginate(15);
-            return response()->json($clients);
+            $images = Image::paginate(15);
+            return response()->json($images);
         } 
         return response()->json(array(
             'erorr' => 'Authentification failed'
@@ -35,8 +35,37 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $imageAPIToken = config('imageapi.api_token'); 
+        $csrf = $request->csrf; //apsaugos token(zetonas)
+       
+         if(isset($csrf) && !empty($csrf) && $csrf == $imageAPIToken) {
+            
+            $image = new Image();
+            $image->title = $request->image_title;
+            $image->alt = $request->image_alt;
+            $image->url = $request->image_url;
+            $image->description = $request->image_description;
+
+            $image->save();
+
+            $image_array = array(
+                'successMessage' => "Image stored succesfuly",
+                'imageId' => $image->id,
+                'imageTitle' => $image->title,
+                'imageAlt' => $image->alt,
+                'imageUrl' => $image->url,
+                'imageDescription' => $image->description,
+            );
+        $json_response =response()->json($image_array);
+        return $json_response;
+        } 
+        return response()->json(array(
+            'erorr' => 'Authentification failed'
+        ));
     }
+
+        
+    
 
     /**
      * Display the specified resource.
