@@ -194,10 +194,10 @@ $.ajax({
             console.log(data);
           $.each(data.data, function(key, image) {
 
-        let html;
-        html = createImageRow(image);
-        $('#image-table-body').append(html);
-        });
+            let html;
+            html = createImageRow(image);
+            $('#image-table-body').append(html);
+            });
 
         paginateButtons(data.links);
         }
@@ -255,6 +255,7 @@ $(document).on('click', '.edit-image',function() {
                     }
                 });
             });
+
 $(document).on('click', '#update-image',function() {
                 let imageid = $('#edit_image_id').val();
                 let image_title = $('#edit_image_title').val();
@@ -291,6 +292,37 @@ $(document).on('click', '#update-image',function() {
                  });
 
         });
+        $(document).on('click', '.delete-image',function() {
+                let imageid = $(this).attr('data-imageid');
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://127.0.0.1:8000/api/images/'+imageid,
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                       console.log(data)
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/api/images',
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                       
+                        $('#image-table-body').html('');
+                        $('.button-container').html('');
+                        $.each(data.data, function(key, image) {
+
+                        let html;
+                        html = createImageRow(image);
+                        $('#image-table-body').append(html);
+                        });
+                       
+                    paginateButtons(data.links);
+
+                    }            
+                 });
+
+            });
 
 });
 </script>
