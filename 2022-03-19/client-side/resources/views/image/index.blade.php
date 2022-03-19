@@ -113,7 +113,42 @@
             </div>
           </div>
 
-
+          <div class="modal fade" id="editImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Modal</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="ajaxForm">
+                    <input type="hidden" id="edit_image_id" name="image_id" />
+                    <div class="form-group">
+                        <label for="image_title">image Name</label>
+                        <input id="edit_image_title" class="form-control" type="text" name="image_title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="image_alt">image Surname</label>
+                        <input id="edit_image_alt" class="form-control" type="text" name="image_alt" />
+                    </div>
+                    <div class="form-group">
+                        <label for="image_url">image Surname</label>
+                        <input id="edit_image_url" class="form-control" type="text" name="image_url" />
+                    </div>
+                    <div class="form-group">
+                        <label for="image_description">Image Description</label>
+                        <input id="edit_image_description" class="form-control" type="text" name="image_description" />
+                    </div>
+                    
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="close_edit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="update-image" type="button" class="btn btn-primary update-image">Update image</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
 
@@ -177,8 +212,8 @@ $(document).on('click', '#create-image', function() {
                 let image_description = $('#image_description').val();
                 $.ajax({
                         type: 'POST',
-                        url: 'http://127.0.0.1:8000/api/images?csrf='+csrf_key,
-                        data: {image_title:image_title, image_alt:image_alt, image_url:image_url, image_description:image_description },
+                        url: 'http://127.0.0.1:8000/api/images',
+                        data: {scrf:scrf_key, image_title:image_title, image_alt:image_alt, image_url:image_url, image_description:image_description },
                         success: function(data) {
                             console.log(data)
                         }
@@ -200,10 +235,63 @@ $(document).on('click', '#create-image', function() {
                        
                     paginateButtons(data.links);
                        $('#close_add').click(); 
-                    } 
-                             
+                    }            
     });
 });
+
+$(document).on('click', '.edit-image',function() {
+                let imageid = $(this).attr('data-imageid');
+                console.log(imageid);
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/api/images/'+imageid,
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                        $('#edit_image_id').val(data.id);
+                        $('#edit_image_title').val(data.title);
+                        $('#edit_image_alt').val(data.alt);
+                        $('#edit_image_url').val(data.url);
+                        $('#edit_image_description').val(data.description);
+                    }
+                });
+            });
+$(document).on('click', '#update-image',function() {
+                let imageid = $('#edit_image_id').val();
+                let image_title = $('#edit_image_title').val();
+                let image_alt = $('#edit_image_alt').val() ;
+                let image_url = $('#edit_image_url').val() ;
+                let image_description = $('#edit_image_description').val() ;
+                $.ajax({
+                        type: 'PUT',
+                        url: 'http://127.0.0.1:8000/api/images/'+imageid,
+                        data: {csrf:csrf_key, image_title:image_title, image_alt:image_alt, image_url:image_url, image_description:image_description },
+                        success: function(data) {
+                            console.log(data)
+                        }
+                });
+            
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/api/images',
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                       
+                        $('#image-table-body').html('');
+                        $('.button-container').html('');
+                        $.each(data.data, function(key, image) {
+
+                        let html;
+                        html = createImageRow(image);
+                        $('#image-table-body').append(html);
+                        });
+                       
+                    paginateButtons(data.links);
+                       $('#close_update').click(); 
+                    }            
+                 });
+
+        });
+
 });
 </script>
 
