@@ -106,7 +106,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" id="close_add" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <button id="create-image" type="button" class="btn btn-primary">Add image</button>
                 </div>
               </div>
@@ -118,6 +118,20 @@
 
 
 <script>
+function paginateButtons(buttons){
+    $.each(buttons, function(key, link) {
+            let button;
+            if (link.url != null) {
+                if (link.url.active == true) {
+                    button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                    $('.button-container').append(button);
+                } else {
+                    button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                    $('.button-container').append(button);
+        }
+    }
+});
+}
 
 function createImageRow(image) {
     $(".image_table_row_template tr").removeAttr("class");
@@ -150,20 +164,8 @@ $.ajax({
         $('#image-table-body').append(html);
         });
 
-        $.each(data.links, function(key, link) {
-            let button;
-            if (link.url != null) {
-                if (link.url.active == true) {
-                    button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                    $('.button-container').append(button);
-                } else {
-                    button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                    $('.button-container').append(button);
+        paginateButtons(data.links);
         }
-    }
-});
-
-}
 });
 
 $(document).on('click', '#create-image', function() {
@@ -192,23 +194,14 @@ $(document).on('click', '#create-image', function() {
                         $.each(data.data, function(key, image) {
 
                         let html;
-                        html = createRowFromHtml(image);
+                        html = createImageRow(image);
                         $('#image-table-body').append(html);
                         });
                        
-                       $.each(data.links, function(key, link) {
-                            let button;
-                            if (link.url != null) {
-                                if(link.active == true) {
-                                    button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                                }
-                                else {
-                                    button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                                }
-                            }
-                            $('.button-container').append(button);
-                       });
-                    }           
+                    paginateButtons(data.links);
+                       $('#close_add').click(); 
+                    } 
+                             
     });
 });
 });
