@@ -124,15 +124,15 @@
                   <div class="ajaxForm">
                     <input type="hidden" id="edit_image_id" name="image_id" />
                     <div class="form-group">
-                        <label for="image_title">image Name</label>
+                        <label for="image_title">Image Title</label>
                         <input id="edit_image_title" class="form-control" type="text" name="image_title" />
                     </div>
                     <div class="form-group">
-                        <label for="image_alt">image Surname</label>
+                        <label for="image_alt">Image ALT</label>
                         <input id="edit_image_alt" class="form-control" type="text" name="image_alt" />
                     </div>
                     <div class="form-group">
-                        <label for="image_url">image Surname</label>
+                        <label for="image_url">Image URL</label>
                         <input id="edit_image_url" class="form-control" type="text" name="image_url" />
                     </div>
                     <div class="form-group">
@@ -143,21 +143,47 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" id="close_edit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" id="close-edit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="update-image" type="button" class="btn btn-primary update-image">Update image</button>
                 </div>
               </div>
             </div>
           </div>
 
-
+<div class="modal fade" id="showImageModal" tabindex="-1" aria-labelledby="showImageLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showImageLabel">Show Image details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="show-image-id">
+            </div>
+            <div class="show-image-title">
+            </div>
+            <div class="show-image-alt">
+            </div>
+            <div class="show-image-url">
+            </div>
+            <div class="show-image-description">
+            </div>
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
 function paginateButtons(buttons){
     $.each(buttons, function(key, link) {
+        console.log(buttons);
             let button;
             if (link.url != null) {
-                if (link.url.active == true) {
+                if (link.active == true) {
                     button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
                     $('.button-container').append(button);
                 } else {
@@ -187,21 +213,50 @@ function createImageRow(image) {
 $(document).ready(function() {
                 console.log('Veikia');
                 csrf_key="test_api_key_123";
+
+
+
+$(document).on('click', '.button-container button',function() {
+
+let page= $(this).attr('data-page');
+    
+    $.ajax({
+        type: 'GET',
+        url: page,
+        data: {csrf:csrf_key},
+        success: function(data) {
+        $('#image-table-body').html('');
+        $('.button-container').html('');
+
+       $.each(data.data, function(key, image) {
+
+           let html;
+           html = createImageRow(image);
+           $('#image-table-body').append(html);
+       });
+
+    paginateButtons(data.links);
+     
+    }
+});
+});
+
 $.ajax({
          type: 'GET',
-         url: 'http://127.0.0.1:8000/api/images?csrf='+csrf_key,
+         url: 'http://127.0.0.1:8000/api/images',
+         data: {csrf:csrf_key},
          success: function(data) {
-            console.log(data);
-          $.each(data.data, function(key, image) {
-
+           
+        $.each(data.data, function(key, image) {
             let html;
             html = createImageRow(image);
             $('#image-table-body').append(html);
             });
-
-        paginateButtons(data.links);
+        paginateButtons(data.links); 
         }
+        
 });
+
 
 $(document).on('click', '#create-image', function() {
                
@@ -232,16 +287,17 @@ $(document).on('click', '#create-image', function() {
                         html = createImageRow(image);
                         $('#image-table-body').append(html);
                         });
-                       
-                    paginateButtons(data.links);
-                       $('#close_add').click(); 
+
+                        paginateButtons(data.links);
+                        $('#close_add').click();
                     }            
-    });
+        });
+
 });
 
 $(document).on('click', '.edit-image',function() {
                 let imageid = $(this).attr('data-imageid');
-                console.log(imageid);
+                
                 $.ajax({
                     type: 'GET',
                     url: 'http://127.0.0.1:8000/api/images/'+imageid,
@@ -252,6 +308,25 @@ $(document).on('click', '.edit-image',function() {
                         $('#edit_image_alt').val(data.alt);
                         $('#edit_image_url').val(data.url);
                         $('#edit_image_description').val(data.description);
+                    }
+                });
+            });
+
+$(document).on('click', '.show-image',function() {
+                let imageid = $(this).attr('data-imageid');
+                console.log(this);
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/api/images/'+imageid,
+                    data: {csrf:csrf_key},
+                    success: function(data) {
+                        
+                        $(".show-image-id").html(data.id);
+                        $(".show-image-title").html(data.title);
+                        $(".show-image-alt").html(data.alt);
+                        $(".show-image-url").html(data.url);
+                        $(".show-image-description").html(data.description);
+        
                     }
                 });
             });
@@ -267,10 +342,7 @@ $(document).on('click', '#update-image',function() {
                         url: 'http://127.0.0.1:8000/api/images/'+imageid,
                         data: {csrf:csrf_key, image_title:image_title, image_alt:image_alt, image_url:image_url, image_description:image_description },
                         success: function(data) {
-                            console.log(data)
-                        }
-                });
-            
+                          //  console.log(data)
                 $.ajax({
                     type: 'GET',
                     url: 'http://127.0.0.1:8000/api/images',
@@ -281,16 +353,18 @@ $(document).on('click', '#update-image',function() {
                         $('.button-container').html('');
                         $.each(data.data, function(key, image) {
 
-                        let html;
-                        html = createImageRow(image);
-                        $('#image-table-body').append(html);
+                            let html;
+                            html = createImageRow(image);
+                            $('#image-table-body').append(html);
                         });
                        
                     paginateButtons(data.links);
-                       $('#close_update').click(); 
+                      
                     }            
                  });
-
+                 $('#close-edit').click(); 
+                }
+                });
         });
         $(document).on('click', '.delete-image',function() {
                 let imageid = $(this).attr('data-imageid');
@@ -299,14 +373,12 @@ $(document).on('click', '#update-image',function() {
                     url: 'http://127.0.0.1:8000/api/images/'+imageid,
                     data: {csrf:csrf_key},
                     success: function(data) {
-                       console.log(data)
-                    }
-                });
+                      // console.log(data)
                 $.ajax({
-                    type: 'GET',
-                    url: 'http://127.0.0.1:8000/api/images',
-                    data: {csrf:csrf_key},
-                    success: function(data) {
+                        type: 'GET',
+                        url: 'http://127.0.0.1:8000/api/images',
+                        data: {csrf:csrf_key},
+                        success: function(data) {
                        
                         $('#image-table-body').html('');
                         $('.button-container').html('');
@@ -315,20 +387,18 @@ $(document).on('click', '#update-image',function() {
                         let html;
                         html = createImageRow(image);
                         $('#image-table-body').append(html);
-                        });
+                });
                        
                     paginateButtons(data.links);
 
                     }            
                  });
+                    }
+                });
+                
 
             });
-
 });
 </script>
-
-
-
-
 </body>
 </html>
