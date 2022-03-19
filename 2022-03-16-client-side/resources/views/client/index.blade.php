@@ -31,6 +31,7 @@
             <th><div class="clietnt-sort" data-sort="id" data-direction="asc">ID</div></th>
             <th><div class="clietnt-sort" data-sort="name" data-direction="asc">Name</div></th>
             <th><div class="clietnt-sort" data-sort="surname" data-direction="asc">Surname</div></th>
+            <th><div class="clietnt-sort" data-sort="company" data-direction="asc">Company</div></th>
             <th><div class="clietnt-sort" data-sort="description" data-direction="asc">Description</div></th>
             
         </tr>
@@ -48,6 +49,7 @@
           <td class="col-client-id"></td>
           <td class="col-client-name"></td>
           <td class="col-client-surname"></td>
+          <td class="col-client-company"></td>
           <td class="col-client-description"></td>
          
         </tr>
@@ -59,7 +61,7 @@
 </div>
 <script>
 
-function createClientRow(clientId, clientName, clientSurname, clientDescription) {
+function createClientRow(clientId, clientName, clientSurname, clientDescription, clientCompany) {
     $(".client_table_row_template tr").removeAttr("class");
     $(".client_table_row_template tr").addClass("client"+clientId);
     $(".client_table_row_template .delete-client").attr('data-clientid', clientId );
@@ -68,6 +70,7 @@ function createClientRow(clientId, clientName, clientSurname, clientDescription)
     $(".client_table_row_template .col-client-id").html(clientId);
     $(".client_table_row_template .col-client-name").html(clientName);
     $(".client_table_row_template .col-client-surname").html(clientSurname );
+    $(".client_table_row_template .col-client-surname").html(clientCompany );
     $(".client_table_row_template .col-client-description").html(clientDescription );
     
     return $(".client_table_row_template tbody").html();
@@ -75,7 +78,7 @@ function createClientRow(clientId, clientName, clientSurname, clientDescription)
 
 $(document).ready(function() {
                 console.log('Veikia');
-        
+     let scrf='123456789'; //           $('meta[name="csrf-token"]').attr('content');       
 //$('#page1').click(function(){
     $(document).on('click', '.button-container button',function() { 
             let page = $(this).attr('data-page');
@@ -83,6 +86,7 @@ $(document).ready(function() {
         $.ajax({
          type: 'GET',
          url: page,
+        //  data: ['scrf:scrf'], 
          success: function(data) {
          
           $('#client-table-body').html('');
@@ -91,17 +95,21 @@ $(document).ready(function() {
                        $.each(data.data, function(key, client) {
 
                            let html;
-                           html = createClientRow(client.id, client.name, client.surname, client.description);
+                           html = createClientRow(client.id, client.name, client.surname, client.description, client.company_title);
                            $('#client-table-body').append(html);
                        });
                        $.each(data.links, function(key, link) {
 
                        let button;
                        if (link.url != null) {
-                       button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-                       $('.button-container').append(button);
+                           if (link.active == true) {
+                                button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                                $('.button-container').append(button);
+                           } else {
+                                button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                                $('.button-container').append(button);
                        }
-                    });
+                    }});
                     
 
          }
@@ -124,12 +132,35 @@ $(document).ready(function() {
 
         $.each(data.links, function(key, link) {
             let button;
-            button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
-            $('.button-container').append(button);
-        });
-                 
+            if (link.url != null) {
+                if (link.url.active == true) {
+                    button = "<button class='btn btn-primary active' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                    $('.button-container').append(button);
+                } else {
+                    button = "<button class='btn btn-primary' type='button' data-page='"+link.url +"'>" + link.label+" </button>";
+                    $('.button-container').append(button);
+        }
+    } 
+});
+           
        }
     });
+
+    // let client_name ='Test name';
+    // let client_surname ='Test surname';
+    // let client_description ='description';
+
+    // $.ajax({
+        
+    //      type: 'POST',
+    //      url: 'http://127.0.0.1:8000/api/clients',
+    //      data: {clint_name: client_name,clint_surname:client_surname, clinet_description:client_description  },
+    //      success: function(data) {
+    //         onsole.log(data);
+    //      }
+    //     });
+
+
 });
 
 
