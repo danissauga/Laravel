@@ -63,10 +63,7 @@ class ImageController extends Controller
             'erorr' => 'Authentification failed'
         ));
     }
-
         
-    
-
     /**
      * Display the specified resource.
      *
@@ -132,8 +129,21 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $imageAPIToken = config('imageapi.api_token'); 
+        $csrf = $request->csrf; //apsaugos token(zetonas)
+       
+        if(isset($csrf) && !empty($csrf) && $csrf == $imageAPIToken) {
+            $image=Image::find($id);
+            $image->delete();
+
+        return response()->json(array(
+            'successMessage' => 'Image destroyed'
+        ));
+    }
+    return response()->json(array(
+        'erorr' => 'Authentification failed'
+    ));
     }
 }
