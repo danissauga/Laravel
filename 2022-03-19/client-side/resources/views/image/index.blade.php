@@ -216,15 +216,19 @@ function createImageRow(image) {
     return $(".image_table_row_template tbody").html();
   }
 
+function securtyKey() {
+    return "test_api_key_123";
+}
 
 $(document).ready(function() {
-                console.log('Veikia');
-                csrf_key="test_api_key_123";
+            //    console.log('Veikia');
+       //    var csrf_key="test_api_key_123";
 
 
 
 $(document).on('click', '.button-container button',function() {
 
+var csrf_key = securtyKey();
 let page= $(this).attr('data-page');
     
     $.ajax({
@@ -247,7 +251,7 @@ let page= $(this).attr('data-page');
     }
 });
 });
-
+var csrf_key = securtyKey();
 $.ajax({
          type: 'GET',
          url: 'http://127.0.0.1:8000/api/images',
@@ -265,10 +269,24 @@ $.ajax({
 });
 
 $(document).on('click', '#url_type', function() {
+    let csrf_key;
+    scrf_key = securtyKey();      
+    console.log(scrf_key);
 
    if ($("#url_type").is(':checked') == true) {
+      
+         $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/api/images',
+                data: {scrf: scrf_key},
+                success: function(data) {
+                console.log(data)
+                }
+      });
+
       $('#image_url_select').removeClass('d-none');
-      $('#image_url').addClass('d-none');  
+      $('#image_url').addClass('d-none'); 
+
    } else {
       $('#image_url_select').addClass('d-none');
       $('#image_url').removeClass('d-none');  
@@ -277,7 +295,7 @@ $(document).on('click', '#url_type', function() {
 });
 
 $(document).on('click', '#create-image', function() {
-               
+                var csrf_key = securtyKey();
                 let image_title = $('#image_title').val();
                 let image_alt = $('#image_alt').val();
                 let image_scr = $('#image_scr').val();
@@ -314,6 +332,8 @@ $(document).on('click', '#create-image', function() {
 });
 
 $(document).on('click', '.edit-image',function() {
+                
+                var csrf_key = securtyKey();
                 let imageid = $(this).attr('data-imageid');
                 
                 $.ajax({
@@ -331,8 +351,10 @@ $(document).on('click', '.edit-image',function() {
             });
 
 $(document).on('click', '.show-image',function() {
+                
+                var csrf_key = securtyKey();
                 let imageid = $(this).attr('data-imageid');
-                console.log(this);
+                
                 $.ajax({
                     type: 'GET',
                     url: 'http://127.0.0.1:8000/api/images/'+imageid,
@@ -350,6 +372,8 @@ $(document).on('click', '.show-image',function() {
             });
 
 $(document).on('click', '#update-image',function() {
+                
+                var csrf_key = securtyKey();
                 let imageid = $('#edit_image_id').val();
                 let image_title = $('#edit_image_title').val();
                 let image_alt = $('#edit_image_alt').val() ;
@@ -385,6 +409,7 @@ $(document).on('click', '#update-image',function() {
                 });
         });
         $(document).on('click', '.delete-image',function() {
+                var csrf_key = securtyKey();
                 let imageid = $(this).attr('data-imageid');
                 $.ajax({
                     type: 'DELETE',
