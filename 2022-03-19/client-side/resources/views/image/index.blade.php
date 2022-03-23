@@ -49,7 +49,7 @@
         <table class="image_table_row_template d-none">
             <tr>
             <td class="col-image-id"></td>
-            <td class="col-image-title"></td>
+            <td style="width:200px;" class="col-image-title"></td>
             <td class="col-image-alt"></td>
             <td class="col-image-url"></td>
             <td class="col-image-description"></td>
@@ -94,6 +94,12 @@
                     <div class="form-group">
                         <label for="image_url">Image link</label>
                         <input id="image_url" class="form-control create-input" type="text" name="image_url" />
+                        <select id="image_url_select" class="form-select d-none" name="image_url_select">
+                            <option val="all">all photos</select>
+                        </select>
+                        <list>
+                            <input type="checkbox" id="url_type"> - select image from list
+                        </list>
                         <span class="invalid-feedback input_image_url">
                         </span>
                     </div>
@@ -203,7 +209,8 @@ function createImageRow(image) {
     $(".image_table_row_template .col-image-id").html(image.id);
     $(".image_table_row_template .col-image-title").html(image.title);
     $(".image_table_row_template .col-image-alt").html(image.alt );
-    $(".image_table_row_template .col-image-url").html(image.url );
+    $image = "<img style='width:100px;height:100px' src='"+image.url+"'/>";
+    $(".image_table_row_template .col-image-url").html($image);
     $(".image_table_row_template .col-image-description").html(image.description );
 
     return $(".image_table_row_template tbody").html();
@@ -257,6 +264,17 @@ $.ajax({
         
 });
 
+$(document).on('click', '#url_type', function() {
+
+   if ($("#url_type").is(':checked') == true) {
+      $('#image_url_select').removeClass('d-none');
+      $('#image_url').addClass('d-none');  
+   } else {
+      $('#image_url_select').addClass('d-none');
+      $('#image_url').removeClass('d-none');  
+   }
+
+});
 
 $(document).on('click', '#create-image', function() {
                
