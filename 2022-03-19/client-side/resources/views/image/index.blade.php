@@ -444,4 +444,4 @@ $(document).on('click', '#update-image',function() {
 });
 </script>
 </body>
-</html>
+</html> //abra kadabra
