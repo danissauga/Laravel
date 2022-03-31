@@ -442,6 +442,7 @@ $(document).on('click', '#update-image',function() {
 
             });
 });
+
 </script>
 </body>
 </html>
