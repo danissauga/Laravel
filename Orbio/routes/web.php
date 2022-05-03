@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('Restaurants')->group(function() {
+Route::prefix('restaurants')->group(function() {
     Route::get('', 'App\Http\Controllers\RestaurantController@index')->name('restaurant.index');
     Route::post('storeAjax', 'App\Http\Controllers\RestaurantController@storeAjax')->name('restaurant.storeAjax');
     Route::post('deleteAjax/{restaurant}', 'App\Http\Controllers\RestaurantController@destroyAjax')->name('restaurant.destroyAjax');
@@ -30,5 +30,5 @@ Route::prefix('Restaurants')->group(function() {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('restaurant.index');
 });
