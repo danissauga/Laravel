@@ -61,8 +61,22 @@ th div {
     </table>
    
         {!! $restaurants->appends(Request::except('page'))->render() !!}
-   
-
 </div>
+<!-- Restaurant table add content template -->
+<table class="restaurant_table_row_template d-none">
 
-@endsection   
+        <tr>
+          <td class="col-restaurant-id"></td>
+          <td class="col-restaurant-select"></td>
+          <td class="col-restaurant-type-id"></td>
+          <td class="col-restaurant-title"></td>
+          <td class="col-restaurant-description"></td>
+          <td>
+            <button class="btn btn-danger delete-restaurant" type="submit" data-restaurantId="">DELETE</button>
+            <button type="button" class="btn btn-primary show-restaurant" data-bs-toggle="modal" data-bs-target="#showRestaurant" data-restaurantId="">Show</button>
+            <button type="button" class="btn btn-secondary edit-restaurant" data-bs-toggle="modal" data-bs-target="#editRestaurant" data-restaurantId="">Edit</button>
+          </td>
+        </tr>
+    </table>  
+
+@endsection  

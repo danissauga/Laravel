@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>       
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,5 +26,8 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ asset('js/restaurantModals.js') }}"></script>
+
 </body>
 </html>
