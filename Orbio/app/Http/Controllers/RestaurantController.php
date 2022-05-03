@@ -15,7 +15,8 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //
+        $restaurants = Restaurant::sortable()->paginate(10);
+        return view('restaurant.index', ['restaurants'=>$restaurants]); 
     }
 
     /**
@@ -81,6 +82,27 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+       //
+    }
+    public function destroyAjax(Restaurant $restaurant)
+    {
+       // $type_count = count($article->articleHasTypes);
+        // dd($type_count);
+      //   if ($type_count == 0) {
+             $restaurant->delete();
+        /*      $feedback_array = array(
+                 'successMessage' => "Article deleted successfuly". $article->id,
+             );
+         } else {
+ 
+             $feedback_array = array(
+                 'errorMessage' => "Acticle has type and can`t by delete". $article->id,
+             );
+         } */
+         $feedback_array = array(
+            'successMessage' => "Article deleted successfuly". $restaurant->id,
+        );
+         $json_response =response()->json($feedback_array);
+         return $json_response;
     }
 }

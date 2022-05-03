@@ -16,8 +16,8 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->time('work_time_from');
-            $table->time('work_time_till');
+            $table->time('work_time_from')->default('00:00:00');
+            $table->time('work_time_till')->default('00:00:00');
             $table->integer('tables_count');
             $table->timestamps();
         });

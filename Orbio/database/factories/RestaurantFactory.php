@@ -14,7 +14,10 @@ class RestaurantFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->company(),
+            'work_time_from' =>'10:00:00',
+            'work_time_till' => '22:00:00',
+            'tables_count' => rand(5,25),
         ];
     }
 }
