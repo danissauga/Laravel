@@ -28,7 +28,7 @@ th div {
     <input id="hidden-sort" type="hidden" value="id" />
     <input id="hidden-direction" type="hidden" value="asc" />
     
-    <div id="alert" class="alert alert-success d-none"></div>
+    <div id="alert" class="alert alert-success d-none mt-3"></div>
 </div>
 
 <table id="restaurant-table" class="table table-striped">
@@ -59,18 +59,19 @@ th div {
         @endforeach
   </tbody>
     </table>
+
+    <div id="search-alert" class="alert d-none"></div>
    
         {!! $restaurants->appends(Request::except('page'))->render() !!}
 </div>
 <!-- Restaurant table add content template -->
 <table class="restaurant_table_row_template d-none">
-
         <tr>
           <td class="col-restaurant-id"></td>
           <td class="col-restaurant-select"></td>
-          <td class="col-restaurant-type-id"></td>
           <td class="col-restaurant-title"></td>
-          <td class="col-restaurant-description"></td>
+          <td class="col-restaurant-table-count"></td>
+          <td class="col-restaurant-work-time"></td>
           <td>
             <button class="btn btn-danger delete-restaurant" type="submit" data-restaurantId="">DELETE</button>
             <button type="button" class="btn btn-primary show-restaurant" data-bs-toggle="modal" data-bs-target="#showRestaurant" data-restaurantId="">Show</button>
@@ -80,3 +81,4 @@ th div {
     </table>  
 
 @endsection  
+@extends('components.restaurantModals')
