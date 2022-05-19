@@ -89,18 +89,17 @@ class RestaurantController extends Controller
         $rules = [
             'input_edit_restaurant_title'=> 'required',
             'input_edit_restaurant_tables_count'=> 'required|integer|min:1',
-            'input_edit_restaurant_work_time_from'=> 'required|date_format:H:i',
-            'input_edit_restaurant_work_time_till'=> 'required|date_format:H:i|after:input_edit_restaurant_work_time_from',
+            'input_edit_restaurant_work_time_from'=> 'date_format:"H:i"|required',
+            'input_edit_restaurant_work_time_till'=> 'date_format:"H:i"|required|after:input_edit_restaurant_work_time_from',
         ];
 
         $messages = [
             'required' => "This field is required",
-            'integer|min:1' => "Just integer value Min 1",
+            'integer' => "Just integer value",
             'min' => "Min value :min",
-            'date_format' => "Invalid From date format :date_format",
+            'date_format' => "Invalid date format :date_format('H:i')",
             'after' => "Invalid time, :after set before From time", 
         ];
-
 
         $validator = Validator::make($input, $rules, $messages); 
 
@@ -113,24 +112,25 @@ class RestaurantController extends Controller
                 'errors' => $errors
             );
         } else {
+         
+         $restaurant->title = $request->restaurant_title;
+         $restaurant->tables_count = $request->restaurant_tables_count;
+         $restaurant->work_time_from = $request->restaurant_work_time_from;
+         $restaurant->work_time_till = $request->restaurant_work_time_till;
+         $restaurant->save();
+        
+         $restaurant_array = array(
+             'successMessage' => "restaurant ". $restaurant->title ." updated succesfuly",
+             'restaurantId' => $restaurant->id,
+             'restaurantTablesCount' => $restaurant->tables_count,
+             'restaurantTitle' => $restaurant->title,
+             'restaurantWorkTimeFrom' => $restaurant->work_time_from,
+             'restaurantWorkTimeTill' => $restaurant->work_time_till,
+            );
+        }
 
-        $restaurant->title = $request->edit_restaurant_title;
-        $restaurant->description = $request->edit_restaurant_description;
-        $restaurant->type_id = $request->edit_restaurant_type_id;
-        $restaurant->save();
-
-        $restaurant_array = array(
-            'successMessage' => "restaurant". $restaurant->title ." updated succesfuly",
-            'restaurantId' => $restaurant->id,
-            'restaurantTypeId' => $restaurant->type_id,
-            'restaurantTypeTitle' => $restaurant->restaurantHasType->title,
-            'restaurantTitle' => $restaurant->title,
-            'restaurantDescription' => $restaurant->description,
-        );
-    }
-
-        $json_response = response()->json($restaurant_array);
-        return $json_response;
+         $json_response = response()->json($restaurant_array);
+         return $json_response;
     }
     /**
      * Update the specified resource in storage.

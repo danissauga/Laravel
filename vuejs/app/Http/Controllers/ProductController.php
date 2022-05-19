@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
+
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -15,8 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return response()->json($products);   
-    }  
+        return response()->json($products);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -31,7 +32,8 @@ class ProductController extends Controller
         $product->description = $request->description;
 
         $product->save();
-        return response()->json('Produktas pridetas');
+
+        return response()->json('Product added');
     }
 
     /**
@@ -56,12 +58,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
-        
         $product->name = $request->name;
         $product->description = $request->description;
+
         $product->save();
         
-        return response()->json('Produktas redaguotas');
+        return response()->json('Product edited');
     }
 
     /**
@@ -74,7 +76,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-
-        return response()->json('Produktas panaikintas');
+        return response()->json('Product deleted');
     }
 }

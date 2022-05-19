@@ -1,14 +1,14 @@
-<html lang="{{str_replace('_','-', app()->getLocale()) }}">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="with=device-width, initial-scale-1" />
-    <meta name="scrf-token" value="{{csrf_token()}}" />
-    <title></title>
+<html lang="{{ str_replace('_', '-', app()->getLocale() ) }}">
     <head>
-        <body>
-            <div id="app">
-            </div>
-            <script src="{{mix('js/app.js')}}" type="text/javascript"></script>
-            </div>
-        </body>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale-1">
+        <meta name="csrf-token" value="{{ csrf_token() }}" />
+        <title>Laravel-Vue JS sistema</title>
+        <link href="{{mix('css/app.css')}}" type="text/css" rel="stylesheet"/>
     </head>
+    <body>
+        <div id="app">
+        </div>
+        <script src="{{mix('js/app.js')}}" type="text/javascript"></script>
+    </body>    
 </html>

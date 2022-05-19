@@ -11,7 +11,9 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application(
+use Illuminate\Fundation\Application;
+
+$app = new Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 

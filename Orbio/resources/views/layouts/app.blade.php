@@ -28,6 +28,6 @@
     </div>
 
     <script src="{{ asset('js/restaurantModals.js') }}"></script>
-
+    @extends('components.restaurantModals')
 </body>
 </html>

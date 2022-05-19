@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request; 
+use Illuminate\Support\Facades\Validator;
 
 class ReservationController extends Controller
 {
@@ -15,7 +18,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::sortable()->paginate(10);
+        return view('reservation.index', ['reservations'=>$reservations]);
     }
 
     /**

@@ -29,6 +29,16 @@ Route::prefix('restaurants')->group(function() {
     Route::get('indexAjax', 'App\Http\Controllers\RestaurantController@indexAjax')->name('restaurant.indexAjax');
 });
 
+Route::prefix('reservations')->group(function() {
+    Route::get('', 'App\Http\Controllers\ReservationController@index')->name('reservation.index');
+    Route::post('storeAjax', 'App\Http\Controllers\ReservationController@storeAjax')->name('reservation.storeAjax');
+    Route::post('deleteAjax/{reservation}', 'App\Http\Controllers\ReservationController@destroyAjax')->name('reservation.destroyAjax');
+    Route::get('showAjax/{reservation}', 'App\Http\Controllers\ReservationController@showAjax')->name('reservation.showAjax');
+    Route::post('updateAjax/{reservation}', 'App\Http\Controllers\ReservationController@updateAjax')->name('reservation.updateAjax');
+    Route::get('searchAjax', 'App\Http\Controllers\ReservationController@searchAjax')->name('reservation.searchAjax');
+    Route::get('indexAjax', 'App\Http\Controllers\ReservationController@indexAjax')->name('reservation.indexAjax');
+});
+
 Route::get('/', function () {
     return redirect()->route('restaurant.index');
 });

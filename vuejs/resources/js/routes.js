@@ -1,4 +1,4 @@
-import AllProduct from './components/AllProducts.vue';
+import AllProduct from './components/AllProduct.vue';
 import CreateProduct from './components/CreateProduct.vue';
 import EditProduct from './components/EditProduct.vue';
 
@@ -9,14 +9,12 @@ export const routes = [
         component: AllProduct
     },
     {
-        name: 'creat',
-        path: '/products/',
+        name: 'create',
+        path: '/products/create',
         component: CreateProduct
     },
-    {
-        name: 'edit',
-        path: '/products/',
+    {   name: 'edit',
+        path: '/products/edit/:id', //{product}
         component: EditProduct
-    },
-
+    }
 ]

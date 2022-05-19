@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-<style>
-th div {
-  cursor: pointer;
-}
-</style>
-
 <div class="container">
 <h3>Restaurant`s list</h3>
 <div class="row pb-3">
@@ -14,7 +8,7 @@ th div {
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restaurantCreate">
       Add new restaurant
     </button>
-    <a class="btn btn-primary" href="" >
+    <a class="btn btn-primary" href="{{ route('reservation.index') }}" >
       Reservations list
     </a>
     <button type="button" id="delete-selected-restaurants" class="btn btn-danger">
@@ -22,7 +16,7 @@ th div {
     </button>
   </div>
   <div class="col-md-3">
-        <input id="restaurantSearchBox" class="form-control" minlength="3" name="restaurantSearchBox" placeholder="Search">
+        <input id="restaurantSearchBox" class="form-control" name="restaurantSearchBox" placeholder="Search">
         <span class="search-feedback alert-danger"></span>
   </div>
     <input id="hidden-sort" type="hidden" value="id" />
@@ -48,8 +42,8 @@ th div {
             <td class="col-restaurant-id">{{$restaurant->id}}</td>
             <td class="col-restaurant-select"><input type="checkbox" class="select-restaurant" id="restaurant_select_{{$restaurant->id}}" value="{{$restaurant->id}}"/></td>
             <td class="col-restaurant-title">{{$restaurant->title}}</td>
-            <td class="col-restaurant-table-count">{{$restaurant->tables_count}}</td>
-            <td class="col-restaurant-work-time">{{$restaurant->work_time_from}} - {{$restaurant->work_time_till}}</td>
+            <td class="col-restaurant-tables-count">{{$restaurant->tables_count}}</td>
+            <td class="col-restaurant-work-time">{{date('H:i', strtotime($restaurant->work_time_from)) }} - {{date('H:i', strtotime($restaurant->work_time_till)) }}</td>
             <td>
                 <button class="btn btn-danger delete-restaurant" type="submit" data-restaurantId="{{$restaurant->id}}">DELETE</button>
                 <button type="button" class="btn btn-primary show-restaurant" data-bs-toggle="modal" data-bs-target="#showRestaurant" data-restaurantId="{{$restaurant->id}}">Show</button>
@@ -70,7 +64,7 @@ th div {
           <td class="col-restaurant-id"></td>
           <td class="col-restaurant-select"></td>
           <td class="col-restaurant-title"></td>
-          <td class="col-restaurant-table-count"></td>
+          <td class="col-restaurant-tables-count"></td>
           <td class="col-restaurant-work-time"></td>
           <td>
             <button class="btn btn-danger delete-restaurant" type="submit" data-restaurantId="">DELETE</button>
@@ -79,6 +73,5 @@ th div {
           </td>
         </tr>
     </table>  
-
+   
 @endsection  
-@extends('components.restaurantModals')

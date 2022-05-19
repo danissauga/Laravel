@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('{any}', function(){
+Route::get('{any}', function() {
+    //app.blade.php - VueJS framework
+    //
     return view('app');
 })->where('any', '.*');
- 

@@ -64,7 +64,7 @@ $(document).on('click', '.edit-article', function() {
           type: 'GET',
           url: article_edit_link + articleId,
           success: function(data) {
-            if($.isEmptyObject(data.errorMessage)) { 
+            if($.isEmptyObject(data.errorMessage)) {
            
             $('#edit_article_id').val(data.articleId);
             $('#edit_article_title').val(data.articleTitle);
@@ -78,10 +78,10 @@ $(document).on('click', '.edit-article', function() {
           } else {
      
             $('.invalid-feedback').html('');
-    
+
             $.each(data.errors, function(key, error) {
-             
-              $('#'+key).addClass('is-invalid');
+
+              $('.'+key).addClass('is-invalid');
               $('.input_'+key).html("<strong>"+error+"</strong>");
             });
           }       

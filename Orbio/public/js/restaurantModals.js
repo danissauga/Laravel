@@ -14,7 +14,7 @@ function createRestaurantRow(restaurantId, restaurantTitle, restaurantTables, re
     $(".restaurant_table_row_template .col-restaurant-id").html(restaurantId );
     $(".restaurant_table_row_template .col-restaurant-select").html("<input type='checkbox' class='select-restaurant' id='restaurant_select_"+restaurantId+"' value="+restaurantId+"/>");
     $(".restaurant_table_row_template .col-restaurant-title").html(restaurantTitle );
-    $(".restaurant_table_row_template .col-restaurant-table-count").html(restaurantTables );
+    $(".restaurant_table_row_template .col-restaurant-tables-count").html(restaurantTables );
    
     $(".restaurant_table_row_template .col-restaurant-work-time").html(restaurantWorkTimeFrom+' - '+restaurantWorkTimeTill );
 
@@ -25,7 +25,6 @@ $(document).on('click', '.show-restaurant', function() {
   let restaurant_show_link;
   restaurantId = $(this).attr('data-restaurantId');
   restaurant_show_link = $("#restaurant_show_link").val();
-  console.log(restaurantId);
 
   $.ajax({
       type: 'GET',
@@ -39,6 +38,59 @@ $(document).on('click', '.show-restaurant', function() {
   });
 
 });
+$(document).on('click', '.updateRestaurantContent', function() {
+
+  let restaurantId;
+  let restaurant_title;
+  let restaurant_tables_count;
+  let restaurant_work_time_from;
+  let restaurant_work_time_till;
+  let restaurant_update_link;
+
+  restaurantId = $('#edit_restaurant_id').val();
+  restaurant_tables_count = $('#edit_restaurant_tables_count').val();
+  restaurant_title = $('#edit_restaurant_title').val();
+  restaurant_work_time_from = $('#edit_restaurant_work_time_from').val();
+  restaurant_work_time_till = $('#edit_restaurant_work_time_till').val();
+  restaurant_update_link = $('#restaurant_update_link').val();
+  console.log(restaurant_update_link);
+  $.ajax({
+        type: 'POST',
+        url: restaurant_update_link + restaurantId ,
+        data: {restaurant_title: restaurant_title, restaurant_tables_count: restaurant_tables_count, restaurant_work_time_from: restaurant_work_time_from, restaurant_work_time_till: restaurant_work_time_till},
+        success: function(data) {
+        if($.isEmptyObject(data.errorMessage)) { 
+            $(".restaurant"+restaurantId+ " " + ".col-restaurant-tables-count").html(data.restaurantTablesCount)
+            $(".restaurant"+restaurantId+ " " + ".col-restaurant-title").html(data.restaurantTitle)
+            $(".restaurant"+restaurantId+ " " + ".col-restaurant-work-time").html(data.restaurantWorkTimeFrom+' - '+data.restaurantWorkTimeTill)
+            $( "#editRestaurantModalClose" ).click();
+            $("#alert").removeClass("d-none");
+            $("#alert").removeClass("alert-danger");
+            $("#alert").addClass("alert-success");
+            $("#alert").html(data.successMessage);
+            
+            $('.invalid-feedback').html('');
+            $('.invalid-feedback').hide();
+            
+            setTimeout(() => {
+                $('#alert').addClass('d-none');
+              }, 2000);
+
+            } else {
+                    $('.invalid-feedback').html('');
+                    $('.invalid-feedback').hide();
+            
+                    $.each(data.errors, function(key, error) {
+                      $('.'+key).show();
+                      $('.'+key).addClass('is-invalid');
+                      $('.'+key).html("<strong>"+error+"</strong>");
+                    });
+
+            }
+        }
+  });
+});
+
 $('#select_all_restaurants').on('click', function () {
 
     let status = $(this).prop('checked');
@@ -48,7 +100,7 @@ $('#select_all_restaurants').on('click', function () {
   
 });
 
-$('#delete-selected-restaurants').on('click', function () {
+$('#delete-selected-restaurants').on('click', function () { 
   let isExecuted = confirm("Are you sure to delete this record?");
   if (isExecuted) { 
       $('#restaurant-table-body input[type=checkbox]:checked').each(function () 
@@ -123,18 +175,45 @@ $(document).on('input', '#restaurantSearchBox', function() {
   search_restaurant(searchContent);
 });
 
+$(document).on('click', '.edit-restaurant', function() {
+  let restaurantId;
+  let restaurant_edit_link;
+  restaurantId = $(this).attr('data-restaurantid');
+  restaurant_edit_link = $("#restaurant_edit_link").val();
+
+    $.ajax({
+        type: 'GET',
+        url: restaurant_edit_link + restaurantId,
+        success: function(data) {
+         
+          if($.isEmptyObject(data.errorMessage)) {
+
+          $('#edit_restaurant_id').val(data.restaurantId);
+          $('#edit_restaurant_title').val(data.restaurantTitle);
+          $('#edit_restaurant_tables_count').val(data.restaurantTablesCount);
+          $('#edit_restaurant_work_time_from').val(data.restaurantWorkTimeFrom);
+          $('#edit_restaurant_work_time_till').val(data.restaurantWorkTimeTill);
+
+        } else {
+
+          $('.invalid-feedback').html('');
+          $('.invalid-feedback').hide();
+
+          $.each(data.errors, function(key, error) {
+            $('.'+key).show();
+            $('.'+key).addClass('is-invalid');
+            $('.'+key).html("<strong>"+error+"</strong>");
+          });
+        }
+
+        }
+    });
+
+});
+
 function search_restaurant(searchValue) {
 
   let searchFieldCount= searchValue.length;
-    if (searchFieldCount >= 1 && searchFieldCount < 3 ) {
-
-     $(".search-feedback").css('display', 'block');
-     $(".search-feedback").html("Min 3");
-
-   }
-   else {
-     $(".search-feedback").css('display', 'none');
-
    $.ajax({
          type: 'GET',
          url: 'restaurants/searchAjax',
@@ -158,5 +237,4 @@ function search_restaurant(searchValue) {
            }
        }
      });
-    }
 }
