@@ -59,7 +59,7 @@ th div {
   </thead>
   <tbody id="article-table-body">
         @foreach ($articles as $article)
-        <tr class="article{{$article->id}}">
+        <tr class="article{{ $article->id }}">
             <td class="col-article-id">{{$article->id}}</td>
             <td class="col-article-select"><input type="checkbox" class="select-article" id="article_select_{{$article->id}}" value="{{$article->id}}"/></td>
             <td class="col-article-type-id">{{$article->articleHasType->title}}</td>
@@ -79,14 +79,13 @@ th div {
 </div>
 <!-- Table add content template -->
 <table class="article_table_row_template d-none">
-
-        <tr class="article{{$article->id}}">
+        <tr>
           <td class="col-article-id"></td>
           <td class="col-article-select"></td>
           <td class="col-article-type-id"></td>
           <td class="col-article-title"></td>
           <td class="col-article-description"></td>
-          <td>
+          <td style="width: 250px;">
             <button class="btn btn-danger delete-article" type="submit" data-articleId="">DELETE</button>
             <button type="button" class="btn btn-primary show-article" data-bs-toggle="modal" data-bs-target="#showArticle" data-articleId="">Show</button>
             <button type="button" class="btn btn-secondary edit-article" data-bs-toggle="modal" data-bs-target="#editArticle" data-articleId="">Edit</button>

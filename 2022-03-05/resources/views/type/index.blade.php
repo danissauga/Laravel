@@ -45,7 +45,7 @@ th div {
             <th style="width: 20px;"><input type="checkbox" id="select_all_types"/></th>
             <th><div class="type-sort" data-sort="title" data-direction="asc">Title</div></th>
             <th><div class="type-sort" data-sort="description" data-direction="asc">Description</div></th>
-            <th>Action</th>
+            <th style="width: 250px;">Action</th>
         </tr>
     </thead>
         <tbody id="type-table-body">
@@ -55,7 +55,7 @@ th div {
             <td class="col-type-select"><input type="checkbox" class="select-type" id="type_select_{{$type->id}}" value="{{$type->id}}"/></td>
             <td class="col-type-title">{{$type->title}}</td>
             <td class="col-type-description">{{$type->description}}</td>
-            <td>           
+            <td >           
                 <button class="btn btn-danger delete-type" type="submit" data-typeId="{{$type->id}}">DELETE</button>
                 <button type="button" class="btn btn-primary show-type" data-bs-toggle="modal" data-bs-target="#showType" data-typeId="{{$type->id}}">Show</button>
                 <button type="button" class="btn btn-secondary edit-type" data-bs-toggle="modal" data-bs-target="#editType" data-typeId="{{$type->id}}">Edit</button>        
@@ -74,7 +74,7 @@ th div {
           <td class="col-type-select"></td>
           <td class="col-type-title"></td>
           <td class="col-type-description"></td>
-          <td>
+          <td style="width: 250px;">
             <button class="btn btn-danger delete-type" type="submit" data-typeId="">DELETE</button>
             <button type="button" class="btn btn-primary show-type" data-bs-toggle="modal" data-bs-target="#showType" data-typeId="">Show</button>
             <button type="button" class="btn btn-secondary edit-type" data-bs-toggle="modal" data-bs-target="#editType" data-typeId="">Edit</button>
